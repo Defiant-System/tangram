@@ -1,0 +1,7 @@
+<ToolBar>
+	<Group>
+		<Tool name="Scramble"/>
+		<Tool name="Solve"/>
+	</Group>
+	<Group class="empty"/>
+</ToolBar>

@@ -1,0 +1,33 @@
+
+content {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	.board {
+
+		&:before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			z-index: 1;
+			background: 50% 50%/contain no-repeat;
+			background-image: var( --puzzle );
+			mix-blend-mode: hard-light;
+			background-size: auto 101.5%;
+			opacity: .4;
+			filter: drop-shadow(0 1px 0 rgba(#fff,.25));
+		}
+
+		svg {
+			// background: rgba(#fff,.1);
+			position: relative;
+			z-index: 2;
+		}
+	}
+}
