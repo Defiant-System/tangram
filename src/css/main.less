@@ -19,15 +19,16 @@ content {
 			background: 50% 50%/contain no-repeat;
 			background-image: var( --puzzle );
 			mix-blend-mode: hard-light;
-			background-size: auto 101.5%;
+			// background-size: auto 104%;
 			opacity: .4;
+			display: none;
 			filter: drop-shadow(0 1px 0 rgba(#fff,.25));
 		}
 
 		svg {
 			// background: rgba(#fff,.1);
-			position: relative;
-			z-index: 2;
+			position: absolute;
+			z-index: 3;
 		}
 	}
 }
