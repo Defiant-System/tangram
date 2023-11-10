@@ -6,11 +6,12 @@ const tangram = {
 		// fast references
 		this.content = window.find("content");
 
-		this.dispatch({ type: "solve-puzzle", name: "tree" });
+		this.dispatch({ type: "solve-puzzle", name: "scramble" });
 	},
 	dispatch(event) {
 		let Self = tangram,
 			data,
+			value,
 			el;
 		switch (event.type) {
 			case "window.init":
@@ -22,8 +23,8 @@ const tangram = {
 					Self.content.find(`g.${k}`)
 						.css({ "transform": `translate(${x}px, ${y}px) rotate(${r}deg)` });
 				});
-
-				Self.content.find(`.board`).css({ "--puzzle": `url('~/icons/puzzle-${event.name}.png')` })
+				value = data.bg ? `url('~/icons/puzzle-${data.bg}.png')` : "";
+				Self.content.find(`.board`).css({ "--puzzle": value });
 				break;
 			case "open-help":
 				karaqu.shell("fs -u '~/help/index.md'");
