@@ -1,16 +1,44 @@
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 55">
 	<style type="text/css">
-		.st0{fill:#231F20;}
-		.st1{fill:#56C3BB;}
-		.st2{fill:#F78F2A;}
-		.st3{fill:#EE4A9A;}
-		.st4{fill:#FFCF2F;}
-		.st5{fill:#508AC8;}
-		.st6{fill:#3EB54A;}
-		.st7{fill:#8B52A1;}
+		.st0{fill:#231F20;filter:url(#is1) url(#is2);}
+		.st1{fill:#56C3BB;filter:url(#is1) url(#is2);}
+		.st2{fill:#F78F2A;filter:url(#is1) url(#is2);}
+		.st3{fill:#EE4A9A;filter:url(#is1) url(#is2);}
+		.st4{fill:#FFCF2F;filter:url(#is1) url(#is2);}
+		.st5{fill:#508AC8;filter:url(#is1) url(#is2);}
+		.st6{fill:#3EB54A;filter:url(#is1) url(#is2);}
+		.st7{fill:#8B52A1;filter:url(#is1) url(#is2);}
 		.st8{fill:url(#SVGID_1_);filter:url(#defapp-filter-1);}
 	</style>
+	<filter id="is1">
+		<feComponentTransfer in="SourceAlpha">
+			<feFuncA type="table" tableValues="1 0"/>
+		</feComponentTransfer>
+		<feGaussianBlur stdDeviation="0"/>
+		<feOffset dx="0" dy="-.75" result="offsetblur"/>
+		<feFlood flood-color="#00000044" result="color"/>
+		<feComposite in2="offsetblur" operator="in"/>
+		<feComposite in2="SourceAlpha" operator="in"/>
+		<feMerge>
+			<feMergeNode in="SourceGraphic"/>
+			<feMergeNode />
+		</feMerge>
+	</filter>
+	<filter id="is2">
+		<feComponentTransfer in="SourceAlpha">
+			<feFuncA type="table" tableValues="1 0"/>
+		</feComponentTransfer>
+		<feGaussianBlur stdDeviation="0"/>
+		<feOffset dx="0" dy=".75" result="offsetblur"/>
+		<feFlood flood-color="#ffffff88" result="color"/>
+		<feComposite in2="offsetblur" operator="in"/>
+		<feComposite in2="SourceAlpha" operator="in"/>
+		<feMerge>
+			<feMergeNode in="SourceGraphic"/>
+			<feMergeNode />
+		</feMerge>
+	</filter>
 	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="27.5" y1="1.934" x2="27.5" y2="53.066">
 		<stop offset="0" style="stop-color:#eee"/>
 		<stop offset="1" style="stop-color:#bbb"/>
