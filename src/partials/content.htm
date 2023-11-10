@@ -2,54 +2,47 @@
 	<div class="board" style="--puzzle: url(~/icons/puzzle-tree.png);">
 		<svg class="pieces" viewBox="0 0 600 540">
 			<style type="text/css">
-				.g1 path { fill: #0F82F2; transform: translate(-126px, -64px); }
-				.g2 path { fill: #FD8C00; transform: translate(-126px, -64px); }
-				.g3 path { fill: #CD0E66; transform: translate(-94px, -32.5px); }
-				.g4 path { fill: #6D3BBF; transform: translate(-64px, -64px); }
-				.g5 path { fill: #009EA6; transform: translate(-60px, -31px); }
-				.g6 path { fill: #EB4726; transform: translate(-60px, -31px); }
-				.g7 path { fill: #22AB24; transform: translate(-45px, -45px); }
-				
-				circle { fill: #ffffff77; }
+				.center { transform: translate(200px, 170px); }
+				circle  { opacity: .5; fill: #fff; }
+				polygon { opacity: 1; stroke: #fff; stroke-width: 2; stroke-linejoin: round; }
 
-				.active path { stroke-width: 3; stroke-linejoin: round; stroke: #fff;}
-
-				.g1 { opacity: 1; transform: translate(-200px, -200px) rotate(0deg); }
-				.g2 { opacity: 1; transform: translate(-200px, -200px) rotate(0deg); }
-				.g3 { opacity: 1; transform: translate(-200px, -200px) rotate(0deg); }
-				.g4 { opacity: 1; transform: translate(-200px, -200px) rotate(0deg); }
-				.g5 { opacity: 1; transform: translate(-200px, -200px) rotate(0deg); }
-				.g6 { opacity: 1; transform: translate(-200px, -200px) rotate(0deg); }
-				.g7 { opacity: 1; transform: translate(-200px, -200px) rotate(0deg); }
+				.p1 { fill: #0f82f2; transform: translate(-100px, -150px); }
+				.p2 { fill: #fd8c00; transform: translate(-50px, -100px); }
+				.p3 { fill: #cd0e66; transform: translate(-175px, -125px); }
+				.p4 { fill: #6d3bbf; transform: translate(-125px, -100px); }
+				.p5 { fill: #009ea6; transform: translate(-150px, -50px); }
+				.p6 { fill: #eb4726; transform: translate(-100px, -50px); }
+				.p7 { fill: #22ab24; transform: translate(-50px, -25px); }
 			</style>
-
-			<g class="g1">
-				<path d="M253.6,0H1.6C0.2,0-0.5,1.7,0.5,2.7l126,126c0.6,0.6,1.6,0.6,2.3,0l126-126C255.8,1.7,255,0,253.6,0z"/>
-				<circle cx="0" cy="0" r="2"/>
-			</g>
-			<g class="g2">
-				<path d="M128.7,128.7l126-126c1-1,0.3-2.7-1.1-2.7H1.6C0.2,0-0.5,1.7,0.5,2.7l126,126 C127.1,129.4,128.1,129.4,128.7,128.7z"/>
-				<circle cx="0" cy="0" r="2"/>
-			</g>
-			<g class="g3">
-				<path d="M186.1,0H62.9c-0.4,0-0.8,0.2-1.1,0.5L0.5,61.8c-1,1-0.3,2.7,1.1,2.7h123.2c0.4,0,0.8-0.2,1.1-0.5l61.3-61.3 C188.3,1.7,187.5,0,186.1,0z"/>
-				<circle cx="0" cy="0" r="2"/>
-			</g>
-			<g class="g4">
-				<path d="M0,1.6V126c0,1.4,1.7,2.1,2.7,1.1L127.1,2.7c1-1,0.3-2.7-1.1-2.7H1.6C0.7,0,0,0.7,0,1.6z"/>
-				<circle cx="0" cy="0" r="2"/>
-			</g>
-			<g class="g5">
-				<path d="M61.2,61.2l58.5-58.5c1-1,0.3-2.7-1.1-2.7H1.6C0.2,0-0.5,1.7,0.5,2.7L59,61.2C59.6,61.9,60.6,61.9,61.2,61.2z" />
-				<circle cx="0" cy="0" r="2"/>
-			</g>
-			<g class="g6">
-				<path d="M0.5,2.7l60,60c0.6,0.6,1.6,0.6,2.3,0l60-60c1-1,0.3-2.7-1.1-2.7H1.6C0.2,0-0.6,1.7,0.5,2.7z"/>
-				<circle cx="0" cy="0" r="2"/>
-			</g>
-			<g class="g7">
-				<path d="M90.4,88.7V1.6c0-0.8-0.7-1.6-1.6-1.6H1.6C0.8,0,0.1,0.7,0,1.6v87.1c0,0.8,0.7,1.6,1.6,1.6h87.1 C89.7,90.4,90.4,89.7,90.4,88.7z"/>
-				<circle cx="0" cy="0" r="2"/>
+			<g class="center">
+				<g class="g1">
+					<polygon class="p1" points="100,100 200,200 0,200"/>
+					<circle cx="0" cy="0" r="2"/>
+				</g>
+				<g class="g2">
+					<polygon class="p2" points="0,0 100,100 0,200"/>
+					<circle cx="0" cy="0" r="2"/>
+				</g>
+				<g class="g3">
+					<polygon class="p3" points="150,50 200,100 200,200 150,150"/>
+					<circle cx="0" cy="0" r="2"/>
+				</g>
+				<g class="g4">
+					<polygon class="p4" points="150,50 150,150 100,100"/>
+					<circle cx="0" cy="0" r="2"/>
+				</g>
+				<g class="g5">
+					<polygon class="p5" points="100,0 200,0 200,100"/>
+					<circle cx="0" cy="0" r="2"/>
+				</g>
+				<g class="g6">
+					<polygon class="p6" points="100,0 150,50 100,100 50,50"/>
+					<circle cx="0" cy="0" r="2"/>
+				</g>
+				<g class="g7">
+					<polygon class="p7" points="0,0 100,0 50,50"/>
+					<circle cx="0" cy="0" r="2"/>
+				</g>
 			</g>
 		</svg>
 	</div>
