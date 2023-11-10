@@ -6,6 +6,8 @@ const tangram = {
 	init() {
 		// fast references
 		this.content = window.find("content");
+		// init sub objects
+		Object.keys(this).filter(i => this[i].init).map(i => this[i].init());
 
 		// DEV-ONLY-START
 		Test.init(this);

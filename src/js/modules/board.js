@@ -2,6 +2,17 @@
 // tangram.board
 
 {
+	init() {
+		// fast references
+		this.els = {
+			doc: $(document),
+			el: window.find(".board"),
+			svg: window.find(".board svg"),
+		};
+
+		// bind event handlers
+		this.els.svg.on("mousedown", "polygon", this.doDrag);
+	},
 	dispatch(event) {
 		let APP = tangram,
 			Self = APP.board,
@@ -21,7 +32,39 @@
 				break;
 		}
 	},
-	drag(event) {
+	doDrag(event) {
+		let APP = tangram,
+			Self = APP.board,
+			Drag = Self.drag;
+		switch (event.type) {
+			case "mousedown":
+				let el = $(event.target.parentNode),
+					[x, y, d] = el.attr("style").match(/\d{1,}/g).map(i => +i),
+					offset = { x, y, d },
+					click = {
+						x: event.clientX,
+						y: event.clientY,
+					};
 
+				Self.drag = { el, offset, click };
+				// cover app content
+				APP.content.addClass("cover");
+				// bind event handerls
+				Self.els.doc.on("mousemove mouseup", Self.doDrag);
+				break;
+			case "mousemove":
+				let left = Drag.offset.x - Drag.click.x + event.clientX,
+					top = Drag.offset.y - Drag.click.y + event.clientY,
+					deg = Drag.offset.d,
+					transform = `translate(${left}px, ${top}px) rotate(${deg}deg)`;
+				Drag.el.css({ transform });
+				break;
+			case "mouseup":
+				// reset app content
+				APP.content.removeClass("cover");
+				// unbind event handerls
+				Self.els.doc.off("mousemove mouseup", Self.doDrag);
+				break;
+		}
 	}
 }

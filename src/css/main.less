@@ -6,6 +6,19 @@ content {
 	right: 0;
 	bottom: 0;
 
+	&.cover {
+		&:before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			z-index: 19;
+			cursor: none;
+		}
+	}
+
 	.board {
 
 		&:before {
@@ -26,7 +39,6 @@ content {
 		}
 
 		svg {
-			// background: rgba(#fff,.1);
 			position: absolute;
 			z-index: 3;
 
