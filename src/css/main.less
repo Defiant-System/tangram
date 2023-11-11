@@ -43,6 +43,7 @@ content {
 					line, circle {
 						display: block;
 					}
+
 					polygon {
 						stroke-width: 4;
 					}
@@ -53,6 +54,27 @@ content {
 		svg {
 			position: absolute;
 			z-index: 3;
+
+			&.debug {
+				pointer-events: none;
+				z-index: 4;
+
+				g.center {
+					transform: translate(200.5px, 170.5px);
+				}
+
+				line {
+					display: block;
+					stroke: #f00;
+					stroke-width: 5;
+					// opacity: .35;
+				}
+
+				circle {
+					display: block;
+					fill: #f00;
+				}
+			}
 
 			g {
 				&.center {
@@ -90,6 +112,7 @@ content {
 				stroke-width: 2;
 				stroke-linejoin: round;
 				cursor: move;
+				opacity: .5;
 			}
 
 
