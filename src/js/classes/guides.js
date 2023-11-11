@@ -54,10 +54,14 @@ class Guides {
 			this.els.map(shape => {
 				switch (shape.points.length) {
 					case 3: // triangle
-						[...shape.points].map(point => {
-							let x1 = point.x + shape.ox,
-								y1 = point.y + shape.oy;
-							str.push(`<circle cx="${x1}" cy="${y1}" r="5"/>`);
+						[...shape.points].map((p1, i, arr) => {
+							let x1 = p1.x + shape.ox,
+								y1 = p1.y + shape.oy,
+								p2 = arr[i+1] || arr[0],
+								x2 = p2.x + shape.ox,
+								y2 = p2.y + shape.oy;
+							// str.push(`<circle cx="${x1}" cy="${y1}" r="5"/>`);
+							str.push(`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`);
 						});
 						// str.push(`<line x1="-100" y1="50" x2="0" y2="-50"/>`);
 						// str.push(`<line x1="0" y1="-50" x2="100" y2="50"/>`);
