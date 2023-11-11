@@ -62,9 +62,7 @@
 				let top = Drag.click.y - event.clientY,
 					deg = Drag.offset.d - (top * 2),
 					snap = deg % 45;
-				
 				if (snap < 10) deg -= snap;
-
 				let transform = `translate(${Drag.offset.x}px, ${Drag.offset.y}px) rotate(${deg}deg)`;
 				Drag.el.css({ transform });
 				break;
@@ -91,25 +89,39 @@
 					[x, y, d] = el.attr("style").match(/\d{1,}/g).map(i => +i),
 					offset = { x, y, d },
 					click = {
-						x: event.clientX,
-						y: event.clientY,
-					};
+						x: x - event.clientX,
+						y: y - event.clientY,
+					},
+					rect = pEl.getBoundingClientRect(),
+					guides = new Guides({
+						// el: el[0],
+						els: Self.els.svg.find("g.center g"),
+						offset: {
+							w: rect.width,
+							h: rect.height,
+						}
+					});
+				
 				// make sure active element is on top (z-index)
 				pEl.parentNode.insertBefore(pEl, pEl.parentNode.lastChild);
 				if (Self.els.active) Self.els.active.removeClass("active");
 				Self.els.active = el.addClass("active");
 
-				Self.drag = { el, offset, click };
+				Self.drag = { el, offset, click, guides };
 				// cover app content
 				APP.content.addClass("cover");
 				// bind event handerls
 				Self.els.doc.on("mousemove mouseup", Self.doDrag);
 				break;
 			case "mousemove":
-				let left = Drag.offset.x - Drag.click.x + event.clientX,
-					top = Drag.offset.y - Drag.click.y + event.clientY,
-					deg = Drag.offset.d,
-					transform = `translate(${left}px, ${top}px) rotate(${deg}deg)`;
+				let pos = {
+						top: Drag.click.y + event.clientY,
+						left: Drag.click.x + event.clientX,
+					};
+				// "filter" position with guide lines
+				Drag.guides.snapPos(pos);
+
+				let transform = `translate(${pos.left}px, ${pos.top}px) rotate(${Drag.offset.d}deg)`;
 				Drag.el.css({ transform });
 				break;
 			case "mouseup":

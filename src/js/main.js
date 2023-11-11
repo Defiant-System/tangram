@@ -1,4 +1,5 @@
 
+@import "./classes/guides.js"
 @import "./puzzles/index.js"
 @import "./modules/test.js"
 
