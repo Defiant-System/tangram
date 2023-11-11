@@ -84,7 +84,7 @@
 				if (target.nodeName === "circle") return Self.doRotate(event);
 				if (target.nodeName === "svg") return;
 
-				let pEl = target.parentNode,
+				let pEl = target, //target.parentNode,
 					el = $(pEl),
 					[x, y, d] = el.attr("style").match(/\d{1,}/g).map(i => +i),
 					offset = { x, y, d },
@@ -92,10 +92,10 @@
 						x: x - event.clientX,
 						y: y - event.clientY,
 					},
-					rect = pEl.getBoundingClientRect(),
+					rect = pEl.getBBox(),
 					guides = new Guides({
-						// el: el[0],
-						els: Self.els.svg.find("g.center g"),
+						els: Self.els.svg.find("g.center rect"),
+						// els: Self.els.svg.find("g.center g.g2"),
 						offset: {
 							w: rect.width,
 							h: rect.height,
