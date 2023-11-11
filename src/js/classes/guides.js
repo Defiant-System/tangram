@@ -66,10 +66,34 @@ class Guides {
 				[...shape.points].map((p1, i, arr) => {
 					let p2 = arr[i+1] || arr[0],
 						[p1x, p1y] = rotate(0, 0, p1.x + shape.ox, p1.y + shape.oy, shape.d),
-						[p2x, p2y] = rotate(0, 0, p2.x + shape.ox, p2.y + shape.oy, shape.d);
-					str.push(`<line x1="${shape.x + p1x}" y1="${shape.y + p1y}" x2="${shape.x + p2x}" y2="${shape.y + p2y}"/>`);
+						[p2x, p2y] = rotate(0, 0, p2.x + shape.ox, p2.y + shape.oy, shape.d),
+						x1 = shape.x + p1x,
+						y1 = shape.y + p1y,
+						x2 = shape.x + p2x,
+						y2 = shape.y + p2y,
+						dx = Math.round(x2 - x1),
+						dy = Math.round(y2 - y1),
+						theta = Math.atan2(-dy, -dx);
+					
+					theta *= 180 / Math.PI;
+					if (theta < 0) theta += 360;
+
+					switch (theta) {
+						case 0: x1 += 50; x2 -= 50; break;
+						case 45: x1 += 40; y1 += 40; x2 -= 40; y2 -= 40; break;
+						case 90: y1 += 50; y2 -= 50; break;
+						case 135: x1 -= 40; y1 += 40; x2 += 40; y2 -= 40; break;
+						case 180: x1 -= 50; x2 += 50; break;
+						case 225: x1 -= 40; y1 -= 40; x2 += 40; y2 += 40; break;
+						case 270: y1 -= 50; y2 += 50; break;
+						case 315: x1 += 40; y1 -= 40; x2 -= 40; y2 += 40; break;
+						default: console.log(theta);
+					}
+
+					str.push(`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`);
 				});
 			});
+			// insert debug lines
 			str = `<svg class="debug" viewBox="0 0 600 540"><g class="center">${str.join("")}</g></svg>`;
 			window.find(".board").append(str);
 		}
