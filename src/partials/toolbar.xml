@@ -1,5 +1,9 @@
 <ToolBar>
 	<Group>
+		<Options>
+			<Tool symbol="icon-undo" click="board-undo" state="disabled"/>
+			<Tool symbol="icon-redo" click="board-redo" state="disabled"/>
+		</Options>
 		<Tool name="Scramble"/>
 		<Tool name="Solve"/>
 	</Group>

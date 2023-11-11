@@ -15,6 +15,9 @@ const tangram = {
 	},
 	dispatch(event) {
 		let Self = tangram,
+			name,
+			value,
+			pEl,
 			el;
 		switch (event.type) {
 			case "window.init":
@@ -22,6 +25,17 @@ const tangram = {
 			case "open-help":
 				karaqu.shell("fs -u '~/help/index.md'");
 				break;
+			default:
+				el = event.el;
+				if (event.origin) el = event.origin.el;
+				if (!el && event.target) el = $(event.target);
+				if (el) {
+					pEl = el.data("area") ? el : el.parents(`[data-area]`);
+					if (pEl.length) {
+						name = pEl.data("area");
+						return Self[name].dispatch(event);
+					}
+				}
 		}
 	},
 	board: @import "./modules/board.js"

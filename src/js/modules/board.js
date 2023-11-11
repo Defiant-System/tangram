@@ -19,7 +19,11 @@
 			data,
 			value,
 			el;
+		// console.log( event );
 		switch (event.type) {
+			case "deselect-active":
+				if (Self.els.active) Self.els.active.removeClass("active");
+				break;
 			case "solve-puzzle":
 				data = Puzzles[event.name];
 				Object.keys(data).map(k => {
@@ -38,13 +42,18 @@
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
-				let el = $(event.target.parentNode),
+				let target = event.target.parentNode,
+					el = $(target),
 					[x, y, d] = el.attr("style").match(/\d{1,}/g).map(i => +i),
 					offset = { x, y, d },
 					click = {
 						x: event.clientX,
 						y: event.clientY,
 					};
+				// make sure active element is on top (z-index)
+				target.parentNode.insertBefore(target, target.parentNode.lastChild);
+				if (Self.els.active) Self.els.active.removeClass("active");
+				Self.els.active = el.addClass("active");
 
 				Self.drag = { el, offset, click };
 				// cover app content
