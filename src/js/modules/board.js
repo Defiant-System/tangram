@@ -94,7 +94,7 @@
 					},
 					rect = pEl.getBBox(),
 					guides = new Guides({
-						// els: Self.els.svg.find("g.center g.g2"),
+						debug: true,
 						offset: {
 							w: rect.width,
 							h: rect.height,

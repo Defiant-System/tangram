@@ -40,7 +40,7 @@ class Guides {
 				[ox, oy] = polygon.getAttribute("offset").split(",").map(i => +i),
 				[x, y, d] = elem.style.transform.match(/(-?)\d{1,}/g).map(i => +i);
 			if (!isNaN(y) && !isNaN(x)) {
-				this.els.push({ y, x, w, h, ox, oy, points: polygon.points });
+				this.els.push({ y, x, d: 360-d, w, h, ox, oy, points: polygon.points });
 			}
 		});
 
@@ -48,31 +48,30 @@ class Guides {
 		this.opts = opts;
 
 		if (opts.debug) {
+			// clear old
+			window.find(".board svg.debug").remove();
+
 			let gCenter = window.find(".board svg g.center"),
 				[a, b, c, d, cx, cy] = gCenter.css("transform").match(/\d{1,}/g).map(i => +i),
+				rotate = (cx, cy, x, y, angle) => {
+					let radians = (Math.PI / 180) * angle,
+						cos = Math.cos(radians),
+						sin = Math.sin(radians),
+						nx = (cos * (x - cx)) + (sin * (y - cy)) + cx,
+						ny = (cos * (y - cy)) - (sin * (x - cx)) + cy;
+					return [nx, ny];
+				},
 				str = [];
 			this.els.map(shape => {
-				switch (shape.points.length) {
-					case 3: // triangle
-						[...shape.points].map((p1, i, arr) => {
-							let x1 = p1.x + shape.ox,
-								y1 = p1.y + shape.oy,
-								p2 = arr[i+1] || arr[0],
-								x2 = p2.x + shape.ox,
-								y2 = p2.y + shape.oy;
-							// str.push(`<circle cx="${x1}" cy="${y1}" r="5"/>`);
-							str.push(`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`);
-						});
-						// str.push(`<line x1="-100" y1="50" x2="0" y2="-50"/>`);
-						// str.push(`<line x1="0" y1="-50" x2="100" y2="50"/>`);
-						// str.push(`<line x1="100" y1="50" x2="-100" y2="50"/>`);
-						break;
-					case 4: // rect or rhomboid
-						break;
-				}
+				[...shape.points].map((p1, i, arr) => {
+					let p2 = arr[i+1] || arr[0],
+						[p1x, p1y] = rotate(0, 0, p1.x + shape.ox, p1.y + shape.oy, shape.d),
+						[p2x, p2y] = rotate(0, 0, p2.x + shape.ox, p2.y + shape.oy, shape.d);
+					str.push(`<line x1="${shape.x + p1x}" y1="${shape.y + p1y}" x2="${shape.x + p2x}" y2="${shape.y + p2y}"/>`);
+				});
 			});
-			window.find(".board")
-				.append(`<svg class="debug" viewBox="0 0 600 540"><g class="center">${str.join("")}</g></svg>`);
+			str = `<svg class="debug" viewBox="0 0 600 540"><g class="center">${str.join("")}</g></svg>`;
+			window.find(".board").append(str);
 		}
 	}
 
