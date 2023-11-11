@@ -21,9 +21,9 @@
 			el;
 		// console.log( event );
 		switch (event.type) {
-			// case "deselect-active":
-			// 	if (Self.els.active) Self.els.active.removeClass("active");
-			// 	break;
+			case "deselect-active":
+				if (Self.els.active) Self.els.active.removeClass("active");
+				break;
 			case "solve-puzzle":
 				data = Puzzles[event.name];
 				Object.keys(data).map(k => {
@@ -59,15 +59,13 @@
 				Self.els.doc.on("mousemove mouseup", Self.doRotate);
 				break;
 			case "mousemove":
-				let left = Drag.offset.x - Drag.click.x + event.clientX,
-					top = Drag.offset.y - Drag.click.y + event.clientY,
-					theta = Math.atan2(-top, -left);
+				let top = Drag.click.y - event.clientY,
+					deg = Drag.offset.d - (top * 2),
+					snap = deg % 45;
+				
+				if (snap < 10) deg -= snap;
 
-				theta *= 180 / Math.PI;
-				if (theta < 0) theta += 360;
-
-				let deg = Drag.offset.d - theta,
-					transform = `translate(${Drag.offset.x}px, ${Drag.offset.y}px) rotate(${deg}deg)`;
+				let transform = `translate(${Drag.offset.x}px, ${Drag.offset.y}px) rotate(${deg}deg)`;
 				Drag.el.css({ transform });
 				break;
 			case "mouseup":
@@ -86,6 +84,7 @@
 			case "mousedown":
 				let target = event.target;
 				if (target.nodeName === "circle") return Self.doRotate(event);
+				if (target.nodeName === "svg") return;
 
 				let pEl = target.parentNode,
 					el = $(pEl),
