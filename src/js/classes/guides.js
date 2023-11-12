@@ -36,6 +36,7 @@ class Guides {
 					[ox, oy] = polygon.getAttribute("offset").split(",").map(i => +i),
 					[x, y, d] = shape.style.transform.match(/(-?)\d{1,}/g).map(i => +i),
 					deg = 360 - d;
+				// console.log( shape, ox, oy );
 
 				[...polygon.points].map((p1, i, arr) => {
 					let p2 = arr[i+1] || arr[0],
@@ -45,8 +46,8 @@ class Guides {
 						y1 = y + p1y,
 						x2 = x + p2x,
 						y2 = y + p2y,
-						dx = Math.round(x2 - x1),
-						dy = Math.round(y2 - y1),
+						dx = Math.round(p2x - p1x),
+						dy = Math.round(p2y - p1y),
 						theta = Math.atan2(-dy, -dx);
 					
 					theta *= 180 / Math.PI;
@@ -84,7 +85,7 @@ class Guides {
 				str.push(`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`);
 			});
 			str.push(`</g></svg>`);
-			window.find(".board").append(str.join(""));
+			window.find(".board").addClass("debug").append(str.join(""));
 		}
 	}
 
@@ -106,8 +107,8 @@ class Guides {
 			hori = { top: -1, left: -1 };
 
 		this.lines.map(g => {
-			let dy = t - g.y1,
-				dx = l - g.x1;
+			let dy = t - g.oy - g.y1,
+				dx = l - g.ox - g.x1;
 			// horizontal comparisons
 			switch (true) {
 				case (dx < s && dx > -s):

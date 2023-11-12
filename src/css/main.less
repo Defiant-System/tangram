@@ -38,23 +38,6 @@ content {
 		}
 
 		&.debug svg {
-			g {
-				g {
-					line, circle {
-						display: block;
-					}
-
-					polygon {
-						stroke-width: 4;
-					}
-				}
-			}
-		}
-
-		svg {
-			position: absolute;
-			z-index: 3;
-
 			&.debug {
 				pointer-events: none;
 				z-index: 2;
@@ -75,6 +58,25 @@ content {
 					fill: #fff;
 				}
 			}
+
+			// g {
+			// 	g {
+			// 		line,
+			// 		circle,
+			// 		circle.center {
+			// 			display: block;
+			// 		}
+
+			// 		polygon {
+			// 			stroke-width: 4;
+			// 		}
+			// 	}
+			// }
+		}
+
+		svg {
+			position: absolute;
+			z-index: 3;
 
 			g {
 				&.center {
@@ -118,7 +120,7 @@ content {
 
 			.p1 {
 				fill: #0f82f2;
-				transform: translate(-100px, -150px);
+				transform: translate(-100px, -50px);
 			}
 
 			.p2 {
@@ -128,22 +130,22 @@ content {
 
 			.p3 {
 				fill: #cd0e66;
-				transform: translate(-175px, -125px);
+				transform: translate(-25px, -75px);
 			}
 
 			.p4 {
 				fill: #6d3bbf;
-				transform: translate(-125px, -100px);
+				transform: translate(-25px, -50px);
 			}
 
 			.p5 {
 				fill: #009ea6;
-				transform: translate(-150px, -50px);
+				transform: translate(-50px, -50px);
 			}
 
 			.p6 {
 				fill: #eb4726;
-				transform: translate(-100px, -50px);
+				transform: translate(-50px, -50px);
 			}
 
 			.p7 {
