@@ -32,7 +32,38 @@ class Line {
 		return new Line(x1, y1, x2, y2, this.ox, this.oy);
 	}
 
+	midpoint() {
+		return [(this.x1 + this.x2) / 2, (this.y1 + this.y2) / 2];
+	}
+
+	euclideanDistance(line) {
+		let a = this.midpoint(),
+			b = line.midpoint();
+		return Math.hypot(...Object.keys(a).map(k => b[k] - a[k]));
+	}
+
 	inRange(line) {
-		
+
+	}
+
+	extend() {
+		let a = 20,
+			b = 15,
+			x1 = this.x1,
+			y1 = this.y1,
+			x2 = this.x2,
+			y2 = this.y2;
+		switch (this.theta) {
+			case 0:   x1 += a; x2 -= a; break;
+			case 90:  y1 += a; y2 -= a; break;
+			case 180: x1 -= a; x2 += a; break;
+			case 270: y1 -= a; y2 += a; break;
+			case 45:  x1 += b; y1 += b; x2 -= b; y2 -= b; break;
+			case 135: x1 -= b; y1 += b; x2 += b; y2 -= b; break;
+			case 225: x1 -= b; y1 -= b; x2 += b; y2 += b; break;
+			case 315: x1 += b; y1 -= b; x2 -= b; y2 += b; break;
+			default: console.log(theta);
+		}
+		return new Line(x1, y1, x2, y2, this.ox, this.oy);
 	}
 }

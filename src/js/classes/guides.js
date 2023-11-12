@@ -51,26 +51,11 @@ class Guides {
 			// clear old
 			window.find(".board svg.debug").remove();
 
-			let str = [];
-			str.push(`<svg class="debug" viewBox="0 0 600 540"><g class="center">`);
+			let str = [`<svg class="debug" viewBox="0 0 600 540"><g class="center">`];
 			this.stickyLines.map(line => {
-				let x1 = line.x1,
-					y1 = line.y1,
-					x2 = line.x2,
-					y2 = line.y2;
-				switch (line.theta) {
-					case 0: x1 += 25; x2 -= 25; break;
-					case 90: y1 += 25; y2 -= 25; break;
-					case 180: x1 -= 25; x2 += 25; break;
-					case 270: y1 -= 25; y2 += 25; break;
-					case 45: x1 += 20; y1 += 20; x2 -= 20; y2 -= 20; break;
-					case 135: x1 -= 20; y1 += 20; x2 += 20; y2 -= 20; break;
-					case 225: x1 -= 20; y1 -= 20; x2 += 20; y2 += 20; break;
-					case 315: x1 += 20; y1 -= 20; x2 -= 20; y2 += 20; break;
-					default: console.log(theta);
-				}
+				let l = line.extend();
 				// insert debug lines
-				str.push(`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`);
+				str.push(`<line x1="${l.x1}" y1="${l.y1}" x2="${l.x2}" y2="${l.y2}"/>`);
 			});
 			str.push(`</g></svg>`);
 			window.find(".board").addClass("debug").append(str.join(""));
@@ -96,7 +81,10 @@ class Guides {
 
 		move.map(mLine => {
 			let filtered = this.stickyLines.filter(l => l.dir === mLine.dir);
-			console.log( mLine.dir, filtered.length );
+			// console.log( mLine.dir, filtered.length );
+			if (mLine.dir === 2 && filtered.length) {
+				console.log( mLine.euclideanDistance(filtered[0]) );
+			}
 		});
 
 	}
