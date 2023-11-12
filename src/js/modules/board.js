@@ -84,9 +84,9 @@
 				if (target.nodeName === "circle") return Self.doRotate(event);
 				if (target.nodeName === "svg") return;
 
-				let pEl = target.nodename == "rect" ? target : target.parentNode,
+				let pEl = target.parentNode,
 					el = $(pEl),
-					[x, y, d] = el.attr("style").match(/\d{1,}/g).map(i => +i),
+					[x, y, d] = el.attr("style").match(/(-?)\d{1,}/g).map(i => +i),
 					offset = { x, y, d },
 					click = {
 						x: x - event.clientX,

@@ -24,40 +24,28 @@ class Guides {
 			gCenter = items.get(0).parent();
 
 		// default properties
-		this.lines = [];
+		this.stickyLines = [];
+		this.movingLines = [];
 		// add guide line element to "this"
 		this.opts = opts;
 
-		items
-			.filter(shape => !opts.omit.includes(shape))
-			.map(shape => {
-				let box = shape.getBBox(),
-					polygon = shape.childNodes[1],
-					[ox, oy] = polygon.getAttribute("offset").split(",").map(i => +i),
-					[x, y, d] = shape.style.transform.match(/(-?)\d{1,}/g).map(i => +i),
-					deg = 360 - d;
-				// console.log( shape, ox, oy );
+		items.map(shape => {
+			let box = shape.getBBox(),
+				polygon = shape.childNodes[1],
+				[ox, oy] = polygon.getAttribute("offset").split(",").map(i => +i),
+				[x, y, d] = shape.style.transform.match(/(-?)\d{1,}/g).map(i => +i),
+				deg = 360 - d;
+			// console.log( shape, ox, oy );
 
-				[...polygon.points].map((p1, i, arr) => {
-					let p2 = arr[i+1] || arr[0],
-						[p1x, p1y] = this.rotate(0, 0, p1.x + ox, p1.y + oy, deg),
-						[p2x, p2y] = this.rotate(0, 0, p2.x + ox, p2.y + oy, deg),
-						x1 = x + p1x,
-						y1 = y + p1y,
-						x2 = x + p2x,
-						y2 = y + p2y,
-						dx = Math.round(p2x - p1x),
-						dy = Math.round(p2y - p1y),
-						theta = Math.atan2(-dy, -dx);
-					
-					theta *= 180 / Math.PI;
-					if (theta < 0) theta += 360;
-
-					let isH = [0, 180].includes(theta),
-						isV = [90, 270].includes(theta);
-					this.lines.push({ x1, y1, x2, y2, ox, oy, theta, isH, isV });
-				});
+			[...polygon.points].map((p1, i, arr) => {
+				let p2 = arr[i+1] || arr[0],
+					[p1x, p1y] = this.rotate(0, 0, p1.x+ox, p1.y+oy, deg),
+					[p2x, p2y] = this.rotate(0, 0, p2.x+ox, p2.y+oy, deg),
+					line = new Line(p1x+x, p1y+y, p2x+x, p2y+y, ox, oy);
+				if (opts.omit.includes(shape)) this.movingLines.push(line);
+				else this.stickyLines.push(line);
 			});
+		});
 
 		if (opts.debug) {
 			// clear old
@@ -65,7 +53,7 @@ class Guides {
 
 			let str = [];
 			str.push(`<svg class="debug" viewBox="0 0 600 540"><g class="center">`);
-			this.lines.map(line => {
+			this.stickyLines.map(line => {
 				let x1 = line.x1,
 					y1 = line.y1,
 					x2 = line.x2,
@@ -98,24 +86,19 @@ class Guides {
 		return [nx, ny];
 	}
 
-	snapPos(m) {
-		let o = this.opts,
-			s = o.sensitivity,
-			t = m.top,
-			l = m.left,
-			vert = { top: -1, left: -1 },
-			hori = { top: -1, left: -1 };
+	snapPos(mouse) {
+		let opt = this.opts,
+			s = opt.sensitivity,
+			t = mouse.top,
+			l = mouse.left,
+			// translate moving lines
+			move = this.movingLines.map(line => line.translate(l, t));
 
-		this.lines.map(g => {
-			let dy = t - g.oy - g.y1,
-				dx = l - g.ox - g.x1;
-			// horizontal comparisons
-			switch (true) {
-				case (dx < s && dx > -s):
-					m.left -= dx;
-					break;
-			}
+		move.map(mLine => {
+			let filtered = this.stickyLines.filter(l => l.dir === mLine.dir);
+			console.log( mLine.dir, filtered.length );
 		});
+
 	}
 
 }
