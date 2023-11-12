@@ -96,6 +96,7 @@
 					guides = new Guides({
 						debug: true,
 						omit: [pEl],
+						offset,
 					});
 				
 				// make sure active element is on top (z-index)

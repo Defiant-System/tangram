@@ -1,12 +1,10 @@
 
 class Line {
-	constructor(x1, y1, x2, y2, ox, oy) {
+	constructor(x1, y1, x2, y2) {
 		this.x1 = x1;
 		this.y1 = y1;
 		this.x2 = x2;
 		this.y2 = y2;
-		this.ox = ox;
-		this.oy = oy;
 
 		let dx = Math.round(x2 - x1),
 			dy = Math.round(y2 - y1),
@@ -25,15 +23,17 @@ class Line {
 	}
 
 	translate(x, y) {
-		let x1 = this.x1 + x,
-			y1 = this.y1 + y,
-			x2 = this.x2 + x,
-			y2 = this.y2 + y;
-		return new Line(x1, y1, x2, y2, this.ox, this.oy);
+		let x1 = this.x1 - x,
+			y1 = this.y1 - y,
+			x2 = this.x2 - x,
+			y2 = this.y2 - y;
+		return new Line(x1, y1, x2, y2);
 	}
 
 	midpoint() {
-		return [(this.x1 + this.x2) / 2, (this.y1 + this.y2) / 2];
+		let mx = ((this.x1 + this.x2) / 2),
+			my = ((this.y1 + this.y2) / 2);
+		return [mx, my];
 	}
 
 	euclideanDistance(line) {
@@ -64,6 +64,6 @@ class Line {
 			case 315: x1 += b; y1 -= b; x2 -= b; y2 += b; break;
 			default: console.log(theta);
 		}
-		return new Line(x1, y1, x2, y2, this.ox, this.oy);
+		return new Line(x1, y1, x2, y2);
 	}
 }

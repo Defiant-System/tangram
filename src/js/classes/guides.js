@@ -13,12 +13,13 @@ class Guides {
 		// reference to root application
 		let opts = {
 				// default selector & context
-				selector: opt.selector || Guides.selector,
-				context: opt.context || Guides.context,
-				omit: opt.omit || [],
-				debug: opt.debug || false,
+				selector: Guides.selector,
+				context: Guides.context,
+				omit: [],
+				debug: false,
 				// snap sensitivity
 				sensitivity: 8,
+				...opt,
 			},
 			items = window.find(opts.context +" "+ opts.selector),
 			gCenter = items.get(0).parent();
@@ -34,14 +35,18 @@ class Guides {
 				polygon = shape.childNodes[1],
 				[ox, oy] = polygon.getAttribute("offset").split(",").map(i => +i),
 				[x, y, d] = shape.style.transform.match(/(-?)\d{1,}/g).map(i => +i),
-				deg = 360 - d;
+				deg = (360 - d) % 360;
 			// console.log( shape, ox, oy );
+			// console.log( shape.getAttribute("class") );
 
 			[...polygon.points].map((p1, i, arr) => {
 				let p2 = arr[i+1] || arr[0],
 					[p1x, p1y] = this.rotate(0, 0, p1.x+ox, p1.y+oy, deg),
 					[p2x, p2y] = this.rotate(0, 0, p2.x+ox, p2.y+oy, deg),
 					line = new Line(p1x+x, p1y+y, p2x+x, p2y+y, ox, oy);
+				// if (shape.getAttribute("class") === "g21" && line.dir === 2) {
+				// 	console.log( line, line.midpoint() );
+				// }
 				if (opts.omit.includes(shape)) this.movingLines.push(line);
 				else this.stickyLines.push(line);
 			});
@@ -74,16 +79,17 @@ class Guides {
 	snapPos(mouse) {
 		let opt = this.opts,
 			s = opt.sensitivity,
-			t = mouse.top,
-			l = mouse.left,
+			l = mouse.left + opt.offset.x,
+			t = mouse.top + opt.offset.y,
 			// translate moving lines
 			move = this.movingLines.map(line => line.translate(l, t));
 
-		move.map(mLine => {
-			let filtered = this.stickyLines.filter(l => l.dir === mLine.dir);
-			// console.log( mLine.dir, filtered.length );
-			if (mLine.dir === 2 && filtered.length) {
-				console.log( mLine.euclideanDistance(filtered[0]) );
+		move.map(line => {
+			// if (line.dir === 2) console.log( line.midpoint() );
+			let filtered = this.stickyLines.filter(l => l.dir === line.dir);
+			if (line.dir === 2 && filtered.length) {
+				console.log( filtered[0] );
+				// console.log( Math.round(line.euclideanDistance(filtered[0])) );
 			}
 		});
 

@@ -59,6 +59,10 @@ content {
 				}
 			}
 
+			circle.center {
+				display: block;
+			}
+
 			// g {
 			// 	g {
 			// 		line,
@@ -77,6 +81,10 @@ content {
 		svg {
 			position: absolute;
 			z-index: 3;
+
+			rect.debug {
+				fill: rgba(#000,.25);
+			}
 
 			g {
 				&.center {
@@ -125,6 +133,11 @@ content {
 
 			.p2 {
 				fill: #fd8c00;
+				transform: translate(-50px, -100px);
+			}
+
+			.p21 {
+				fill: #f90;
 				transform: translate(-50px, -100px);
 			}
 
