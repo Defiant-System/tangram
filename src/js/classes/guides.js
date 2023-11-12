@@ -45,7 +45,7 @@ class Guides {
 					[p2x, p2y] = this.rotate(0, 0, p2.x+ox, p2.y+oy, deg),
 					line = new Line(p1x+x, p1y+y, p2x+x, p2y+y, ox, oy);
 				// if (shape.getAttribute("class") === "g21" && line.dir === 2) {
-				// 	console.log( line, line.midpoint() );
+				// 	console.log( line.serialize(), line.midpoint() );
 				// }
 				if (opts.omit.includes(shape)) this.movingLines.push(line);
 				else this.stickyLines.push(line);
@@ -79,8 +79,8 @@ class Guides {
 	snapPos(mouse) {
 		let opt = this.opts,
 			s = opt.sensitivity,
-			l = mouse.left + opt.offset.x,
-			t = mouse.top + opt.offset.y,
+			l = mouse.left - opt.offset.x,
+			t = mouse.top - opt.offset.y,
 			// translate moving lines
 			move = this.movingLines.map(line => line.translate(l, t));
 
@@ -88,8 +88,7 @@ class Guides {
 			// if (line.dir === 2) console.log( line.midpoint() );
 			let filtered = this.stickyLines.filter(l => l.dir === line.dir);
 			if (line.dir === 2 && filtered.length) {
-				console.log( filtered[0] );
-				// console.log( Math.round(line.euclideanDistance(filtered[0])) );
+				console.log( Math.round(line.euclideanDistance(filtered[0])) );
 			}
 		});
 

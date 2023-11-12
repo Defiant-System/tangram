@@ -23,10 +23,10 @@ class Line {
 	}
 
 	translate(x, y) {
-		let x1 = this.x1 - x,
-			y1 = this.y1 - y,
-			x2 = this.x2 - x,
-			y2 = this.y2 - y;
+		let x1 = this.x1 + x,
+			y1 = this.y1 + y,
+			x2 = this.x2 + x,
+			y2 = this.y2 + y;
 		return new Line(x1, y1, x2, y2);
 	}
 
@@ -44,6 +44,10 @@ class Line {
 
 	inRange(line) {
 
+	}
+
+	serialize() {
+		return [this.x1, this.y1, this.x2, this.y2];
 	}
 
 	extend() {
