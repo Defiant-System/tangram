@@ -95,10 +95,7 @@
 					rect = pEl.getBBox(),
 					guides = new Guides({
 						debug: true,
-						offset: {
-							w: rect.width,
-							h: rect.height,
-						}
+						omit: [pEl],
 					});
 				
 				// make sure active element is on top (z-index)
