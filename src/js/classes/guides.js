@@ -100,7 +100,11 @@ class Guides {
 							if (d[1] === 0 && d[0] < s && d[0] > -s) mouse.left += d[0];
 							break;
 						case 3:
-							d = line.distance(fLine);
+							d = line.distance(fLine, s);
+							if (d[2] < s && d[2] > -s) {
+								mouse.top += d[1];
+								mouse.left += d[0];
+							}
 							break;
 					}
 				});

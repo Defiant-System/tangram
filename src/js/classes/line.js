@@ -57,8 +57,37 @@ class Line {
 		return Math.hypot(...Object.keys(a).map(k => b[k] - a[k]));
 	}
 
-	distance(line) {
-		let dx, dy;
+	pDistance(x, y) {
+		let A = x - this.x1;
+		let B = y - this.y1;
+		let C = this.x2 - this.x1;
+		let D = this.y2 - this.y1;
+		let len_sq = C * C + D * D;
+		let param = -1;
+		let xx;
+		let yy;
+
+		//in case of 0 length line
+		if (len_sq != 0) param = (A * C + B * D) / len_sq;
+
+		if (param < 0) {
+			xx = this.x1;
+			yy = this.y1;
+		} else if (param > 1) {
+			xx = this.x2;
+			yy = this.y2;
+		} else {
+			xx = this.x1 + param * C;
+			yy = this.y1 + param * D;
+		}
+
+		let dx = x - xx;
+		let dy = y - yy;
+		return Math.sqrt(dx * dx + dy * dy);
+	}
+
+	distance(line, snap) {
+		let dx, dy, dn;
 		if (this.dir % 2 === 0) {
 			// horisontal & vertical
 			if (this.sX <= line.eX && this.eX >= line.sX) dx = 0;
@@ -69,9 +98,19 @@ class Line {
 			else if (this.sY > line.sY && this.sY > line.eY) dy = this.sY - line.eY;
 		} else {
 			// diagonal
-			console.log(this.serialize());
+			dn = Math.min(
+				this.pDistance(line.x1, line.y1),
+				this.pDistance(line.x2, line.y2),
+				line.pDistance(this.x1, this.y1),
+				line.pDistance(this.x1, this.y1),
+			);
+			// console.log( dn );
+			if (dn < snap) {
+				dx = 5;
+				dy = 5;
+			}
 		}
-		return [dx, dy];
+		return [dx, dy, dn];
 	}
 
 	serialize() {
