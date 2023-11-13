@@ -85,12 +85,19 @@ class Guides {
 			move = this.movingLines.map(line => line.translate(l, t));
 
 		move.map(line => {
-			// if (line.dir === 2) console.log( line.midpoint() );
 			let filtered = this.stickyLines.filter(l => l.dir === line.dir);
-			if (line.dir === 2 && filtered.length) {
-				let d = line.distance(filtered[0]);
-				if (d[0] < s && d[0] > -s) mouse.left += d[0];
+			if (line.dir === 2) {
+				filtered.map(fLine => {
+					let d = line.distance(fLine),
+						diff = line.dir === fLine.dir ? d[0] : -d[0];
+					if (diff < s && diff > -s) mouse.left += diff;
+				});
 			}
+			// if (line.dir === 2 && filtered.length) {
+			// 	let d = line.distance(filtered[0]);
+			// 	console.log( d );
+			// 	if (d[0] < s && d[0] > -s) mouse.left += d[0];
+			// }
 		});
 
 	}
