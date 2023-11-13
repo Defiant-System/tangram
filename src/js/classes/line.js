@@ -8,9 +8,8 @@ class Line {
 
 		let dx = Math.round(x2 - x1),
 			dy = Math.round(y2 - y1),
-			theta = Math.atan2(-dy, -dx);
-		
-		theta *= 180 / Math.PI;
+			rad = Math.atan2(-dy, -dx),
+			theta = rad * 180 / Math.PI;
 		if (theta < 0) theta += 360;
 		this.theta = theta;
 
@@ -20,6 +19,9 @@ class Line {
 		// 3: 90,  270
 		// 4: 135, 315
 		this.dir = [0, 45, 90, 135].indexOf(theta >= 180 ? theta - 180 : theta);
+		this.rad = rad - Math.PI;
+		this._sin = Math.sin(this.rad);
+		this._cos = Math.cos(this.rad);
 	}
 
 	get length() {
@@ -109,9 +111,8 @@ class Line {
 			dn = shortest.d;
 
 			if (dn < snap) {
-				let rad = 135 * (Math.PI / 180);
-				dx = dn * Math.sin(rad);
-				dy = dn * Math.cos(rad);
+				dx = dn * this._sin;
+				dy = dn * this._cos;
 			}
 		}
 		return [dx, dy, dn];
