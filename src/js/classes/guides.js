@@ -102,7 +102,7 @@ class Guides {
 						case 3:
 							d = line.distance(fLine, s);
 							if (d[2] < s && d[2] > -s) {
-								mouse.top += d[1];
+								mouse.top -= d[1];
 								mouse.left += d[0];
 							}
 							break;

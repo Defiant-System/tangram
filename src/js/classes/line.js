@@ -98,16 +98,20 @@ class Line {
 			else if (this.sY > line.sY && this.sY > line.eY) dy = this.sY - line.eY;
 		} else {
 			// diagonal
-			dn = Math.min(
-				this.pDistance(line.x1, line.y1),
-				this.pDistance(line.x2, line.y2),
-				line.pDistance(this.x1, this.y1),
-				line.pDistance(this.x1, this.y1),
-			);
-			// console.log( dn );
+			let distances = [
+					{ x1: line.x1, y1: line.y1, d: this.pDistance(line.x1, line.y1) },
+					{ x2: line.x2, y2: line.y2, d: this.pDistance(line.x2, line.y2) },
+					{ x1: this.x1, y1: this.y1, d: line.pDistance(this.x1, this.y1) },
+					{ x1: this.x1, y1: this.y1, d: line.pDistance(this.x1, this.y1) },
+				],
+				shortest = distances.sort((a, b) => a.d - b.d)[0];
+			// set shortest distance
+			dn = shortest.d;
+
 			if (dn < snap) {
-				dx = 5;
-				dy = 5;
+				let rad = 135 * (Math.PI / 180);
+				dx = dn * Math.sin(rad);
+				dy = dn * Math.cos(rad);
 			}
 		}
 		return [dx, dy, dn];
