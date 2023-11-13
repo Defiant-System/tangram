@@ -18,7 +18,7 @@ class Guides {
 				omit: [],
 				debug: false,
 				// snap sensitivity
-				sensitivity: 8,
+				sensitivity: 10,
 				...opt,
 			},
 			items = window.find(opts.context +" "+ opts.selector),
@@ -89,7 +89,7 @@ class Guides {
 			let filtered = this.stickyLines.filter(l => l.dir === line.dir);
 			if (line.dir === 2 && filtered.length) {
 				let d = line.distance(filtered[0]);
-				if (d[0] < s) mouse.left += d[0];
+				if (d[0] < s && d[0] > -s) mouse.left += d[0];
 			}
 		});
 

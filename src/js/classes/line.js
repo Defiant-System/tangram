@@ -22,6 +22,21 @@ class Line {
 		this.dir = [0, 45, 90, 135].indexOf(theta >= 180 ? theta - 180 : theta);
 	}
 
+	get length() {
+		let dx = this.x1 - this.x2,
+			dy = this.y1 - this.y2;
+		return Math.sqrt(dx * dx + dy * dy);
+	}
+
+	get slope() {
+		return (this.y2 - this.y1) / (this.x2 - this.x1);
+	}
+
+	get sX() { return this.x1 > this.x2 ? this.x2 : this.x1; }
+	get sY() { return this.y1 > this.y2 ? this.y2 : this.y1; }
+	get eX() { return this.x1 < this.x2 ? this.x2 : this.x1; }
+	get eY() { return this.y1 < this.y2 ? this.y2 : this.y1; }
+
 	translate(x, y) {
 		let x1 = this.x1 + x,
 			y1 = this.y1 + y,
@@ -43,12 +58,16 @@ class Line {
 	}
 
 	distance(line) {
-		let dx = 0,
-			dy = 0;
-		if (this.x2 < line.x1 && this.x2 < line.x2) dx = Math.min(line.x1, line.x2) - this.x2;
-		else if (this.x1 > line.x1 && this.x1 > line.x2) dx = this.x1 - Math.max(line.x1, line.x2);
-		if (this.y2 < line.y1 && this.y2 < line.y2) dy = Math.min(line.y1, line.y2) - this.y2;
-		else if (this.y1 > line.y1 && this.y1 > line.y2) dy = this.y1 - Math.max(line.y1, line.y2);
+		let dx, dy;
+
+		if (this.sX <= line.eX && this.eX >= line.sX) dx = 0;
+		if (this.eX < line.sX && this.eX < line.eX) dx = line.sX - this.eX;
+		if (this.sX > line.sX && this.sX > line.eX) dx = line.eX - this.sX;
+
+		if (this.sY <= line.eY && this.eY >= line.sY) dy = 0;
+		if (this.eY < line.sY && this.eY < line.eY) dy = this.eY - line.sY;
+		if (this.sY > line.sY && this.sY > line.eY) dy = this.sY - line.eY;
+
 		return [dx, dy];
 	}
 
