@@ -6,12 +6,8 @@ let Test = {
 		// let l1 = new Line(5, 0, 5, 10),
 		// 	l2 = new Line(5, 5, 5, 20);
 
-		// let l1 = new Line(10, 0, 10, 0),
-		// 	l2 = new Line(22, 5, 12, 5);
-		// console.log( l1.distance(l2) );
-
-		// l1 = new Line(10, 0, 10, 0);
-		// l2 = new Line(12, 5, 22, 5);
+		// let l1 = new Line(0, 0, 10, 10),
+		// 	l2 = new Line(5, 5, 15, 15);
 		// console.log( l1.distance(l2) );
 
 		new Guides({ debug: true });

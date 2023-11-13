@@ -59,15 +59,18 @@ class Line {
 
 	distance(line) {
 		let dx, dy;
-
-		if (this.sX <= line.eX && this.eX >= line.sX) dx = 0;
-		if (this.eX < line.sX && this.eX < line.eX) dx = line.sX - this.eX;
-		if (this.sX > line.sX && this.sX > line.eX) dx = line.eX - this.sX;
-
-		if (this.sY <= line.eY && this.eY >= line.sY) dy = 0;
-		if (this.eY < line.sY && this.eY < line.eY) dy = this.eY - line.sY;
-		if (this.sY > line.sY && this.sY > line.eY) dy = this.sY - line.eY;
-
+		if (this.dir % 2 === 0) {
+			// horisontal & vertical
+			if (this.sX <= line.eX && this.eX >= line.sX) dx = 0;
+			else if (this.eX < line.sX && this.eX < line.eX) dx = line.sX - this.eX;
+			else if (this.sX > line.sX && this.sX > line.eX) dx = line.eX - this.sX;
+			if (this.sY <= line.eY && this.eY >= line.sY) dy = 0;
+			else if (this.eY < line.sY && this.eY < line.eY) dy = this.eY - line.sY;
+			else if (this.sY > line.sY && this.sY > line.eY) dy = this.sY - line.eY;
+		} else {
+			// diagonal
+			console.log(this.serialize());
+		}
 		return [dx, dy];
 	}
 

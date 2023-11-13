@@ -87,17 +87,20 @@ class Guides {
 		move.map(line => {
 			this.stickyLines.filter(l => l.dir === line.dir)
 				.map(fLine => {
-					let d = line.distance(fLine);
+					let d;
 					switch (line.dir) {
 						case 0:
+							d = line.distance(fLine);
 							if (d[0] === 0 && d[1] < s && d[1] > -s) mouse.top -= d[1];
 							break;
 						case 1:
 							break;
 						case 2:
+							d = line.distance(fLine);
 							if (d[1] === 0 && d[0] < s && d[0] > -s) mouse.left += d[0];
 							break;
 						case 3:
+							d = line.distance(fLine);
 							break;
 					}
 				});
