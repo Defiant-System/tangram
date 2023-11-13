@@ -42,8 +42,14 @@ class Line {
 		return Math.hypot(...Object.keys(a).map(k => b[k] - a[k]));
 	}
 
-	inRange(line) {
-
+	distance(line) {
+		let dx = 0,
+			dy = 0;
+		if (this.x2 < line.x1 && this.x2 < line.x2) dx = Math.min(line.x1, line.x2) - this.x2;
+		else if (this.x1 > line.x1 && this.x1 > line.x2) dx = this.x1 - Math.max(line.x1, line.x2);
+		if (this.y2 < line.y1 && this.y2 < line.y2) dy = Math.min(line.y1, line.y2) - this.y2;
+		else if (this.y1 > line.y1 && this.y1 > line.y2) dy = this.y1 - Math.max(line.y1, line.y2);
+		return [dx, dy];
 	}
 
 	serialize() {

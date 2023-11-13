@@ -88,7 +88,8 @@ class Guides {
 			// if (line.dir === 2) console.log( line.midpoint() );
 			let filtered = this.stickyLines.filter(l => l.dir === line.dir);
 			if (line.dir === 2 && filtered.length) {
-				console.log( Math.round(line.euclideanDistance(filtered[0])) );
+				let d = line.distance(filtered[0]);
+				if (d[0] < s) mouse.left += d[0];
 			}
 		});
 
