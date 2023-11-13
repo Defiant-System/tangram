@@ -89,8 +89,10 @@ class Guides {
 			if (line.dir === 2) {
 				filtered.map(fLine => {
 					let d = line.distance(fLine),
-						diff = line.dir === fLine.dir ? d[0] : -d[0];
-					if (diff < s && diff > -s) mouse.left += diff;
+						diff = d[0];
+					if (diff < s && diff > -s) {
+						mouse.left += diff;
+					}
 				});
 			}
 			// if (line.dir === 2 && filtered.length) {

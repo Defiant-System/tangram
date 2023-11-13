@@ -3,14 +3,16 @@ let Test = {
 	init(APP) {
 		APP.board.dispatch({ type: "solve-puzzle", name: "test" });
 
-		let l1 = new Line(5, 0, 5, 10),
-			l2 = new Line(5, 5, 5, 20);
+		// let l1 = new Line(5, 0, 5, 10),
+		// 	l2 = new Line(5, 5, 5, 20);
 
 		// let l1 = new Line(10, 0, 10, 0),
-		// 	l2 = new Line(12, 5, 22, 5);
-
+		// 	l2 = new Line(22, 5, 12, 5);
 		// console.log( l1.distance(l2) );
-		// console.log( l2.distance(l1) );
+
+		// l1 = new Line(10, 0, 10, 0);
+		// l2 = new Line(12, 5, 22, 5);
+		// console.log( l1.distance(l2) );
 
 		new Guides({ debug: true });
 	}
