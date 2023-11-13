@@ -92,8 +92,12 @@ class Guides {
 						case 0:
 							if (d[0] === 0 && d[1] < s && d[1] > -s) mouse.top -= d[1];
 							break;
+						case 1:
+							break;
 						case 2:
 							if (d[1] === 0 && d[0] < s && d[0] > -s) mouse.left += d[0];
+							break;
+						case 3:
 							break;
 					}
 				});
