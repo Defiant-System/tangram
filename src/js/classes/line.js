@@ -120,6 +120,7 @@ class Line {
 			// shortest distance
 			distances = distances.sort((a, b) => a.abs - b.abs);
 
+				// console.log(distances[0].val);
 			if (distances[0].abs < snap) {
 				dx = distances[0].val * this._sin;
 				dy = distances[0].val * this._cos;

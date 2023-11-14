@@ -3,13 +3,10 @@ let Test = {
 	init(APP) {
 		APP.board.dispatch({ type: "solve-puzzle", name: "test" });
 
-		// let l1 = new Line(0, 0, 10, 10),
-		// 	l2 = new Line(8, 5, 18, 15);
+		let l1 = new Line(120, 69, 170, 119),
+			l2 = new Line(175, 220, 125, 170);
 
-		// console.log( l1.pointDistance(2,3) );
-		// console.log( l1.pointDistance(4,3) );
-
-		// console.log( l1.distance(l2) );
+		// console.log( l1.distance(l2, 1, 10) );
 
 		// let line = new Line(50, 0, -50, 100);
 		// console.log( line.pointDistance(50, 50) );

@@ -34,19 +34,14 @@ class Guides {
 			let box = shape.getBBox(),
 				polygon = shape.childNodes[1],
 				[ox, oy] = polygon.getAttribute("offset").split(",").map(i => +i),
-				[x, y, d] = shape.style.transform.match(/(-?)\d{1,}/g).map(i => +i),
+				[x, y, d] = shape.style.transform.match(/(-?)[\d\.]{1,}/g).map(i => +i),
 				deg = (360 - d) % 360;
-			// console.log( shape, ox, oy );
-			// console.log( shape.getAttribute("class") );
 
 			[...polygon.points].map((p1, i, arr) => {
 				let p2 = arr[i+1] || arr[0],
 					[p1x, p1y] = this.rotate(0, 0, p1.x+ox, p1.y+oy, deg),
 					[p2x, p2y] = this.rotate(0, 0, p2.x+ox, p2.y+oy, deg),
 					line = new Line(p1x+x, p1y+y, p2x+x, p2y+y, ox, oy);
-				// if (shape.getAttribute("class") === "g21" && line.dir === 2) {
-				// 	console.log( line.serialize(), line.midpoint() );
-				// }
 				if (opts.omit.includes(shape)) this.movingLines.push(line);
 				else this.stickyLines.push(line);
 			});
@@ -68,9 +63,9 @@ class Guides {
 	}
 
 	rotate(cx, cy, x, y, angle) {
-		let radians = (Math.PI / 180) * angle,
-			cos = Math.cos(radians),
-			sin = Math.sin(radians),
+		let rad = (Math.PI / 180) * angle,
+			cos = Math.cos(rad),
+			sin = Math.sin(rad),
 			nx = (cos * (x - cx)) + (sin * (y - cy)) + cx,
 			ny = (cos * (y - cy)) - (sin * (x - cx)) + cy;
 		return [nx, ny];

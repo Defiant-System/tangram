@@ -88,8 +88,9 @@
 				// make sure active element is on top (z-index)
 				pEl.parentNode.insertBefore(pEl, pEl.parentNode.lastChild);
 
-				let el = $(pEl),
-					[x, y, d] = el.attr("style").match(/(-?)[\d\.]{1,}/g).map(i => +i),
+				let el = $(pEl);
+				if (!el.attr("style")) console.log(el);
+				let [x, y, d] = el.attr("style").match(/(-?)[\d\.]{1,}/g).map(i => +i),
 					offset = { x, y, d },
 					click = {
 						x: x - event.clientX,
