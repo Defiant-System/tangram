@@ -73,19 +73,19 @@ class Guides {
 
 	snapPos(mouse) {
 		let opt = this.opts,
-			s = opt.sensitivity,
-			l = mouse.left - opt.offset.x,
-			t = mouse.top - opt.offset.y,
+			snap = opt.sensitivity,
+			left = mouse.left - opt.offset.x,
+			top = mouse.top - opt.offset.y,
 			// translate moving lines
-			move = this.movingLines.map(line => line.translate(l, t));
+			move = this.movingLines.map(line => line.translate(left, top));
 
-		move.map(line => {
+		move.map(mLine => {
 			this.stickyLines
-				.filter(l => l.dir === line.dir)
+				.filter(l => l.dir === mLine.dir)
 				.map(fLine => {
-					let d = line.distance(fLine, line.dir, s);
-					mouse.top -= d[1];
-					mouse.left += d[0];
+					let distance = mLine.distance(fLine, mLine.dir, snap);
+					mouse.top -= distance[1];
+					mouse.left += distance[0];
 				});
 		});
 

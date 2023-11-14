@@ -109,8 +109,8 @@ class Line {
 			let distances = [
 					{ line: this, x: line.x1, y: line.y1, },
 					{ line: this, x: line.x2, y: line.y2, },
-					{ line: line, x: this.x1, y: this.y1, },
-					{ line: line, x: this.x2, y: this.y2, },
+					{ line, x: this.x1, y: this.y1, },
+					{ line, x: this.x2, y: this.y2, },
 				];
 			// calc distances
 			distances.map(dist => {
@@ -120,7 +120,7 @@ class Line {
 			// shortest distance
 			distances = distances.sort((a, b) => a.abs - b.abs);
 
-				// console.log(distances[0].val);
+			// console.log( distances.map(d => d.abs) );
 			if (distances[0].abs < snap) {
 				dx = distances[0].val * this._sin;
 				dy = distances[0].val * this._cos;
