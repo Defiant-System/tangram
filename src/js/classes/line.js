@@ -85,8 +85,7 @@ class Line {
 
 		let dx = x - xx;
 		let dy = y - yy;
-		let ds = dx < 0 ? -1 : 1;
-		return ds * Math.sqrt(dx * dx + dy * dy);
+		return Math.sqrt(dx * dx + dy * dy);
 	}
 
 	limit(mouse, lines, snap) {
@@ -120,15 +119,14 @@ class Line {
 				];
 				// calc distances
 				dist.map(dist => {
-					dist.val = dist.line.pointDistance(dist.x, dist.y);
-					dist.abs = Math.abs(dist.val);
+					dist.abs = Math.abs(dist.line.pointDistance(dist.x, dist.y));
 				});
 				// shortest distance
 				dist = dist.sort((a, b) => a.abs - b.abs);
 
 				let d = dist[0].abs,
-					x = dist[0].val * this._sin,
-					y = dist[0].val * this._cos;
+					x = dist[0].abs * this._sin,
+					y = dist[0].abs * this._cos;
 				
 				if (d <= snap) distances.push({ x, y, d });
 			}
