@@ -32,7 +32,6 @@ class Guides {
 
 		items.map(shape => {
 			let box = shape.getBBox(),
-				pId = shape.getAttribute("class").split(" ")[0],
 				polygon = shape.childNodes[1],
 				[ox, oy] = polygon.getAttribute("offset").split(",").map(i => +i),
 				[x, y, d] = shape.style.transform.match(/(-?)[\d\.]{1,}/g).map(i => +i),
@@ -42,7 +41,7 @@ class Guides {
 				let p2 = arr[i+1] || arr[0],
 					[p1x, p1y] = this.rotate(0, 0, p1.x+ox, p1.y+oy, deg),
 					[p2x, p2y] = this.rotate(0, 0, p2.x+ox, p2.y+oy, deg),
-					line = new Line(p1x+x, p1y+y, p2x+x, p2y+y, ox, oy, pId);
+					line = new Line(p1x+x, p1y+y, p2x+x, p2y+y, ox, oy);
 				if (opts.omit.includes(shape)) this.movingLines.push(line);
 				else this.stickyLines.push(line);
 			});
@@ -83,12 +82,6 @@ class Guides {
 		move.map(mLine => {
 			let sLines = this.stickyLines.filter(l => l.dir === mLine.dir);
 			mLine.limit(mouse, sLines, snap);
-
-				// .map(fLine => {
-				// 	let distance = mLine.distance(fLine, snap);
-				// 	mouse.top -= distance.y;
-				// 	mouse.left += distance.x;
-				// });
 		});
 
 	}

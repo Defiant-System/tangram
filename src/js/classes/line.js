@@ -1,11 +1,10 @@
 
 class Line {
-	constructor(x1, y1, x2, y2, pId) {
+	constructor(x1, y1, x2, y2) {
 		this.x1 = x1;
 		this.y1 = y1;
 		this.x2 = x2;
 		this.y2 = y2;
-		this.pId = pId;
 
 		let dx = Math.round(x2 - x1),
 			dy = Math.round(y2 - y1),
@@ -91,27 +90,51 @@ class Line {
 	}
 
 	limit(mouse, lines, snap) {
-		let distances = lines.map(line => {
-				if (this.dir % 2 === 0) {
-					let x = 1e2,
-						y = 1e2,
-						d = 1e2;
-					// horisontal & vertical
-					if (this.sX <= line.eX && this.eX >= line.sX) x = 0;
-					else if (this.eX < line.sX && this.eX < line.eX) x = line.sX - this.eX;
-					else if (this.sX > line.sX && this.sX > line.eX) x = line.eX - this.sX;
-					if (this.sY <= line.eY && this.eY >= line.sY) y = 0;
-					else if (this.eY < line.sY && this.eY < line.eY) y = this.eY - line.sY;
-					else if (this.sY > line.sY && this.sY > line.eY) y = this.sY - line.eY;
+		let distances = [];
 
-					if (line.dir === 0 && x === 0 && y < snap && y > -snap) d = y;
-					if (line.dir === 2 && y === 0 && x < snap && x > -snap) d = x;
+		lines.map(line => {
+			if (this.dir % 2 === 0) {
+				// horisontal & vertical
+				let x = 1e2,
+					y = 1e2,
+					d = 1e2;
+				// horisontal & vertical
+				if (this.sX <= line.eX && this.eX >= line.sX) x = 0;
+				else if (this.eX < line.sX && this.eX < line.eX) x = line.sX - this.eX;
+				else if (this.sX > line.sX && this.sX > line.eX) x = line.eX - this.sX;
+				if (this.sY <= line.eY && this.eY >= line.sY) y = 0;
+				else if (this.eY < line.sY && this.eY < line.eY) y = this.eY - line.sY;
+				else if (this.sY > line.sY && this.sY > line.eY) y = this.sY - line.eY;
 
-					return { x, y, d };
-				}
-			})
-			.filter(a => a.d <= snap)
-			.sort((a, b) => a.d - b.d);
+				if (line.dir === 0 && x === 0 && y < snap && y > -snap) d = y;
+				if (line.dir === 2 && y === 0 && x < snap && x > -snap) d = x;
+
+				if (d <= snap) distances.push({ x, y, d });
+			} else {
+				// diagonal
+				let dist = [
+					{ line: this, x: line.x1, y: line.y1, },
+					{ line: this, x: line.x2, y: line.y2, },
+					{ line, x: this.x1, y: this.y1, },
+					{ line, x: this.x2, y: this.y2, },
+				];
+				// calc distances
+				dist.map(dist => {
+					dist.val = dist.line.pointDistance(dist.x, dist.y);
+					dist.abs = Math.abs(dist.val);
+				});
+				// shortest distance
+				dist = dist.sort((a, b) => a.abs - b.abs);
+
+				let d = dist[0].abs,
+					x = dist[0].val * this._sin,
+					y = dist[0].val * this._cos;
+				
+				if (d <= snap) distances.push({ x, y, d });
+			}
+		})
+		// .filter(a => a.d <= snap)
+		.sort((a, b) => a.d - b.d);
 
 		if (distances.length) {
 			mouse.top -= distances[0].y;
