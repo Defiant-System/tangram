@@ -23,6 +23,8 @@
 		switch (event.type) {
 			case "deselect-active":
 				if (Self.els.active) Self.els.active.removeClass("active");
+				// clear debug, if any
+				window.find(".board svg.debug").remove();
 				break;
 			case "solve-puzzle":
 				data = Puzzles[event.name];

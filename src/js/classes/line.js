@@ -1,10 +1,11 @@
 
 class Line {
-	constructor(x1, y1, x2, y2) {
+	constructor(x1, y1, x2, y2, pId) {
 		this.x1 = x1;
 		this.y1 = y1;
 		this.x2 = x2;
 		this.y2 = y2;
+		this.pId = pId;
 
 		let dx = Math.round(x2 - x1),
 			dy = Math.round(y2 - y1),
@@ -89,44 +90,33 @@ class Line {
 		return ds * Math.sqrt(dx * dx + dy * dy);
 	}
 
-	distance(line, dir, snap) {
-		let dx = 0,
-			dy = 0;
-		if (this.dir % 2 === 0) {
-			let cx, cy;
-			// horisontal & vertical
-			if (this.sX <= line.eX && this.eX >= line.sX) cx = 0;
-			else if (this.eX < line.sX && this.eX < line.eX) cx = line.sX - this.eX;
-			else if (this.sX > line.sX && this.sX > line.eX) cx = line.eX - this.sX;
-			if (this.sY <= line.eY && this.eY >= line.sY) cy = 0;
-			else if (this.eY < line.sY && this.eY < line.eY) cy = this.eY - line.sY;
-			else if (this.sY > line.sY && this.sY > line.eY) cy = this.sY - line.eY;
+	limit(mouse, lines, snap) {
+		let distances = lines.map(line => {
+				if (this.dir % 2 === 0) {
+					let x = 1e2,
+						y = 1e2,
+						d = 1e2;
+					// horisontal & vertical
+					if (this.sX <= line.eX && this.eX >= line.sX) x = 0;
+					else if (this.eX < line.sX && this.eX < line.eX) x = line.sX - this.eX;
+					else if (this.sX > line.sX && this.sX > line.eX) x = line.eX - this.sX;
+					if (this.sY <= line.eY && this.eY >= line.sY) y = 0;
+					else if (this.eY < line.sY && this.eY < line.eY) y = this.eY - line.sY;
+					else if (this.sY > line.sY && this.sY > line.eY) y = this.sY - line.eY;
 
-			if (dir === 0 && cx === 0 && cy < snap && cy > -snap) dy = cy;
-			if (dir === 2 && cy === 0 && cx < snap && cx > -snap) dx = cx;
-		} else {
-			// diagonal
-			let distances = [
-					{ line: this, x: line.x1, y: line.y1, },
-					{ line: this, x: line.x2, y: line.y2, },
-					{ line, x: this.x1, y: this.y1, },
-					{ line, x: this.x2, y: this.y2, },
-				];
-			// calc distances
-			distances.map(dist => {
-				dist.val = dist.line.pointDistance(dist.x, dist.y);
-				dist.abs = Math.abs(dist.val);
-			});
-			// shortest distance
-			distances = distances.sort((a, b) => a.abs - b.abs);
+					if (line.dir === 0 && x === 0 && y < snap && y > -snap) d = y;
+					if (line.dir === 2 && y === 0 && x < snap && x > -snap) d = x;
 
-			// console.log( distances.map(d => d.abs) );
-			if (distances[0].abs < snap) {
-				dx = distances[0].val * this._sin;
-				dy = distances[0].val * this._cos;
-			}
+					return { x, y, d };
+				}
+			})
+			.filter(a => a.d <= snap)
+			.sort((a, b) => a.d - b.d);
+
+		if (distances.length) {
+			mouse.top -= distances[0].y;
+			mouse.left += distances[0].x;
 		}
-		return [dx, dy];
 	}
 
 	serialize() {

@@ -60,7 +60,7 @@ content {
 			}
 
 			circle.center {
-				display: block;
+				// display: block;
 			}
 
 			// g {
@@ -114,12 +114,18 @@ content {
 					fill: #f90;
 					transform: translate(-75px, -25px);
 				}
+
+				&.b3 polygon {
+					fill: #f90;
+					transform: translate(-50px, -50px);
+				}
 			}
 
 			line {
 				display: none;
 				stroke: #fff;
 				stroke-width: 4;
+				pointer-events: none;
 			}
 
 			circle {
