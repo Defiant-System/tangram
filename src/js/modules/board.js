@@ -62,13 +62,17 @@
 				break;
 			case "mousemove":
 				let top = Drag.click.y - event.clientY,
-					deg = Drag.offset.d - (top * 2),
+					deg = Drag.offset.d - (top * 2) + 720,
 					snap = deg % 45;
 				if (snap < 10) deg -= snap;
-				let transform = `translate(${Drag.offset.x}px, ${Drag.offset.y}px) rotate(${deg}deg)`;
-				Drag.el.css({ transform });
+				Drag.el.css({ transform: `translate(${Drag.offset.x}px, ${Drag.offset.y}px) rotate(${deg}deg)` });
+				// save value for mouseup
+				Drag.deg = deg;
 				break;
 			case "mouseup":
+				// make sure it lands on 45 deg's
+				let val = Math.round(Drag.deg / 45) * 45;
+				Drag.el.css({ transform: `translate(${Drag.offset.x}px, ${Drag.offset.y}px) rotate(${val}deg)` });
 				// reset app content
 				APP.content.removeClass("cover");
 				// unbind event handerls
@@ -90,7 +94,7 @@
 				// make sure active element is on top (z-index)
 				pEl.parentNode.insertBefore(pEl, pEl.parentNode.lastChild);
 
-				let el = $(pEl);
+				let el = $(pEl).addClass("dragging");
 				if (!el.attr("style")) console.log(el);
 				let [x, y, d] = el.attr("style").match(/(-?)[\d\.]{1,}/g).map(i => +i),
 					offset = { x, y, d },
@@ -125,6 +129,8 @@
 				Drag.el.css({ transform });
 				break;
 			case "mouseup":
+				// reset dragged element
+				Drag.el.removeClass("dragging");
 				// reset app content
 				APP.content.removeClass("cover");
 				// unbind event handerls

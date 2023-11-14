@@ -59,9 +59,9 @@ content {
 				}
 			}
 
-			circle.center {
-				// display: block;
-			}
+			// circle.center {
+			// 	display: block;
+			// }
 
 			// g {
 			// 	g {
@@ -95,11 +95,15 @@ content {
 				g {
 					pointer-events: all;
 
+					&.dragging {
+						// filter: drop-shadow(0 5px 5px rgba(#000,.75));
+					}
+
 					&.active {
-						// line,
-						// circle {
-						// 	display: block;
-						// }
+						line,
+						circle {
+							display: block;
+						}
 
 						polygon {
 							stroke: #fff;
@@ -136,9 +140,11 @@ content {
 				fill: #fff;
 				cursor: pointer;
 
-				&.center {
-					pointer-events: none;
-				}
+				// &.center {
+				// 	display: block;
+				// 	opacity: .5;
+				// 	pointer-events: none;
+				// }
 			}
 
 			polygon {
