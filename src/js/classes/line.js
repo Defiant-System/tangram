@@ -59,18 +59,18 @@ class Line {
 		return Math.hypot(...Object.keys(a).map(k => b[k] - a[k]));
 	}
 
-	pDistance(x, y) {
-		let A = x - this.x1;
-		let B = y - this.y1;
-		let C = this.x2 - this.x1;
-		let D = this.y2 - this.y1;
-		let len_sq = C * C + D * D;
-		let param = -1;
-		let xx;
-		let yy;
+	pointDistance(x, y) {
+		let a = x - this.x1,
+			b = y - this.y1,
+			c = this.x2 - this.x1,
+			d = this.y2 - this.y1,
+			len_sq = c * c + d * d,
+			param = -1,
+			xx,
+			yy;
 
 		//in case of 0 length line
-		if (len_sq != 0) param = (A * C + B * D) / len_sq;
+		if (len_sq != 0) param = (a * c + b * d) / len_sq;
 
 		if (param < 0) {
 			xx = this.x1;
@@ -79,43 +79,53 @@ class Line {
 			xx = this.x2;
 			yy = this.y2;
 		} else {
-			xx = this.x1 + param * C;
-			yy = this.y1 + param * D;
+			xx = this.x1 + param * c;
+			yy = this.y1 + param * d;
 		}
 
 		let dx = x - xx;
 		let dy = y - yy;
-		return Math.sqrt(dx * dx + dy * dy);
+		let ds = dx < 0 ? -1 : 1;
+		return ds * Math.sqrt(dx * dx + dy * dy);
 	}
 
-	distance(line, snap) {
-		let dx, dy, dn;
+	distance(line, dir, snap) {
+		let dx = 0,
+			dy = 0;
 		if (this.dir % 2 === 0) {
+			let cx, cy;
 			// horisontal & vertical
-			if (this.sX <= line.eX && this.eX >= line.sX) dx = 0;
-			else if (this.eX < line.sX && this.eX < line.eX) dx = line.sX - this.eX;
-			else if (this.sX > line.sX && this.sX > line.eX) dx = line.eX - this.sX;
-			if (this.sY <= line.eY && this.eY >= line.sY) dy = 0;
-			else if (this.eY < line.sY && this.eY < line.eY) dy = this.eY - line.sY;
-			else if (this.sY > line.sY && this.sY > line.eY) dy = this.sY - line.eY;
+			if (this.sX <= line.eX && this.eX >= line.sX) cx = 0;
+			else if (this.eX < line.sX && this.eX < line.eX) cx = line.sX - this.eX;
+			else if (this.sX > line.sX && this.sX > line.eX) cx = line.eX - this.sX;
+			if (this.sY <= line.eY && this.eY >= line.sY) cy = 0;
+			else if (this.eY < line.sY && this.eY < line.eY) cy = this.eY - line.sY;
+			else if (this.sY > line.sY && this.sY > line.eY) cy = this.sY - line.eY;
+
+			if (dir === 0 && cx === 0 && cy < snap && cy > -snap) dy = cy;
+			if (dir === 2 && cy === 0 && cx < snap && cx > -snap) dx = cx;
 		} else {
 			// diagonal
 			let distances = [
-					{ x1: line.x1, y1: line.y1, d: this.pDistance(line.x1, line.y1) },
-					{ x2: line.x2, y2: line.y2, d: this.pDistance(line.x2, line.y2) },
-					{ x1: this.x1, y1: this.y1, d: line.pDistance(this.x1, this.y1) },
-					{ x1: this.x1, y1: this.y1, d: line.pDistance(this.x1, this.y1) },
-				],
-				shortest = distances.sort((a, b) => a.d - b.d)[0];
-			// set shortest distance
-			dn = shortest.d;
+					{ line: this, x: line.x1, y: line.y1, },
+					{ line: this, x: line.x2, y: line.y2, },
+					{ line: line, x: this.x1, y: this.y1, },
+					{ line: line, x: this.x2, y: this.y2, },
+				];
+			// calc distances
+			distances.map(dist => {
+				dist.val = dist.line.pointDistance(dist.x, dist.y);
+				dist.abs = Math.abs(dist.val);
+			});
+			// shortest distance
+			distances = distances.sort((a, b) => a.abs - b.abs);
 
-			if (dn < snap) {
-				dx = dn * this._sin;
-				dy = dn * this._cos;
+			if (distances[0].abs < snap) {
+				dx = distances[0].val * this._sin;
+				dy = distances[0].val * this._cos;
 			}
 		}
-		return [dx, dy, dn];
+		return [dx, dy];
 	}
 
 	serialize() {
