@@ -148,7 +148,7 @@ class Line {
 			case 135: x1 -= b; y1 += b; x2 += b; y2 -= b; break;
 			case 225: x1 -= b; y1 -= b; x2 += b; y2 += b; break;
 			case 315: x1 += b; y1 -= b; x2 -= b; y2 += b; break;
-			default: console.log(theta);
+			default: console.log(this.theta);
 		}
 		return new Line(x1, y1, x2, y2);
 	}

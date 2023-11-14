@@ -45,7 +45,7 @@
 				let target = event.target,
 					pEl = target.parentNode,
 					el = $(pEl),
-					[x, y, d] = el.attr("style").match(/\d{1,}/g).map(i => +i),
+					[x, y, d] = el.attr("style").match(/(-?)[\d\.]{1,}/g).map(i => +i),
 					offset = { x, y, d },
 					click = {
 						x: event.clientX,
@@ -84,23 +84,23 @@
 				if (target.nodeName === "circle") return Self.doRotate(event);
 				if (target.nodeName === "svg") return;
 
-				let pEl = target.parentNode,
-					el = $(pEl),
-					[x, y, d] = el.attr("style").match(/(-?)\d{1,}/g).map(i => +i),
+				let pEl = target.parentNode;
+				// make sure active element is on top (z-index)
+				pEl.parentNode.insertBefore(pEl, pEl.parentNode.lastChild);
+
+				let el = $(pEl),
+					[x, y, d] = el.attr("style").match(/(-?)[\d\.]{1,}/g).map(i => +i),
 					offset = { x, y, d },
 					click = {
 						x: x - event.clientX,
 						y: y - event.clientY,
 					},
-					rect = pEl.getBBox(),
 					guides = new Guides({
 						debug: true,
 						omit: [pEl],
 						offset,
 					});
-				
-				// make sure active element is on top (z-index)
-				pEl.parentNode.insertBefore(pEl, pEl.parentNode.lastChild);
+				// make item active
 				if (Self.els.active) Self.els.active.removeClass("active");
 				Self.els.active = el.addClass("active");
 

@@ -14,7 +14,7 @@ let Test = {
 		// let line = new Line(50, 0, -50, 100);
 		// console.log( line.pointDistance(50, 50) );
 
-		new Guides({ debug: true });
+		// new Guides({ debug: true });
 	}
 };
 
