@@ -27,6 +27,7 @@ const tangram = {
 			case "open-help":
 				karaqu.shell("fs -u '~/help/index.md'");
 				break;
+			case "output-pgn":
 			case "draw-puzzle":
 			case "scramble-pieces":
 				return Self.board.dispatch(event);

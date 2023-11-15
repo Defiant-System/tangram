@@ -27,6 +27,9 @@
 				// clear debug, if any
 				window.find(".board svg.debug").remove();
 				break;
+			case "output-pgn":
+				console.log(event);
+				break;
 			case "scramble-pieces":
 				break;
 			case "toggle-outline-visibility":
@@ -36,7 +39,7 @@
 				Self.els.pieces.toggleClass("hidden", event.value);
 				break;
 			case "draw-puzzle":
-				data = Puzzles[event.name];
+				data = Puzzles[event.arg];
 				// outlines / background
 				Object.keys(data).map(k => {
 					let [x, y, r] = data[k];

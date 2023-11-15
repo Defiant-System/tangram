@@ -10,6 +10,8 @@
 		<Menu name="Box" click="draw-puzzle" arg="box"/>
 		<Menu name="Tree" click="draw-puzzle" arg="tree"/>
 		<Menu name="House" click="draw-puzzle" arg="house"/>
+		<Menu type="divider"/>
+		<Menu name="Output PGN" click="output-pgn"/>
 	</Menu>
 	<Menu name="Help">
 		<Menu name="Help" click="open-help"/>

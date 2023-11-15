@@ -8,7 +8,7 @@
 		.st4{fill:#FFCF2F;filter:url(#is1) url(#is2);}
 		.st5{fill:#508AC8;filter:url(#is1) url(#is2);}
 		.st6{fill:#3EB54A;filter:url(#is1) url(#is2);}
-		.st7{fill:#8B52A1;filter:url(#is1) url(#is2);}
+		.st7{fill:#b372cc;filter:url(#is1) url(#is2);}
 		.st8{fill:url(#SVGID_1_);filter:url(#defapp-filter-1);}
 	</style>
 	<filter id="is1">
@@ -16,7 +16,7 @@
 			<feFuncA type="table" tableValues="1 0"/>
 		</feComponentTransfer>
 		<feGaussianBlur stdDeviation="0"/>
-		<feOffset dx="0" dy="-.75" result="offsetblur"/>
+		<feOffset dx="0" dy="-.6" result="offsetblur"/>
 		<feFlood flood-color="#00000044" result="color"/>
 		<feComposite in2="offsetblur" operator="in"/>
 		<feComposite in2="SourceAlpha" operator="in"/>
@@ -30,7 +30,7 @@
 			<feFuncA type="table" tableValues="1 0"/>
 		</feComponentTransfer>
 		<feGaussianBlur stdDeviation="0"/>
-		<feOffset dx="0" dy=".75" result="offsetblur"/>
+		<feOffset dx="0" dy=".6" result="offsetblur"/>
 		<feFlood flood-color="#ffffff88" result="color"/>
 		<feComposite in2="offsetblur" operator="in"/>
 		<feComposite in2="SourceAlpha" operator="in"/>
