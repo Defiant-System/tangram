@@ -1,7 +1,8 @@
 
 let Test = {
 	init(APP) {
-		APP.board.dispatch({ type: "solve-puzzle", name: "test" });
+		APP.board.dispatch({ type: "puzzle-draw-bg", name: "house" });
+		APP.board.dispatch({ type: "solve-puzzle", name: "house" });
 
 		let l1 = new Line(120, 69, 170, 119),
 			l2 = new Line(175, 220, 125, 170);
