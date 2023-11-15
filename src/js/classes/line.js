@@ -127,7 +127,7 @@ class Line {
 				let d = dist[0].abs,
 					x = dist[0].abs * this._sin,
 					y = dist[0].abs * this._cos;
-				
+
 				if (d <= snap) distances.push({ x, y, d });
 			}
 		})
@@ -135,8 +135,8 @@ class Line {
 		.sort((a, b) => a.d - b.d);
 
 		if (distances.length) {
-			mouse.top -= distances[0].y;
-			mouse.left += distances[0].x;
+			mouse.top -= Math.round(distances[0].y);
+			mouse.left += Math.round(distances[0].x);
 		}
 	}
 

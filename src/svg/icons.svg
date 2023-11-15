@@ -1,5 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0">
 
+	<defs>
+		<filter id="tangram-beveled">
+			<feGaussianBlur stdDeviation="1" in="eroded" result="blured"/>
+			<feSpecularLighting in="blured" result="specularKey" specularExponent="200" lighting-color="#fff" surfaceScale="1">
+				<fePointLight x="50" y="-100" z="200" />
+			</feSpecularLighting>
+			<feSpecularLighting in="blured" result="specularFill" specularExponent="200" lighting-color="#9af" surfaceScale="1">
+				<fePointLight x="450" y="400" z="900" />
+			</feSpecularLighting>
+			<feBlend mode="screen" in="specularKey" in2="specularFill" result="specular"/>
+			<feBlend mode="screen" in="specular" in2="SourceGraphic" result="comped"/>
+			<feComposite in="comped" in2="SourceGraphic" operator="in" result="clipped"/>
+		</filter>
+	</defs>
+
 	<svg id="icon-undo" viewBox="0 0 13 13">
 		<style type="text/css">
 			.st0{fill:#333;}

@@ -20,8 +20,8 @@ content {
 	}
 
 	.board {
-		--color-1: rgba(#fff,.025);
-		--color-2: rgba(#fff,.05);
+		--color-1: rgba(#fff,.04);
+		--color-2: rgba(#fff,.03);
 
 		&:before {
 			content: "";
@@ -58,7 +58,7 @@ content {
 		&.debug svg {
 			&.debug {
 				pointer-events: none;
-				z-index: 2;
+				z-index: 4;
 
 				g.center {
 					opacity: .25;
@@ -102,8 +102,8 @@ content {
 						}
 
 						polygon {
-							stroke: #fff;
-							stroke-width: 3;
+							// stroke: #fff;
+							// stroke-width: 3;
 						}
 					}
 				}
@@ -148,7 +148,9 @@ content {
 				stroke-width: 1;
 				stroke-linejoin: round;
 				cursor: move;
-				// opacity: .65;
+				// filter: url(#tangram-beveled);
+				// stroke-width: 11;
+				// stroke: #222;
 			}
 
 
@@ -163,7 +165,7 @@ content {
 			}
 
 			.p21 {
-				fill: #f90;
+				fill: #ff9900;
 				transform: translate(-50px, -100px);
 			}
 
