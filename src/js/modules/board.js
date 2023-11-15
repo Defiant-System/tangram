@@ -7,11 +7,12 @@
 		this.els = {
 			doc: $(document),
 			el: window.find(".board"),
-			svg: window.find(".board svg"),
+			outline: window.find(".board svg.outline"),
+			pieces: window.find(".board svg.pieces"),
 		};
 
 		// bind event handlers
-		this.els.svg.on("mousedown", this.doDrag);
+		this.els.pieces.on("mousedown", this.doDrag);
 	},
 	dispatch(event) {
 		let APP = tangram,
@@ -26,19 +27,26 @@
 				// clear debug, if any
 				window.find(".board svg.debug").remove();
 				break;
-			case "puzzle-draw-bg":
+			case "scramble-pieces":
+				break;
+			case "toggle-outline-visibility":
+				Self.els.outline.toggleClass("hidden", event.value);
+				break;
+			case "toggle-pieces-visibility":
+				Self.els.pieces.toggleClass("hidden", event.value);
+				break;
+			case "draw-puzzle":
 				data = Puzzles[event.name];
+				// outlines / background
 				Object.keys(data).map(k => {
 					let [x, y, r] = data[k];
-					APP.content.find(`g.${k}`)
+					Self.els.outline.find(`g.${k}`)
 						.css({ "transform": `translate(${x}px, ${y}px) rotate(${r}deg)` });
 				});
-				break;
-			case "solve-puzzle":
-				data = Puzzles[event.name];
+				// pieces
 				Object.keys(data).map(k => {
 					let [x, y, r] = data[k];
-					APP.content.find(`g.${k}`)
+					Self.els.pieces.find(`g.${k}`)
 						.css({ "transform": `translate(${x}px, ${y}px) rotate(${r}deg)` });
 				});
 				break;

@@ -4,8 +4,9 @@
 			<Tool symbol="icon-undo" click="board-undo" state="disabled"/>
 			<Tool symbol="icon-redo" click="board-redo" state="disabled"/>
 		</Options>
-		<Tool name="Scramble"/>
-		<Tool name="Solve"/>
+		<Tool name="Scramble" click="scramble-pieces"/>
+		<Tool name="Pieces" click="toggle-pieces-visibility"/>
+		<Tool name="Outline" click="toggle-outline-visibility"/>
 	</Group>
 	<Group class="empty"/>
 </ToolBar>

@@ -27,6 +27,14 @@ const tangram = {
 			case "open-help":
 				karaqu.shell("fs -u '~/help/index.md'");
 				break;
+			case "draw-puzzle":
+			case "scramble-pieces":
+				return Self.board.dispatch(event);
+			case "toggle-pieces-visibility":
+			case "toggle-outline-visibility":
+				value = event.el.hasClass("tool-active_");
+				Self.board.dispatch({ ...event, value });
+				return !value;
 			default:
 				el = event.el;
 				if (event.origin) el = event.origin.el;

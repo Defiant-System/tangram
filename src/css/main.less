@@ -65,7 +65,19 @@ content {
 			position: absolute;
 			z-index: 3;
 
-			&.puzzle {
+			&.hidden {
+				opacity: 0;
+				visibility: hidden;
+
+				&.outline,
+				&.pieces {
+					g {
+						pointer-events: none;
+					}
+				}
+			}
+
+			&.outline {
 				// display: none;
 				mix-blend-mode: hard-light;
 				filter: drop-shadow(0 1px 0 rgba(#fff,.25));
@@ -81,21 +93,6 @@ content {
 
 			&.pieces {
 				// display: none;
-
-				.p1 { fill: #0f82f2; }
-				.p2 { fill: #fd8c00; }
-				.p3 { fill: #cd0e66; }
-				.p4 { fill: #6d3bbf; }
-				.p5 { fill: #009ea6; }
-				.p6 { fill: #eb4726; }
-				.p7 { fill: #22ab24; }
-			}
-
-			g {
-				&.center {
-					pointer-events: none;
-					transform: translate(199.5px, 170.5px);
-				}
 
 				g {
 					pointer-events: all;
@@ -131,6 +128,21 @@ content {
 					fill: #f90;
 					transform: translate(-50px, -50px);
 				}
+
+				.p1 { fill: #0f82f2; }
+				.p2 { fill: #fd8c00; }
+				.p3 { fill: #cd0e66; }
+				.p4 { fill: #6d3bbf; }
+				.p5 { fill: #009ea6; }
+				.p6 { fill: #eb4726; }
+				.p7 { fill: #22ab24; }
+			}
+
+			g {
+				&.center {
+					pointer-events: none;
+					transform: translate(199.5px, 170.5px);
+				}
 			}
 
 			line {
@@ -144,12 +156,6 @@ content {
 				display: none;
 				fill: #fff;
 				cursor: pointer;
-
-				// &.center {
-				// 	display: block;
-				// 	opacity: .5;
-				// 	pointer-events: none;
-				// }
 			}
 
 			polygon {

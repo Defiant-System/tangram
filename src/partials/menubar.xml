@@ -4,6 +4,13 @@
 		<Menu type="divider"/>
 		<Menu name="Quit Tangram" shell="win -c"/>
 	</Menu>
+	<Menu name="Game" for="game-board">
+		<Menu name="Reset Puzzle"/>
+		<Menu type="divider"/>
+		<Menu name="Box" click="draw-puzzle" arg="box"/>
+		<Menu name="Tree" click="draw-puzzle" arg="tree"/>
+		<Menu name="House" click="draw-puzzle" arg="house"/>
+	</Menu>
 	<Menu name="Help">
 		<Menu name="Help" click="open-help"/>
 		<Menu type="divider"/>
