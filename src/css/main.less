@@ -20,7 +20,25 @@ content {
 	}
 
 	.board {
+		--color-1: rgba(#fff,.025);
+		--color-2: rgba(#fff,.05);
+
 		&:before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			z-index: 1;
+			background-position: -8px -57px;
+			background-image: repeating-linear-gradient(90deg, var( --color-1 ) 0px, var( --color-1 ) 1px,transparent 1px, transparent 104px),
+								repeating-linear-gradient(0deg, var( --color-1 ) 0px, var( --color-1 ) 1px,transparent 1px, transparent 104px),
+								repeating-linear-gradient(0deg, var( --color-2 ) 0px, var( --color-2 ) 1px,transparent 1px, transparent 26px),
+								repeating-linear-gradient(90deg, var( --color-2 ) 0px, var( --color-2 ) 1px,transparent 1px, transparent 26px);
+		}
+
+		&:after {
 			content: "";
 			position: absolute;
 			top: 0;
@@ -51,6 +69,7 @@ content {
 					display: block;
 					stroke: #fff;
 					stroke-width: 1;
+					opacity: .5;
 				}
 
 				circle {
@@ -81,10 +100,6 @@ content {
 		svg {
 			position: absolute;
 			z-index: 3;
-
-			rect.debug {
-				fill: rgba(#000,.25);
-			}
 
 			g {
 				&.center {
