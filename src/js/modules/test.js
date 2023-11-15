@@ -3,6 +3,8 @@ let Test = {
 	init(APP) {
 		APP.board.dispatch({ type: "draw-puzzle", arg: "box" });
 
+		setTimeout(() => APP.board.dispatch({ type: "output-pgn" }), 200);
+
 		let l1 = new Line(120, 69, 170, 119),
 			l2 = new Line(175, 220, 125, 170);
 

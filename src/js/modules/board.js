@@ -28,7 +28,18 @@
 				window.find(".board svg.debug").remove();
 				break;
 			case "output-pgn":
-				console.log(event);
+				data = {};
+				Self.els.pieces.find(`g.center g`).map(piece => {
+					name = piece.getAttribute("class").split(" ")[0];
+					value = piece.getAttribute("style").match(/(-?)[\d\.]{1,}/g).map(i => +i);
+					data[name] = value;
+				});
+				let str = JSON.stringify(data);
+				str = str.replace(/\{/g, "\n{\n\t");
+				str = str.replace(/\],"/g, '\],\n\t"');
+				str = str.replace(/\}/g, "\n}");
+				str = str.replace(/"/g, "");
+				console.log( str );
 				break;
 			case "scramble-pieces":
 				break;
