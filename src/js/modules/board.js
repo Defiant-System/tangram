@@ -51,15 +51,17 @@
 				break;
 			case "draw-puzzle":
 				data = Puzzles[event.arg];
-				// outlines / background
-				Object.keys(data).map(k => {
-					let [x, y, r] = data[k];
-					Self.els.outline.find(`g.${k}`)
-						.css({ "transform": `translate(${x}px, ${y}px) rotate(${r}deg)` });
-				});
+				if (data.outlines === undefined || data.outlines !== false) {
+					// outlines / background
+					Object.keys(data.pieces).map(k => {
+						let [x, y, r] = data.pieces[k];
+						Self.els.outline.find(`g.${k}`)
+							.css({ "transform": `translate(${x}px, ${y}px) rotate(${r}deg)` });
+					});
+				}
 				// pieces
-				Object.keys(data).map(k => {
-					let [x, y, r] = data[k];
+				Object.keys(data.pieces).map(k => {
+					let [x, y, r] = data.pieces[k];
 					Self.els.pieces.find(`g.${k}`)
 						.css({ "transform": `translate(${x}px, ${y}px) rotate(${r}deg)` });
 				});
