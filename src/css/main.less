@@ -22,6 +22,7 @@ content {
 	.board {
 		--color-1: rgba(#fff,.03);
 		--color-2: rgba(#fff,.02);
+		--color-3: #fff;
 
 		&:before {
 			content: "";
@@ -50,14 +51,14 @@ content {
 
 				line {
 					display: block;
-					stroke: #fff;
-					stroke-width: 1;
-					opacity: .5;
+					stroke: var( --color-3 );
+					stroke-width: .5;
+					// opacity: .5;
 				}
 
 				circle {
 					display: block;
-					fill: #fff;
+					fill: var( --color-3 );
 				}
 			}
 		}

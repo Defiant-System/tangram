@@ -86,7 +86,7 @@ class Line {
 		let dx = x - xx;
 		let dy = y - yy;
 		let dd = Math.sqrt(dx * dx + dy * dy);
-		return { x: dx, y: dy, v: dd };
+		return { dx, dy, dd };
 	}
 
 	limit(mouse, lines, snap) {
@@ -109,7 +109,7 @@ class Line {
 				if (line.dir === 0 && x === 0 && y < snap && y > -snap) d = y;
 				if (line.dir === 2 && y === 0 && x < snap && x > -snap) d = x;
 
-				if (d <= snap) distances.push({ x, y, d });
+				if (d <= snap) distances.push({ x, y });
 			} else {
 				// diagonal
 				let dist = [
@@ -121,8 +121,8 @@ class Line {
 					// calc distances
 					.map(dist => {
 						let data = dist.line.pointDistance(dist.x, dist.y),
-							abs = Math.abs(data.v);
-						return { ...dist, data, abs };
+							abs = Math.abs(data.dd);
+						return { ...dist, ...data, abs };
 					})
 					// shortest distance
 					.sort((a, b) => a.abs - b.abs);
@@ -131,7 +131,7 @@ class Line {
 				if (d <= snap) {
 					let x = d * this._sin,
 						y = d * this._cos;
-					distances.push({ x, y, d });
+					distances.push({ x, y });
 				}
 			}
 		});
