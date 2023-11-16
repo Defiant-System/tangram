@@ -85,7 +85,8 @@ class Line {
 
 		let dx = x - xx;
 		let dy = y - yy;
-		return Math.sqrt(dx * dx + dy * dy);
+		let dd = Math.sqrt(dx * dx + dy * dy);
+		return { x: dx, y: dy, v: dd };
 	}
 
 	limit(mouse, lines, snap) {
@@ -112,27 +113,28 @@ class Line {
 			} else {
 				// diagonal
 				let dist = [
-					{ line: this, x: line.x1, y: line.y1, },
-					{ line: this, x: line.x2, y: line.y2, },
-					{ line, x: this.x1, y: this.y1, },
-					{ line, x: this.x2, y: this.y2, },
-				];
-				// calc distances
-				dist.map(dist => {
-					dist.abs = Math.abs(dist.line.pointDistance(dist.x, dist.y));
-				});
-				// shortest distance
-				dist = dist.sort((a, b) => a.abs - b.abs);
+						{ line: this, x: line.x1, y: line.y1, },
+						{ line: this, x: line.x2, y: line.y2, },
+						{ line, x: this.x1, y: this.y1, },
+						{ line, x: this.x2, y: this.y2, },
+					]
+					// calc distances
+					.map(dist => {
+						let data = dist.line.pointDistance(dist.x, dist.y),
+							abs = Math.abs(data.v);
+						return { ...dist, data, abs };
+					})
+					// shortest distance
+					.sort((a, b) => a.abs - b.abs);
 
-				let d = dist[0].abs,
-					x = dist[0].abs * this._sin,
-					y = dist[0].abs * this._cos;
-
-				if (d <= snap) distances.push({ x, y, d });
+				let d = dist[0].abs;
+				if (d <= snap) {
+					let x = d * this._sin,
+						y = d * this._cos;
+					distances.push({ x, y, d });
+				}
 			}
-		})
-		// .filter(a => a.d <= snap)
-		.sort((a, b) => a.d - b.d);
+		});
 
 		if (distances.length) {
 			mouse.top -= Math.round(distances[0].y);
