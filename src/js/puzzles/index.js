@@ -18,8 +18,6 @@ let Puzzles = {
 	},
 	
 
-
-
 	box: {
 		pieces: {
 			g1: [100, 150, 0],
