@@ -1,7 +1,7 @@
 
 let Test = {
 	init(APP) {
-		APP.board.dispatch({ type: "draw-puzzle", arg: "test" });
+		APP.board.dispatch({ type: "draw-puzzle", arg: "box" });
 
 		// setTimeout(() => APP.board.dispatch({ type: "output-pgn" }), 200);
 
