@@ -4,7 +4,7 @@
 		<filter id="tangram-beveled">
 			<feGaussianBlur stdDeviation="1" in="eroded" result="blured"/>
 			<feSpecularLighting in="blured" result="specularKey" specularExponent="200" lighting-color="#fff" surfaceScale="1">
-				<fePointLight x="100" y="-100" z="200" />
+				<fePointLight x="0" y="-100" z="200" />
 			</feSpecularLighting>
 			<feSpecularLighting in="blured" result="specularFill" specularExponent="100" lighting-color="#33333355" surfaceScale="1">
 				<fePointLight x="300" y="400" z="900" />
