@@ -6,6 +6,7 @@
 		// fast references
 		this.els = {
 			el: window.find(".game-view"),
+			content: window.find("content"),
 		};
 
 		// init tiles
@@ -17,9 +18,6 @@
 
 		// bind event handlers
 		this.els.el.on("mousedown", ".tile", this.move);
-
-		// temp
-		this.els.el.find(".tile").get(1).trigger("mousedown").trigger("mouseup");
 	},
 	dispatch(event) {
 		let APP = tangram,
@@ -48,28 +46,38 @@
 					el = $(event.target).parents("?.tile"),
 					tile = Self.tiles[el.data("id")],
 					offset = {
-						x: tile.position.x,
-						y: tile.position.y,
+						position: tile.position,
 						rotation: tile.rotation,
+						center: tile.center,
 					},
-					click = {
-						x: event.clientX,
-						y: event.clientY,
+					start = {
+						position: new Point(event.clientX, event.clientY),
 					};
 
 				// drag info
-				Self.drag = { doc, el, tile, click, offset };
+				Self.drag = { doc, el, tile, start, offset };
+				// tile starts to move
+				tile.rotateStart();
+				// cover content
+				Self.els.content.addClass("cover");
 				// bind event handlers
 				Self.drag.doc.on("mousemove mouseup", Self.rotate);
 				break;
 			case "mousemove":
-				let top = Drag.click.y - event.clientY,
-					deg = Drag.offset.rotation - (top * 2) + 720,
-					transform = `translate(${Drag.offset.x}px, ${Drag.offset.y}px) rotate(${deg}deg)`;
+				let position = new Point(event.clientX, event.clientY),
+					angle = Drag.offset.rotation - new Angle(position, Drag.offset.center, Drag.start.position).deg;
+				// let top = Drag.click.y - event.clientY,
+				// 	deg = Drag.offset.rotation - (top * 2),
+				// 	transform = `translate(${Drag.offset.x}px, ${Drag.offset.y}px) rotate(${deg}deg)`;
 
-				Drag.tile.props.el.css({ transform });
+				// Drag.tile.props.el.css({ transform });
+				Drag.tile.rotate(angle);
 				break;
 			case "mouseup":
+				// reset tile
+				Drag.tile.rotateEnd();
+				// uncover content
+				Self.els.content.removeClass("cover");
 				// unbind event handlers
 				Drag.doc.off("mousemove mouseup", Self.rotate);
 				break;
@@ -104,6 +112,8 @@
 				if (Self.active) Self.active.removeClass("active");
 				// save reference to "active"
 				Self.active = el.addClass("active");
+				// cover content
+				Self.els.content.addClass("cover");
 				// bind event handlers
 				Self.drag.doc.on("mousemove mouseup", Self.move);
 				break;
@@ -120,6 +130,8 @@
 			case "mouseup":
 				// reset tile
 				Drag.tile.moveEnd();
+				// uncover content
+				Self.els.content.removeClass("cover");
 				// unbind event handlers
 				Drag.doc.off("mousemove mouseup", Self.move);
 				break;

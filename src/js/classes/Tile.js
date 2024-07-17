@@ -28,6 +28,10 @@ class Tile {
 		this.setPath(this.path);
 	}
 
+	get center() {
+		return this.position;
+	}
+
 	moveStart(t=!1) {
 		this.isActive = true;
 		this.startPosition = this.position;
@@ -52,30 +56,16 @@ class Tile {
 
 	moveEnd() {
 		this.isActive = false;
-		this.collision && this.collide(this.collision);
 		this.setTransform();
-	}
-
-	rotate(t, e=A) {
-		this.position = this.position.rotate(toRadians(t), e);
-		this.rotation = ot(this.rotation + t, 360);
-		this.transform(!0);
 	}
 
 	transform(t) {
 		var i, n;
 		let e = toRadians(this.rotation);
-		// this.props.parent.setTransform(this.position, e);
-		// this.redrawCables();
-		// !t && this.path && 
 		this.transformed = this.path.rotate(e).translate(this.position);
 		this.padding && (this.transformedPadded = at(this.path).padding(...this.padding).rotate(e).translate(this.position));
 		this.snapPoints = this.getSnapPoints().map(r => r.rotate(e).translate(this.position));
 		this.snapLines = this.getSnapLines().map(r => r.rotate(e).translate(this.position));
-		// (i = this.$errorIcon) == null || i.setTransform(at(this.path).p.shift(-28, 5));
-		// (n = this.group) == null || n.transform();
-		
-		// if (this.props.id == "a") console.log( this.snapLines );
 	}
 
 	setTransform(t=this.position, e=this.rotation) {
@@ -86,6 +76,27 @@ class Tile {
 
 		this.transform();
 	}
+
+
+
+	rotateStart() {
+		this.startAngle = this.rotation;
+	}
+
+	rotate(t, e=A) {
+		this.position = this.position.rotate(toRadians(t), e);
+		this.rotation = ot(this.rotation + t, 360);
+
+		let transform = `translate(${this.position.x} ${this.position.y}) rotate(${this.rotation})`;
+		this.props.el.attr({ transform });
+		// this.transform(!0);
+	}
+
+	rotateEnd() {
+		this.setTransform();
+	}
+
+
 
 	setPath(path) {
 		this.snapAngles = Rt(path.edges.map(o => ot(Math.round(toDegrees(o.angle)), 180)));

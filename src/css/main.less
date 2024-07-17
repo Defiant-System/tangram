@@ -10,6 +10,19 @@ content {
 	bottom: 0;
 	background: #5d2396 radial-gradient(circle at 50%, #ffffff66, transparent);
 
+	&.cover {
+		&:before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			z-index: 19;
+			// cursor: none;
+		}
+	}
+
 	canvas.tangram-bg {
 		position: absolute;
 		top: 0;
