@@ -24,8 +24,7 @@ class Angle {
 	get rad() {
 		let t = Math.atan2(this.a.y - this.b.y, this.a.x - this.b.x),
 			i = Math.atan2(this.c.y - this.b.y, this.c.x - this.b.x) - t;
-		return i < 0 && (i += mt),
-		i;
+		return i < 0 && (i += mt), i;
 	}
 
 	get deg() {

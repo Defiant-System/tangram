@@ -7,6 +7,7 @@
 		this.els = {
 			el: window.find(".game-view"),
 			content: window.find("content"),
+			tmp: window.find(".tmp"),
 		};
 
 		// init tiles
@@ -51,8 +52,10 @@
 						center: tile.center,
 					},
 					start = {
-						position: new Point(event.clientX, event.clientY),
+						position: new Point(event.clientX, event.clientY + 55),
 					};
+
+				// console.log( event.layerX, event.layerY );
 
 				// drag info
 				Self.drag = { doc, el, tile, start, offset };
@@ -65,13 +68,11 @@
 				break;
 			case "mousemove":
 				let position = new Point(event.clientX, event.clientY),
-					angle = Drag.offset.rotation - new Angle(position, Drag.offset.center, Drag.start.position).deg;
-				// let top = Drag.click.y - event.clientY,
-				// 	deg = Drag.offset.rotation - (top * 2),
-				// 	transform = `translate(${Drag.offset.x}px, ${Drag.offset.y}px) rotate(${deg}deg)`;
+					angle = Drag.offset.rotation + new Angle(Drag.offset.center, Drag.start.position, position).deg;
+				
+				Self.els.tmp.html( `${angle|0}˚` );
 
-				// Drag.tile.props.el.css({ transform });
-				Drag.tile.rotate(angle);
+				Drag.tile.rotate(angle, Drag.offset.center);
 				break;
 			case "mouseup":
 				// reset tile

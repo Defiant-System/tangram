@@ -87,7 +87,7 @@ class Tile {
 		this.position = this.position.rotate(toRadians(t), e);
 		this.rotation = ot(this.rotation + t, 360);
 
-		let transform = `translate(${this.position.x} ${this.position.y}) rotate(${this.rotation})`;
+		let transform = `translate(${this.position.x} ${this.position.y}) rotate(${t})`;
 		this.props.el.attr({ transform });
 		// this.transform(!0);
 	}
