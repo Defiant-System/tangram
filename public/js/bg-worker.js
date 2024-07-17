@@ -60,7 +60,7 @@ let Anim = {
 			i = Self.lines.length;
 		// clear react
 		ctx.globalCompositeOperation = "destination-out";
-		ctx.fillStyle = "hsla(0, 0%, 0%, 0.15)";
+		ctx.fillStyle = "hsla(0, 0%, 0%, 0.1)";
 		ctx.fillRect(0, 0, Self.width, Self.height);
 		ctx.globalCompositeOperation = "screen";
 
@@ -184,7 +184,7 @@ class Line {
 		for (let j=0, length=this.path.length; j<length; j++) {
 			ctx[(j === 0) ? "moveTo" : "lineTo"](this.path[j].x + Utils.rand(-rando, rando), this.path[j].y + Utils.rand(-rando, rando));
 		}
-		ctx.strokeStyle = `hsla(200, 80%, 70%, ${this.life/5})`;
+		ctx.strokeStyle = `hsla(280, 50%, 65%, ${this.life/5})`;
 		// ctx.strokeStyle = `hsla(${Utils.rand(this.hue, this.hue + 30)}, 80%, 55%, ${this.life/3})`;
 		ctx.lineWidth = Utils.rand( 0.1, 2 );
 		ctx.stroke();

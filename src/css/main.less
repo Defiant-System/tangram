@@ -8,7 +8,7 @@ content {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: #1774d2 radial-gradient(circle at 50%, #ffffff66, transparent);
+	background: #5d2396 radial-gradient(circle at 50%, #ffffff66, transparent);
 
 	canvas.tangram-bg {
 		position: absolute;
@@ -17,7 +17,7 @@ content {
 		width: 100%;
 		height: 100%;
 		// opacity: .5;
-		// mix-blend-mode: hard-light;
+		mix-blend-mode: hard-light;
 		border-radius: inherit;
 		pointer-events: none;
 	}
@@ -28,11 +28,12 @@ content {
 		left: 0;
 		right: 0;
 		bottom: 0;
+		// display: none;
 
 		svg {
 
 			.tile {
-				
+				cursor: pointer;
 			}
 
 			.polygon-tile {
