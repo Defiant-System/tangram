@@ -1,184 +1,50 @@
 
+background: transparent;
+
+
 content {
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
+	background: #1774d2 radial-gradient(circle at 50%, #ffffff66, transparent);
 
-	&.cover {
-		&:before {
-			content: "";
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			z-index: 19;
-			// cursor: none;
-		}
+	canvas.tangram-bg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		// opacity: .5;
+		// mix-blend-mode: hard-light;
+		border-radius: inherit;
+		pointer-events: none;
 	}
 
-	.board {
-		--color-1: rgba(#fff,.03);
-		--color-2: rgba(#fff,.02);
-		--color-3: #fff;
-
-		&:before {
-			content: "";
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			z-index: 1;
-			background-position: -1px 21px;
-			background-repeat: repeat-y;
-			background-image: repeating-linear-gradient(90deg, var( --color-1 ) 0px, var( --color-1 ) 1px, transparent 1px, transparent 100px),
-								repeating-linear-gradient(0deg, var( --color-1 ) 0px, var( --color-1 ) 1px, transparent 1px, transparent 100px),
-								repeating-linear-gradient(0deg, var( --color-2 ) 0px, var( --color-2 ) 1px, transparent 1px, transparent 25px),
-								repeating-linear-gradient(90deg, var( --color-2 ) 0px, var( --color-2 ) 1px, transparent 1px, transparent 25px);
-		}
-
-		&.debug svg {
-			&.debug {
-				pointer-events: none;
-				z-index: 4;
-
-				g.center {
-					opacity: .25;
-				}
-
-				line {
-					display: block;
-					stroke: var( --color-3 );
-					stroke-width: .5;
-					// opacity: .5;
-				}
-
-				circle {
-					display: block;
-					fill: var( --color-3 );
-				}
-			}
-		}
+	.game-view {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
 
 		svg {
-			position: absolute;
-			z-index: 3;
 
-			&.hidden {
-				opacity: 0;
-				visibility: hidden;
-
-				&.outline,
-				&.pieces {
-					g {
-						pointer-events: none;
-					}
-				}
+			.tile {
+				
 			}
 
-			&.outline {
-				// display: none;
-				mix-blend-mode: hard-light;
-				filter: drop-shadow(0 1px 0 rgba(#fff,.25));
-				opacity: .5;
-				// filter: url(#tangram-beveled);
-
-				g { transform: translate(-999px, -999px); }
-
-				polygon {
-					fill: #333;
-					stroke: #333;
-					stroke-width: 5;
-				}
-			}
-
-			&.pieces {
-				// display: none;
-
-				g {
-					pointer-events: all;
-
-					&.dragging {
-						// filter: drop-shadow(0 5px 5px rgba(#000,.75));
-					}
-
-					&.active {
-						line,
-						circle {
-							display: block;
-						}
-
-						polygon {
-							// stroke: #fff;
-							stroke-width: 3;
-						}
-					}
-				}
-
-				&.b1 polygon {
-					fill: #f90;
-					transform: translate(-50px, -50px);
-				}
-
-				&.b2 polygon {
-					fill: #f90;
-					transform: translate(-75px, -25px);
-				}
-
-				&.b3 polygon {
-					fill: #f90;
-					transform: translate(-50px, -50px);
-				}
-
-				.p1 { fill: #0f82f2; }
-				.p2 { fill: #fd8c00; }
-				.p3 { fill: #cd0e66; }
-				.p4 { fill: #6d3bbf; }
-				.p5 { fill: #009ea6; }
-				.p6 { fill: #eb4726; }
-				.p7 { fill: #22ab24; }
-			}
-
-			g {
-				&.center {
-					pointer-events: none;
-					transform: translate(199.5px, 170.5px);
-				}
-			}
-
-			line {
-				display: none;
+			.polygon-tile {
 				stroke: #fff;
-				stroke-width: 4;
-				pointer-events: none;
-			}
-
-			circle {
-				display: none;
-				fill: #fff;
-				cursor: pointer;
-			}
-
-			polygon {
-				stroke: #fff;
-				stroke-width: 1;
+				stroke-width: 3px;
 				stroke-linejoin: round;
-				cursor: move;
-				// filter: url(#tangram-beveled);
-				// stroke-width: 11;
-				// stroke: #222;
 			}
 
-			.p1 { transform: translate(-100px, -50px); }
-			.p2 { transform: translate(-50px, -100px); }
-			.p3 { transform: translate(-25px, -75px); }
-			.p4 { transform: translate(-25px, -50px); }
-			.p5 { transform: translate(-50px, -50px); }
-			.p6 { transform: translate(-50px, -50px); }
-			.p7 { transform: translate(-50px, -25px); }
+			.outline {
+				display: none;
+				fill: none;
+			}
 		}
 	}
 }
