@@ -32,14 +32,35 @@ content {
 
 		svg {
 			.tile {
-				cursor: pointer; 
+				cursor: move;
+
+				&.active {
+					line,
+					circle {
+						display: block;
+					}
+				}
+
+				line {
+					display: none;
+					stroke: #fff;
+					stroke-width: 2.5px;
+					pointer-events: none;
+				}
+
+				circle {
+					display: none;
+					fill: #fff;
+					cursor: pointer; 
+				}
 			}
 
 			.polygon-tile {
-				stroke: #111;
-				stroke-width: 1.5px;
+				stroke: #fff;
+				stroke-width: 2px;
 				stroke-linejoin: round;
-				filter: url(#tangram-beveled);
+				// stroke: #11111188;
+				// filter: url(#tangram-beveled);
 			}
 		}
 	}

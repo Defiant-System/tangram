@@ -16,7 +16,10 @@
 		this.svg.setTiles(this.tiles);
 
 		// bind event handlers
-		this.els.el.on("mousedown", ".tile", this.move)
+		this.els.el.on("mousedown", ".tile", this.move);
+
+		// temp
+		this.els.el.find(".tile").get(1).trigger("mousedown").trigger("mouseup");
 	},
 	dispatch(event) {
 		let APP = tangram,
@@ -24,7 +27,51 @@
 			value;
 		switch (event.type) {
 			// custom events
-			case "some-event":
+			case "deselect-active":
+				if (Self.active) {
+					// reset element
+					Self.active.removeClass("active");
+					// delete refernce
+					delete Self.active;
+				}
+				break;
+		}
+	},
+	rotate(event) {
+		let Self = tangram.game,
+			Drag = Self.drag;
+		switch (event.type) {
+			// native events
+			case "mousedown":
+				// collect event info
+				let doc = $(document),
+					el = $(event.target).parents("?.tile"),
+					tile = Self.tiles[el.data("id")],
+					offset = {
+						x: tile.position.x,
+						y: tile.position.y,
+						rotation: tile.rotation,
+					},
+					click = {
+						x: event.clientX,
+						y: event.clientY,
+					};
+
+				// drag info
+				Self.drag = { doc, el, tile, click, offset };
+				// bind event handlers
+				Self.drag.doc.on("mousemove mouseup", Self.rotate);
+				break;
+			case "mousemove":
+				let top = Drag.click.y - event.clientY,
+					deg = Drag.offset.rotation - (top * 2) + 720,
+					transform = `translate(${Drag.offset.x}px, ${Drag.offset.y}px) rotate(${deg}deg)`;
+
+				Drag.tile.props.el.css({ transform });
+				break;
+			case "mouseup":
+				// unbind event handlers
+				Drag.doc.off("mousemove mouseup", Self.rotate);
 				break;
 		}
 	},
@@ -34,10 +81,14 @@
 		switch (event.type) {
 			// native events
 			case "mousedown":
+				// prevent default behaviour
+				event.preventDefault();
+
+				// if "handle" rotate tile
+				if (event.target.nodeName === "circle") return Self.rotate(event);
+
 				let doc = $(document),
 					el = $(event.target).parents("?.tile"),
-					trans = el.attr("transform"),
-					parts = /translate\(\s*([^\s,)]+)[ ,]([^\s,)]+)/.exec(trans),
 					click = {
 						x: event.clientX,
 						y: event.clientY,
@@ -49,6 +100,10 @@
 				Self.drag = { doc, el, click, tile, startSnapPoints };
 				// tile starts to move
 				tile.moveStart();
+				// turn "off" old active
+				if (Self.active) Self.active.removeClass("active");
+				// save reference to "active"
+				Self.active = el.addClass("active");
 				// bind event handlers
 				Self.drag.doc.on("mousemove mouseup", Self.move);
 				break;
