@@ -54,8 +54,6 @@
 					tile = Self.tiles[el.data("id")],
 					rect = tile.props.parent.el[0].getBoundingClientRect(),
 					offset = {
-						position: tile.position,
-						rotation: tile.rotation,
 						x: tile.props.parent.view.x - tile.position.x,
 						y: tile.props.parent.view.y - tile.position.y,
 					},
@@ -64,12 +62,13 @@
 						oY: event.offsetY + offset.y,
 					},
 					start = {
+						rotation: tile.rotation,
 						position: new Point(event.clientX + click.oX, event.clientY + click.oY),
 						center: new Point(rect.left - offset.x, rect.top - offset.y),
 					};
 
 				// drag info
-				Self.drag = { doc, el, tile, start, click, offset };
+				Self.drag = { doc, el, tile, start };
 				// tile starts to move
 				tile.rotateStart();
 				// cover content
@@ -79,7 +78,7 @@
 				break;
 			case "mousemove":
 				let mouse = new Point(event.clientX, event.clientY),
-					angle = Drag.offset.rotation + new Angle(mouse, Drag.start.center, Drag.start.position).deg;
+					angle = Drag.start.rotation + new Angle(mouse, Drag.start.center, Drag.start.position).deg;
 				// Self.els.tmp.html( `${angle|0}˚` );
 				Drag.tile.rotate(-angle);
 				break;

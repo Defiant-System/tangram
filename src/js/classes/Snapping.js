@@ -2,7 +2,7 @@
 class Snapping {
 	constructor(t) {
 		this.parent = t;
-		this.angleSnap = 5;
+		this.angleSnap = 6;
 		this.vertSnap = 5;
 		this.lineSnap = 5;
 	}

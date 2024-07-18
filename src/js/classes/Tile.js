@@ -75,7 +75,7 @@ class Tile {
 		this.position = t;
 		this.props.x = t.x;
 		this.props.y = t.y;
-		this.rotation = ot(e, 360);
+		this.rotation = this.props.r = ot(e, 360);
 
 		this.transform();
 	}
@@ -89,7 +89,7 @@ class Tile {
 
 		Br.clear();
 		for (let e of this.snapAngles) {
-			Br.add(ot(e, 180));
+			Br.add(ot(e + this.rotation, 180));
 		}
 
 		ln.clear();
@@ -104,28 +104,29 @@ class Tile {
 	}
 
 	rotate(t) {
-		t = Vt(t, 1);
+		if (t = Vt(t, 1), t === this.angle) return;
 		
 		let e = 1 / 0;
 		for (let n of Br) {
 			for (let r of ln) {
 				let o = id(r, n + t - this.startAngle, 180);
-				Math.abs(o) < Math.abs(e) && (e = o);
+				if (Math.abs(o) < Math.abs(e)) e = o;
 			}
 		}
 		if (Math.abs(e) < this.angleSnap && (t += e), t === this.angle) return;
 		let i = t - this.angle;
 		this.angle = t;
 		
-		this.position = this.position.rotate(toRadians(t), this.position);
-		this.rotation = ot(this.rotation + t, 360);
+		this.position = this.position.rotate(toRadians(i), this.position);
+		this.rotation = ot(this.rotation + i, 360);
 
-		let transform = `translate(${this.position.x} ${this.position.y}) rotate(${t})`;
+		let transform = `translate(${this.position.x} ${this.position.y}) rotate(${this.rotation})`;
 		this.props.el.attr({ transform });
 		this.transform(!0);
 	}
 
 	rotateEnd() {
+		this.startAngle = this.rotation;
 		this.setTransform();
 	}
 
