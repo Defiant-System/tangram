@@ -5,6 +5,9 @@ class Svg {
 		this.type = "svg";
 		this.snapping = new Snapping(this);
 		this.tiles = new Map;
+
+		let [x, y, w, h] = el.find("> svg").attr("viewBox").split(" ").map(i => +i);
+		this.view = { x, y, w, h };
 	}
 
 	setTiles(tiles) {

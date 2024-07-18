@@ -139,8 +139,7 @@ class Point {
 	}
 
 	rotate(t, e=A) {
-		if ($foo(t, 0))
-			return this;
+		if ($foo(t, 0)) return this;
 		let i = this.x - e.x,
 			n = this.y - e.y,
 			r = Math.cos(t),

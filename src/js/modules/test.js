@@ -3,6 +3,14 @@ let Test = {
 	init(APP) {
 		// return;
 
+		// let p = new Point(0, 0),
+		// 	path = [new Point(-1, 2), new Point(1, 2)],
+		// 	t1 = new Polygon(...path),
+		// 	t2 = t1.rotate(toRadians(180), p);
+		// console.log( t1.toString() );
+		// console.log( t2.toString() );
+
+
 		// setTimeout(() => APP.game.tiles.b.rotate(15, APP.game.tiles.b.center), 200);
 		setTimeout(() => APP.game.els.el.find(".tile").get(1).trigger("mousedown").trigger("mouseup"), 200);
 		

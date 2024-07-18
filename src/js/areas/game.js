@@ -10,6 +10,12 @@
 			tmp: window.find(".tmp"),
 		};
 
+		// let mouse = new Point(1, 0),
+		// 	center = new Point(0, 0),
+		// 	start = new Point(0, 1),
+		// 	angle = new Angle(mouse, center, start).deg;
+		// console.log( angle );
+
 		// init tiles
 		this.svg = new Svg(this.els.el);
 		this.tiles = {};
@@ -46,19 +52,32 @@
 				let doc = $(document),
 					el = $(event.target).parents("?.tile"),
 					tile = Self.tiles[el.data("id")],
+					rect = tile.props.parent.el[0].getBoundingClientRect(),
 					offset = {
 						position: tile.position,
 						rotation: tile.rotation,
 						center: tile.center,
+						x: tile.props.parent.view.x - tile.position.x,
+						y: tile.props.parent.view.y - tile.position.y,
+					},
+					click = {
+						x: event.clientX,
+						y: event.clientY,
+						oX: event.offsetX + offset.x,
+						oY: event.offsetY + offset.y,
 					},
 					start = {
-						position: new Point(event.clientX, event.clientY + 55),
+						position: new Point(event.clientX + click.oX, event.clientY + click.oY),
+						center: new Point(rect.left - offset.x, rect.top - offset.y),
 					};
 
-				// console.log( event.layerX, event.layerY );
-
+				// console.log( start.position );
+				// console.log( start.center );
+				// console.log( tile.position );
+				// console.log( event.offsetX, event.offsetY );
+				
 				// drag info
-				Self.drag = { doc, el, tile, start, offset };
+				Self.drag = { doc, el, tile, start, click, offset };
 				// tile starts to move
 				tile.rotateStart();
 				// cover content
@@ -67,12 +86,11 @@
 				Self.drag.doc.on("mousemove mouseup", Self.rotate);
 				break;
 			case "mousemove":
-				let position = new Point(event.clientX, event.clientY),
-					angle = Drag.offset.rotation + new Angle(Drag.offset.center, Drag.start.position, position).deg;
-				
-				Self.els.tmp.html( `${angle|0}˚` );
+				let mouse = new Point(event.clientX, event.clientY),
+					angle = Drag.offset.rotation + new Angle(mouse, Drag.start.center, Drag.start.position).deg;
 
-				Drag.tile.rotate(angle, Drag.offset.center);
+				Self.els.tmp.html( `${angle|0}˚` );
+				Drag.tile.rotate(-angle);
 				break;
 			case "mouseup":
 				// reset tile

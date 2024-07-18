@@ -53,7 +53,7 @@ class Polygon {
 
 	get radius() {
 		let t = this.centroid,
-			e = this.points.map(i=>Point.distance(i, t));
+			e = this.points.map(i => Point.distance(i, t));
 		return Math.max(...e);
 	}
 
@@ -75,7 +75,7 @@ class Polygon {
 	}
 
 	static collision(t, e) {
-		if (t.points.some(i=>e.contains(i)) || e.points.some(i=>t.contains(i))) return !0;
+		if (t.points.some(i => e.contains(i)) || e.points.some(i => t.contains(i))) return !0;
 		for (let i of t.edges) {
 			for (let n of e.edges) {
 				if (pt(i, n)[0]) return !0;
@@ -88,8 +88,8 @@ class Polygon {
 		let[i,...n] = t;
 		if (!n.length) return [i];
 		let r = [i.points],
-			o = n.length > 1 ? pe.union(n, e).map(a=>a.points) : [t[1].points];
-		return Lc(r, o, e).map(a=>new Polygon(...a))
+			o = n.length > 1 ? pe.union(n, e).map(a => a.points) : [t[1].points];
+		return Lc(r, o, e).map(a => new Polygon(...a))
 	}
 
 	static intersection(t, e) {
@@ -101,7 +101,7 @@ class Polygon {
 				l = [o.points];
 			if (r = bi(a, l, e), !r.length) return []
 		}
-		return r.map(o=>new Polygon(...o));
+		return r.map(o => new Polygon(...o));
 	}
 
 	static difference(t, e, i) {
@@ -113,18 +113,18 @@ class Polygon {
 	static regular(t, e=1) {
 		let i = mt / t,
 			n = Math.PI / 2 - i / 2,
-			r = N(o=>Point.fromPolar(n + i * o, e), t);
+			r = N(o => Point.fromPolar(n + i * o, e), t);
 		return new Polygon(...r);
 	}
 
 	static interpolate(t, e, i=.5) {
-		let n = t.points.map((r,o)=>Point.interpolate(r, e.points[o], i));
+		let n = t.points.map((r,o) => Point.interpolate(r, e.points[o], i));
 		return new Polygon(...n);
 	}
 
 	static convexHull(...t) {
 		if (t.length <= 3) return new Polygon(...t);
-		let e = t.sort((o,a)=>o.x !== a.x ? o.x - a.x : o.y - a.y),
+		let e = t.sort((o,a) => o.x !== a.x ? o.x - a.x : o.y - a.y),
 			i = e.slice(0).reverse(),
 			n = [],
 			r = [];
@@ -187,27 +187,27 @@ class Polygon {
 	}
 
 	transform(t) {
-		return new this.constructor(...this.points.map(e=>e.transform(t)));
+		return new this.constructor(...this.points.map(e => e.transform(t)));
 	}
 
 	rotate(t, e=A) {
 		if ($foo(t, 0)) return this;
-		let i = this.points.map(n=>n.rotate(t, e));
+		let i = this.points.map(n => n.rotate(t, e));
 		return new this.constructor(...i);
 	}
 
 	reflect(t) {
-		let e = this.points.map(i=>i.reflect(t));
+		let e = this.points.map(i => i.reflect(t));
 		return new this.constructor(...e);
 	}
 
 	scale(t, e=t) {
-		let i = this.points.map(n=>n.scale(t, e));
+		let i = this.points.map(n => n.scale(t, e));
 		return new this.constructor(...i);
 	}
 
 	shift(t, e=t) {
-		let i = this.points.map(n=>n.shift(t, e));
+		let i = this.points.map(n => n.shift(t, e));
 		return new this.constructor(...i);
 	}
 
@@ -221,7 +221,7 @@ class Polygon {
 		let r = i ? this : this.oriented,
 			o = i ? t : t.oriented;
 		for (let a = 0; a < n; ++a) {
-			if (r.points.every((l,h)=>l.equals(o.points[(h + a) % n], e))) return !0;
+			if (r.points.every((l,h) => l.equals(o.points[(h + a) % n], e))) return !0;
 		}
 		return !1;
 	}

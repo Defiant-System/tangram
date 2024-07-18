@@ -24,6 +24,8 @@ class Tile {
 		this.position = new Point(this.props.x, this.props.y);
 		this.path = new Polygon(...path);
 
+		this.path.rotate(toRadians(r), this.position);
+
 		this.transform();
 		this.setPath(this.path);
 	}
@@ -80,15 +82,26 @@ class Tile {
 
 
 	rotateStart() {
+		this.setPath(this.path);
 		this.startAngle = this.rotation;
+
+		Br.clear();
+		for (let e of this.snapAngles) {
+			Br.add(ot(e, 180));
+		}
+		// console.log( Br );
 	}
 
-	rotate(t, e=A) {
-		this.position = this.position.rotate(toRadians(t), e);
-		this.rotation = ot(this.rotation + t, 360);
+	rotate(t) {
+		t = Vt(t, 3);
+		
+		let e = 1 / 0;
+		
+		// this.position = this.position.rotate(toRadians(t), e);
+		// this.rotation = ot(this.rotation + t, 360);
 
-		let transform = `translate(${this.position.x} ${this.position.y}) rotate(${t})`;
-		this.props.el.attr({ transform });
+		// let transform = `translate(${this.position.x} ${this.position.y}) rotate(${t})`;
+		// this.props.el.attr({ transform });
 		// this.transform(!0);
 	}
 
@@ -100,6 +113,7 @@ class Tile {
 
 	setPath(path) {
 		this.snapAngles = Rt(path.edges.map(o => ot(Math.round(toDegrees(o.angle)), 180)));
+		console.log( this.props.id, this.props.r, this.snapAngles );
 	}
 
 	getSnapPoints() {
