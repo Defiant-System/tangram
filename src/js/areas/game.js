@@ -79,8 +79,6 @@
 			case "mousemove":
 				let mouse = new Point(event.clientX, event.clientY),
 					angle = Drag.start.rotation - new Angle(mouse, Drag.start.center, Drag.start.position).deg;
-
-				// Self.els.tmp.html( `${angle|0}˚` );
 				Drag.tile.rotate(angle);
 				break;
 			case "mouseup":

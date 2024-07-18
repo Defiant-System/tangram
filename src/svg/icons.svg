@@ -4,16 +4,20 @@
 		<filter id="tangram-beveled">
 			<feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur"></feGaussianBlur>
 			<!-- offsetBlur -->
-			<feOffset in="blur" dx="2" dy="2" result="offsetBlur"></feOffset>
+			<feOffset in="blur" dx="0" dy="3" result="offsetBlur"></feOffset>
 			<!-- highlight -->
-			<feSpecularLighting in="blur" surfaceScale="14" specularConstant=".7" specularExponent="65" result="highlight" lighting-color="#ddd">
-			    <fePointLight x="-5000" y="-10000" z="20000" result="7841e424-31e2-4a60-8fda-d4d5539fd3f9"></fePointLight>
+			<feSpecularLighting in="blur" surfaceScale="8" specularConstant=".7" specularExponent="65" result="highlight" lighting-color="#ddd">
+			    <fePointLight x="-5000" y="-10000" z="20000"></fePointLight>
 			</feSpecularLighting>
 			<!-- highlightApplied -->
 			<feComposite in="highlight" in2="SourceAlpha" operator="in" result="highlightApplied"></feComposite>
 			<!-- highlightText -->
-			<feComposite in="SourceGraphic" in2="highlightApplied" operator="arithmetic" k2="1" k3="1" result="highlightText"></feComposite>
-			
+			<feComposite in="SourceGraphic" in2="highlightApplied" operator="arithmetic" k2="1" k3="1.25" result="highlightText"></feComposite>
+			<!-- 5af21839-d7d1-40a0-8f26-75527cfdc952 -->
+			<feMerge>
+			    <feMergeNode in="offsetBlur"></feMergeNode>
+			    <feMergeNode in="highlightText"></feMergeNode>
+			</feMerge>
 		</filter>
 	</defs>
 
