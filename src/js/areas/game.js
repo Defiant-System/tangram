@@ -56,13 +56,10 @@
 					offset = {
 						position: tile.position,
 						rotation: tile.rotation,
-						center: tile.center,
 						x: tile.props.parent.view.x - tile.position.x,
 						y: tile.props.parent.view.y - tile.position.y,
 					},
 					click = {
-						x: event.clientX,
-						y: event.clientY,
 						oX: event.offsetX + offset.x,
 						oY: event.offsetY + offset.y,
 					},
@@ -71,11 +68,6 @@
 						center: new Point(rect.left - offset.x, rect.top - offset.y),
 					};
 
-				// console.log( start.position );
-				// console.log( start.center );
-				// console.log( tile.position );
-				// console.log( event.offsetX, event.offsetY );
-				
 				// drag info
 				Self.drag = { doc, el, tile, start, click, offset };
 				// tile starts to move
@@ -88,8 +80,7 @@
 			case "mousemove":
 				let mouse = new Point(event.clientX, event.clientY),
 					angle = Drag.offset.rotation + new Angle(mouse, Drag.start.center, Drag.start.position).deg;
-
-				Self.els.tmp.html( `${angle|0}˚` );
+				// Self.els.tmp.html( `${angle|0}˚` );
 				Drag.tile.rotate(-angle);
 				break;
 			case "mouseup":

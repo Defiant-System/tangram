@@ -20,6 +20,7 @@ class Tile {
 		this.snapLines = [];
 		this.snapAngles = [];
 
+		this.angle = r;
 		this.rotation = r;
 		this.position = new Point(this.props.x, this.props.y);
 		this.path = new Polygon(...path);
@@ -84,25 +85,44 @@ class Tile {
 	rotateStart() {
 		this.setPath(this.path);
 		this.startAngle = this.rotation;
+		this.angleSnap = this.props.parent.snapping.angleSnap;
 
 		Br.clear();
 		for (let e of this.snapAngles) {
 			Br.add(ot(e, 180));
 		}
-		// console.log( Br );
+
+		ln.clear();
+		ln.add(0);
+		for (let t of this.props.parent.tiles.values()) {
+			if (!t.isActive && Point.distance(this.position, t.position) < 140) {
+				for (let e of t.snapAngles) {
+					ln.add(ot(e + t.rotation, 180));
+				}
+			}
+		}
 	}
 
 	rotate(t) {
-		t = Vt(t, 3);
+		t = Vt(t, 1);
 		
 		let e = 1 / 0;
+		for (let n of Br) {
+			for (let r of ln) {
+				let o = id(r, n + t - this.startAngle, 180);
+				Math.abs(o) < Math.abs(e) && (e = o);
+			}
+		}
+		if (Math.abs(e) < this.angleSnap && (t += e), t === this.angle) return;
+		let i = t - this.angle;
+		this.angle = t;
 		
-		// this.position = this.position.rotate(toRadians(t), e);
-		// this.rotation = ot(this.rotation + t, 360);
+		this.position = this.position.rotate(toRadians(t), this.position);
+		this.rotation = ot(this.rotation + t, 360);
 
-		// let transform = `translate(${this.position.x} ${this.position.y}) rotate(${t})`;
-		// this.props.el.attr({ transform });
-		// this.transform(!0);
+		let transform = `translate(${this.position.x} ${this.position.y}) rotate(${t})`;
+		this.props.el.attr({ transform });
+		this.transform(!0);
 	}
 
 	rotateEnd() {
@@ -113,7 +133,7 @@ class Tile {
 
 	setPath(path) {
 		this.snapAngles = Rt(path.edges.map(o => ot(Math.round(toDegrees(o.angle)), 180)));
-		console.log( this.props.id, this.props.r, this.snapAngles );
+		// console.log( this.props.id, this.props.r, this.snapAngles );
 	}
 
 	getSnapPoints() {

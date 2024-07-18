@@ -8,6 +8,7 @@ let go = Object.defineProperty,
 	Ah = Object.prototype.propertyIsEnumerable;
 
 let A = new Point(0, 0);
+let ln = new Set;
 let Br = new Set;
 let mt = 2 * Math.PI;
 let gi = 1e-6;
@@ -57,8 +58,13 @@ let fo = (s,t,e)=>t in s ? go(s, t, {
 		value: e
 	}) : s[t] = e;
 
+let id = (s, t, e) => {
+		let i = ot(s - t, e);
+		return i > e / 2 ? i - e : i
+	};
+
 let it = (s,t) => Mh(s, Eh(t));
-let st = (s,t)=>{
+let st = (s,t) => {
 		for (var e in t || (t = {})) {
 			Ch.call(t, e) && fo(s, e, t[e]);
 		}
