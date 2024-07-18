@@ -52,11 +52,15 @@ content {
 		// display: none;
 
 		svg {
+			> g {
+				filter: url(#tangram-beveled);
+			}
+
 			.tile {
 				cursor: move;
 
 				&.active {
-					filter: drop-shadow(0 2px 3px rgba(#000,.35));
+					// filter: drop-shadow(0 2px 3px rgba(#000,.35));
 
 					line,
 					circle {
@@ -77,17 +81,17 @@ content {
 					cursor: pointer;
 
 					&.center {
+						display: none;
 						// display: block;
 					}
 				}
 			}
 
 			.polygon-tile {
-				stroke: #fff;
+				// stroke: #fff;
 				stroke-width: 2px;
 				stroke-linejoin: round;
-				// stroke: #11111188;
-				// filter: url(#tangram-beveled);
+				stroke: #11111188;
 			}
 		}
 	}
