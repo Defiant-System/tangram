@@ -58,12 +58,12 @@
 						y: tile.props.parent.view.y - tile.position.y,
 					},
 					click = {
-						oX: event.offsetX + offset.x,
-						oY: event.offsetY + offset.y,
+						oX: event.offsetX + rect.left,
+						oY: event.offsetY + rect.top,
 					},
 					start = {
 						rotation: tile.rotation,
-						position: new Point(event.clientX + click.oX, event.clientY + click.oY),
+						position: new Point(click.oX, click.oY),
 						center: new Point(rect.left - offset.x, rect.top - offset.y),
 					};
 
@@ -78,9 +78,10 @@
 				break;
 			case "mousemove":
 				let mouse = new Point(event.clientX, event.clientY),
-					angle = Drag.start.rotation + new Angle(mouse, Drag.start.center, Drag.start.position).deg;
+					angle = Drag.start.rotation - new Angle(mouse, Drag.start.center, Drag.start.position).deg;
+
 				// Self.els.tmp.html( `${angle|0}˚` );
-				Drag.tile.rotate(-angle);
+				Drag.tile.rotate(angle);
 				break;
 			case "mouseup":
 				// reset tile

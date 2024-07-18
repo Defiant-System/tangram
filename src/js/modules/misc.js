@@ -8,6 +8,7 @@ let go = Object.defineProperty,
 	Ah = Object.prototype.propertyIsEnumerable;
 
 let A = new Point(0, 0);
+// let Op = new Line(A, new Point(0, 1));
 let ln = new Set;
 let Br = new Set;
 let mt = 2 * Math.PI;

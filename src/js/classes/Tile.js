@@ -83,7 +83,6 @@ class Tile {
 
 
 	rotateStart() {
-		this.setPath(this.path);
 		this.startAngle = this.rotation;
 		this.angleSnap = this.props.parent.snapping.angleSnap;
 
