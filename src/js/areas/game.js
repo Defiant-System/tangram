@@ -43,7 +43,9 @@
 				}
 				break;
 			case "draw-outline":
+				console.log( event.arg );
 				Self.svg.drawOutline(event.arg);
+				Self.svg.solve();
 				break;
 			case "output-pgn":
 				value = Self.svg.puzzlePGN();

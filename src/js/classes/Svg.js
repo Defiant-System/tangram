@@ -57,6 +57,16 @@ class Svg {
 		}
 	}
 
+	validate() {
+		// TODO: validate correct solution
+		
+	}
+
+	shuffle() {
+		// TODO: shuffle tiles
+		
+	}
+
 	puzzlePGN() {
 		let data = {};
 		this.board.find(".tile").map(el => {

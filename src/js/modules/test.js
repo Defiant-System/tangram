@@ -3,8 +3,10 @@ let Test = {
 	init(APP) {
 		// return;
 
-		APP.game.svg.drawOutline("1.1");
+		APP.game.svg.drawOutline("1.3");
 		APP.game.svg.solve();
+		// APP.game.svg.shuffle();
+
 		// APP.game.dispatch({ type: "output-pgn" });
 
 
