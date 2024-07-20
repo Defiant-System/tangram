@@ -4,6 +4,7 @@
 @import "classes/Bounds.js"
 @import "classes/Circle.js"
 @import "classes/Line.js"
+@import "classes/LinkedList.js"
 @import "classes/Point.js"
 @import "classes/Polygon.js"
 @import "classes/Polyline.js"
@@ -19,13 +20,14 @@
 @import "puzzles/shuffle.js"
 
 @import "modules/bg.js";
+@import "modules/boolean.js";
 @import "modules/misc.js";
 @import "modules/test.js"
 
 
 
 let DefaultState = {
-	level: "1.2",
+	level: "1.3",
 	theme: "sunset",
 };
 

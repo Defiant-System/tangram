@@ -16,8 +16,8 @@ class Polygon {
 
 	get signedArea() {
 		let t = this.points,
-		  e = t.length,
-		  i = t[e - 1].x * t[0].y - t[0].x * t[e - 1].y;
+			e = t.length,
+			i = t[e - 1].x * t[0].y - t[0].x * t[e - 1].y;
 		for (let n = 1; n < e; ++n) {
 			i += t[n - 1].x * t[n].y - t[n].x * t[n - 1].y;
 		}
@@ -57,21 +57,24 @@ class Polygon {
 		return Math.max(...e);
 	}
 
+	/** The oriented version of this polygon (vertices in clockwise order). */
 	get oriented() {
 		if (this.signedArea >= 0) return this;
 		let t = [...this.points].reverse();
 		return new this.constructor(...t);
 	}
 
-	cut(t, e) {
-		let i = this.radius / t.length * 10,
-			n = t.at(-i),
-			r = t.at(i),
-			o = t.perpendicularVector.scale(t.length * i),
+	/** Cut this polygon along a line, and return multiple parts. */
+	cut(line, e) {
+		// This feels a bit hacky... can we find the bounding box of the Polygon?
+		let i = this.radius / line.length * 10,
+			n = line.at(-i),
+			r = line.at(i),
+			o = line.perpendicularVector.scale(line.length * i),
 			a = [n, r, r.add(o), n.add(o)],
-			l = bi([this.points], [a], e),
-			h = jn([this.points], [a], e);
-		return [...l, ...h].map(c => new Polygon(...c));
+			side1 = intersect([this.points], [a], e),
+			side2 = difference([this.points], [a], e);
+		return [...side1, ...side2].map(c => new Polygon(...c));
 	}
 
 	static collision(t, e) {
@@ -89,7 +92,7 @@ class Polygon {
 		if (!n.length) return [i];
 		let r = [i.points],
 			o = n.length > 1 ? Polygon.union(n, e).map(a => a.points) : [t[1].points];
-		return Lc(r, o, e).map(a => new Polygon(...a))
+		return union(r, o, e).map(a => new Polygon(...a))
 	}
 
 	static intersection(t, e) {
@@ -99,14 +102,14 @@ class Polygon {
 		for (let o of n) {
 			let a = r,
 				l = [o.points];
-			if (r = bi(a, l, e), !r.length) return []
+			if (r = intersect(a, l, e), !r.length) return []
 		}
 		return r.map(o => new Polygon(...o));
 	}
 
 	static difference(t, e, i) {
-		let n = jn([t.points], [e.points], i),
-			r = jn([e.points], [t.points], i);
+		let n = difference([t.points], [e.points], i),
+			r = difference([e.points], [t.points], i);
 		return n.concat(r).map(o => new Polygon(...o));
 	}
 

@@ -54,7 +54,7 @@
 			case "set-level":
 			case "draw-outline":
 				Self.svg.drawOutline(event.arg);
-				// Self.svg.solve();
+				Self.svg.shuffle();
 				break;
 			case "output-pgn":
 				value = Self.svg.puzzlePGN();
