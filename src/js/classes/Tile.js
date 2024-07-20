@@ -128,7 +128,7 @@ class Tile {
 		let rotation = Vt(this.rotation, 45);
 		if (rotation !== this.rotation) {
 			let transform = `translate(${this.position.x} ${this.position.y}) rotate(${rotation})`;
-			this.props.el.cssSequence("smooth", "transitionend", el => el.removeClass("smooth"));
+			this.props.el.cssSequence("anim-rotate", "transitionend", el => el.removeClass("anim-rotate"));
 			this.props.el.attr({ transform });
 		}
 		

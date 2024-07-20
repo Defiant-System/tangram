@@ -35,14 +35,6 @@ content {
 		pointer-events: none;
 	}
 
-	.tmp {
-		position: absolute;
-		top: 40px;
-		left: 40px;
-		font: bold 16px Arial;
-		color: #fff;
-	}
-
 	.game-view {
 		position: absolute;
 		top: 0;
@@ -122,8 +114,12 @@ content {
 						}
 					}
 
-					&.smooth {
+					&.anim-rotate {
 						transition: transform 150ms ease-in-out;
+					}
+
+					&.anim-move {
+						transition: transform 300ms ease-in-out;
 					}
 
 					line {

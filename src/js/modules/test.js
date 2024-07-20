@@ -2,11 +2,12 @@
 let Test = {
 	init(APP) {
 		// return;
-		
+
 
 		APP.game.svg.drawOutline("1.3");
-		// APP.game.svg.solve();
-		APP.game.svg.shuffle();
+		APP.game.svg.solve();
+		
+		// setTimeout(() => APP.game.svg.shuffle(), 1e3);
 
 		// APP.game.dispatch({ type: "output-pgn" });
 

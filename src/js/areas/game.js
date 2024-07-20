@@ -37,6 +37,12 @@
 			case "set-theme":
 				Self.els.el.data({ theme: event.arg });
 				break;
+			case "shuffle-pieces":
+				Self.svg.shuffle();
+				break;
+			case "solve-puzzle":
+				Self.svg.solve();
+				break;
 			case "deselect-active":
 				if (Self.active) {
 					// reset element
@@ -46,7 +52,6 @@
 				}
 				break;
 			case "draw-outline":
-				console.log( event.arg );
 				Self.svg.drawOutline(event.arg);
 				Self.svg.solve();
 				break;

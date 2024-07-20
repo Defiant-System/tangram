@@ -45,15 +45,15 @@ class Svg {
 
 	solve() {
 		let data = Level[this.level].tiles;
-		for (let t of this.tiles.values()) {
-			let [x, y, r] = data[t.props.id],
+		for (let tile of this.tiles.values()) {
+			let [x, y, r] = data[tile.props.id],
 				p = new Point(x, y);
 			// update internal state
-			t.setTransform(p, r);
+			tile.setTransform(p, r);
 			// update UI
-			let el = this.board.find(`.tile[data-id="${t.props.id}"]`),
-				transform = `translate(${x} ${y}) rotate(${r})`;
-			el.attr({ transform });
+			let transform = `translate(${x} ${y}) rotate(${r})`;
+			tile.props.el.attr({ transform });
+			tile.props.el.cssSequence("anim-move", "transitionend", el => el.removeClass("anim-move"));
 		}
 	}
 
@@ -63,8 +63,18 @@ class Svg {
 	}
 
 	shuffle() {
-		// TODO: shuffle tiles
-		
+		let data = Shuffle[(Shuffle.length * Math.random()) | 0];
+		// shuffle tiles
+		for (let tile of this.tiles.values()) {
+			let [x, y, r] = data[tile.props.id],
+				p = new Point(x, y);
+			// update internal state
+			tile.setTransform(p, r);
+			// update UI
+			let transform = `translate(${x} ${y}) rotate(${r})`;
+			tile.props.el.attr({ transform });
+			tile.props.el.cssSequence("anim-move", "transitionend", el => el.removeClass("anim-move"));
+		}
 	}
 
 	puzzlePGN() {

@@ -16,6 +16,7 @@
 @import "classes/Tile.js"
 
 @import "puzzles/index.js"
+@import "puzzles/shuffle.js"
 
 @import "modules/bg.js";
 @import "modules/misc.js";

@@ -5,6 +5,9 @@
 		<Menu name="Quit Tangram" shell="win -c"/>
 	</Menu>
 	<Menu name="Game" for="game-board">
+		<Menu name="Shuffle" click="shuffle-pieces"/>
+		<Menu name="Solve" click="solve-puzzle"/>
+		<Menu type="divider"/>
 		<Menu name="Theme&#8230;">
 			<Menu name="Classic" click="set-theme" arg="classic"/>
 			<Menu name="Pastell" click="set-theme" arg="pastell"/>

@@ -18,6 +18,7 @@ let ve = 25,
 	kd = Math.sqrt(2 * ve ** 2) / 2;
 let toDegrees = s => s * 180 / Math.PI;
 let toRadians = s => s * Math.PI / 180;
+let rand = (min, max) => Math.floor( min + Math.random() * ( max - min + 1 ) );
 
 let isPolygon = s => ["polygon", "polyline", "rectangle", "triangle"].includes(s.type),
 	isTriangle = s => ["polygon", "triangle"].includes(s.type),
