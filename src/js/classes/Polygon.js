@@ -88,7 +88,7 @@ class Polygon {
 		let[i,...n] = t;
 		if (!n.length) return [i];
 		let r = [i.points],
-			o = n.length > 1 ? pe.union(n, e).map(a => a.points) : [t[1].points];
+			o = n.length > 1 ? Polygon.union(n, e).map(a => a.points) : [t[1].points];
 		return Lc(r, o, e).map(a => new Polygon(...a))
 	}
 
@@ -224,6 +224,10 @@ class Polygon {
 			if (r.points.every((l,h) => l.equals(o.points[(h + a) % n], e))) return !0;
 		}
 		return !1;
+	}
+
+	toSvg() {
+		return `<path class="polygon-tile" d="M${this.points.map(p => `${p.x},${p.y}`).join("L")}Z"></path>`;
 	}
 
 	toString() {

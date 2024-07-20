@@ -24,6 +24,12 @@
 
 
 
+let DefaultState = {
+	level: "1.2",
+	theme: "sunset",
+};
+
+
 const tangram = {
 	init() {
 		// init objects
@@ -34,6 +40,11 @@ const tangram = {
 			.filter(i => typeof this[i].init === "function")
 			.map(i => this[i].init(this));
 		
+		// get saved state, if any
+		this.state = window.settings.getItem("state") || DefaultState;
+		// go to last saved state
+		this.dispatch({ type: "apply-saved-state" });
+
 		// DEV-ONLY-START
 		Test.init(this);
 		// DEV-ONLY-END
@@ -43,6 +54,7 @@ const tangram = {
 			value,
 			el;
 		switch (event.type) {
+			// system events
 			case "window.init":
 			case "window.close":
 				break;
@@ -54,12 +66,19 @@ const tangram = {
 				// resume background worker
 				Bg.dispatch({ type: "pause" });
 				break;
+			// custom events
+			case "apply-saved-state":
+				Object.keys(Self.state).map(k => {
+					Self.game.dispatch({ type: `set-${k}`, arg: Self.state[k] });
+				});
+				break;
 			case "open-help":
 				karaqu.shell("fs -u '~/help/index.md'");
 				break;
 			// proxy events
 			case "output-pgn":
 			case "draw-outline":
+			case "set-level":
 			case "set-theme":
 				return Self.game.dispatch(event);
 			default:

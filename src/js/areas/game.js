@@ -51,9 +51,10 @@
 					delete Self.active;
 				}
 				break;
+			case "set-level":
 			case "draw-outline":
 				Self.svg.drawOutline(event.arg);
-				Self.svg.solve();
+				// Self.svg.solve();
 				break;
 			case "output-pgn":
 				value = Self.svg.puzzlePGN();
