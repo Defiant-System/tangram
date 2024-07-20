@@ -34,6 +34,9 @@
 			value;
 		switch (event.type) {
 			// custom events
+			case "set-theme":
+				Self.els.el.data({ theme: event.arg });
+				break;
 			case "deselect-active":
 				if (Self.active) {
 					// reset element

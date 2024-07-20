@@ -49,7 +49,42 @@ content {
 		left: 0;
 		right: 0;
 		bottom: 0;
-		// display: none;
+		
+		&[data-theme="classic"] {
+			svg.board {
+				.tile[data-id="a"] path { fill: #cd0e67; }
+				.tile[data-id="b"] path { fill: #0d7ff2; }
+				.tile[data-id="c"] path { fill: #22aa24; }
+				.tile[data-id="d"] path { fill: #ff8c00; }
+				.tile[data-id="e"] path { fill: #eb4928; }
+				.tile[data-id="f"] path { fill: #00a0a8; }
+				.tile[data-id="g"] path { fill: #6d3bbf; }
+			}
+		}
+		
+		&[data-theme="pastell"] {
+			svg.board {
+				.tile[data-id="a"] path { fill: #ecc8a7; }
+				.tile[data-id="b"] path { fill: #fdabbd; }
+				.tile[data-id="c"] path { fill: #acb8d2; }
+				.tile[data-id="d"] path { fill: #d9cae6; }
+				.tile[data-id="e"] path { fill: #efa9b8; }
+				.tile[data-id="f"] path { fill: #ddd89d; }
+				.tile[data-id="g"] path { fill: #91d7cc; }
+			}
+		}
+		
+		&[data-theme="sunset"] {
+			svg.board {
+				.tile[data-id="a"] path { fill: #7d1d67; }
+				.tile[data-id="b"] path { fill: #ac2377; }
+				.tile[data-id="c"] path { fill: #d7367a; }
+				.tile[data-id="d"] path { fill: #f65a6e; }
+				.tile[data-id="e"] path { fill: #fe8b6f; }
+				.tile[data-id="f"] path { fill: #ffb481; }
+				.tile[data-id="g"] path { fill: #ffdaa0; }
+			}
+		}
 
 		svg {
 			position: absolute;

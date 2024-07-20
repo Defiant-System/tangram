@@ -59,6 +59,7 @@ const tangram = {
 			// proxy events
 			case "output-pgn":
 			case "draw-outline":
+			case "set-theme":
 				return Self.game.dispatch(event);
 			default:
 				el = event.el;

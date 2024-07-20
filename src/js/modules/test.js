@@ -3,11 +3,10 @@ let Test = {
 	init(APP) {
 		// return;
 		
-		return setTimeout(() => APP.game.els.el.find(".tile").get(0).trigger("mousedown").trigger("mouseup"), 200);
 
 		APP.game.svg.drawOutline("1.3");
-		APP.game.svg.solve();
-		// APP.game.svg.shuffle();
+		// APP.game.svg.solve();
+		APP.game.svg.shuffle();
 
 		// APP.game.dispatch({ type: "output-pgn" });
 
@@ -21,7 +20,7 @@ let Test = {
 
 
 		// setTimeout(() => APP.game.tiles.b.rotate(15, APP.game.tiles.b.center), 200);
-		
+		// return setTimeout(() => APP.game.els.el.find(".tile").get(0).trigger("mousedown").trigger("mouseup"), 200);
 	}
 };
 
