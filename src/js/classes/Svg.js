@@ -58,8 +58,14 @@ class Svg {
 	}
 
 	validate() {
-		// TODO: validate correct solution
-		
+		let all = [];
+		// validate correct solution
+		let data = Level[this.level].tiles;
+		for (let tile of this.tiles.values()) {
+			all.push(tile.polyish);
+		}
+		let poly = Polygon.union(all)[0];
+		console.log( poly.toSvg() );
 	}
 
 	shuffle() {

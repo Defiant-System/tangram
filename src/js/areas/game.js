@@ -9,21 +9,12 @@
 			content: window.find("content"),
 		};
 
-		// let mouse = new Point(1, 0),
-		// 	center = new Point(0, 0),
-		// 	start = new Point(0, 1),
-		// 	angle = new Angle(mouse, center, start).deg;
-		// console.log( angle );
-
 		// init tiles
 		this.svg = new Svg(this.els.el);
 		this.tiles = {};
 		// 7 tiles
 		"abcdefg".split("").map(k => this.tiles[k] = new Tile(this.svg, k));
 		this.svg.setTiles(this.tiles);
-
-		// outline
-		// this.svg.drawOutline("1.0");
 
 		// bind event handlers
 		this.els.el.on("mousedown", ".tile", this.move);
