@@ -15,6 +15,8 @@
 @import "classes/Svg.js"
 @import "classes/Tile.js"
 
+@import "puzzles/index.js"
+
 @import "modules/bg.js";
 @import "modules/misc.js";
 @import "modules/test.js"
@@ -54,6 +56,10 @@ const tangram = {
 			case "open-help":
 				karaqu.shell("fs -u '~/help/index.md'");
 				break;
+			// proxy events
+			case "output-pgn":
+			case "draw-outline":
+				return Self.game.dispatch(event);
 			default:
 				el = event.el;
 				if (!el && event.origin) el = event.origin.el;

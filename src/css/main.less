@@ -52,46 +52,66 @@ content {
 		// display: none;
 
 		svg {
-			> g {
-				filter: url(#tangram-beveled);
+			position: absolute;
+			
+			&.outline {
+				mix-blend-mode: hard-light;
+				filter: drop-shadow(0 1px 0 rgba(#fff,.25));
+				opacity: .5;
+
+				.polygon {
+					stroke-width: 11px;
+					stroke-linejoin: round;
+					fill: #333;
+					stroke: #333;
+					// stroke: #000;
+				}
 			}
 
-			.tile {
-				cursor: move;
+			&.board {
+				// display: none;
 
-				&.active {
-					// filter: drop-shadow(0 2px 3px rgba(#000,.35));
+				> g {
+					filter: url(#tangram-beveled);
+				}
 
-					line,
-					circle {
-						display: block;
+				.tile {
+					cursor: move;
+
+					&.active {
+						// filter: drop-shadow(0 2px 3px rgba(#000,.35));
+
+						line,
+						circle {
+							display: block;
+						}
 					}
-				}
 
-				line {
-					display: none;
-					stroke: #fff;
-					stroke-width: 2.5px;
-					pointer-events: none;
-				}
-
-				circle {
-					display: none;
-					fill: #fff;
-					cursor: pointer;
-
-					&.center {
+					line {
 						display: none;
-						// display: block;
+						stroke: #fff;
+						stroke-width: 2.5px;
+						pointer-events: none;
+					}
+
+					circle {
+						display: none;
+						fill: #fff;
+						cursor: pointer;
+
+						&.center {
+							display: none;
+							// display: block;
+						}
 					}
 				}
-			}
 
-			.polygon-tile {
-				// stroke: #fff;
-				stroke-width: 2px;
-				stroke-linejoin: round;
-				stroke: #11111188;
+				.polygon-tile {
+					// stroke: #fff;
+					stroke-width: 2px;
+					stroke-linejoin: round;
+					stroke: #11111188;
+				}
 			}
 		}
 	}

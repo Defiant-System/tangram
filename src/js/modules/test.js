@@ -3,6 +3,11 @@ let Test = {
 	init(APP) {
 		// return;
 
+		APP.game.svg.drawOutline("1.1");
+		APP.game.svg.solve();
+		// APP.game.dispatch({ type: "output-pgn" });
+
+
 		// let p = new Point(0, 0),
 		// 	path = [new Point(-1, 2), new Point(1, 2)],
 		// 	t1 = new Polygon(...path),

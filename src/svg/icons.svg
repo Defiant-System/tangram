@@ -3,10 +3,11 @@
 	<defs>
 		<filter id="tangram-beveled">
 			<feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur"></feGaussianBlur>
+			<feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="blur" result="clrMatrix"></feColorMatrix>
 			<!-- offsetBlur -->
-			<feOffset in="blur" dx="0" dy="3" result="offsetBlur"></feOffset>
+			<feOffset in="clrMatrix" dx="0" dy="3" result="offsetBlur"></feOffset>
 			<!-- highlight -->
-			<feSpecularLighting in="blur" surfaceScale="8" specularConstant=".7" specularExponent="65" result="highlight" lighting-color="#ddd">
+			<feSpecularLighting in="clrMatrix" surfaceScale="8" specularConstant=".7" specularExponent="65" result="highlight" lighting-color="#ddd">
 			    <fePointLight x="-5000" y="-10000" z="20000"></fePointLight>
 			</feSpecularLighting>
 			<!-- highlightApplied -->

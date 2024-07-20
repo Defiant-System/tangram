@@ -5,12 +5,9 @@
 		<Menu name="Quit Tangram" shell="win -c"/>
 	</Menu>
 	<Menu name="Game" for="game-board">
-		<Menu name="Reset Puzzle"/>
-		<Menu type="divider"/>
-		<Menu name="Test" click="draw-puzzle" arg="test"/>
-		<Menu name="Box" click="draw-puzzle" arg="box"/>
-		<Menu name="Tree" click="draw-puzzle" arg="tree"/>
-		<Menu name="House" click="draw-puzzle" arg="house"/>
+		<Menu name="Box" click="draw-puzzle" arg="1.0"/>
+		<Menu name="Tree" click="draw-puzzle" arg="1.1"/>
+		<Menu name="House" click="draw-puzzle" arg="1.2"/>
 		<Menu type="divider"/>
 		<Menu name="Output PGN" click="output-pgn"/>
 	</Menu>

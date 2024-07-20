@@ -1,8 +1,9 @@
 <content>
 	<canvas class="tangram-bg"></canvas>
 
-	<div class="game-view" data-area="game" data-click="deselect-active">
-		<svg viewBox="-200 -200 600 600">
+	<div class="game-view" data-area="game" data-click="deselect-active" data-context="game-board">
+		<svg class="outline" viewBox="-200 -200 600 600"></svg>
+		<svg class="board" viewBox="-200 -200 600 600">
 			<g>
 				<g class="tile" data-id="a" transform="translate(50 100) rotate(-90)">
 					<path class="polygon-tile" fill="#cd0e67" d="M-100,-50L0,50L100,-50Z"></path>

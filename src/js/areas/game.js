@@ -7,7 +7,6 @@
 		this.els = {
 			el: window.find(".game-view"),
 			content: window.find("content"),
-			tmp: window.find(".tmp"),
 		};
 
 		// let mouse = new Point(1, 0),
@@ -22,6 +21,9 @@
 		// 7 tiles
 		"abcdefg".split("").map(k => this.tiles[k] = new Tile(this.svg, k));
 		this.svg.setTiles(this.tiles);
+
+		// outline
+		// this.svg.drawOutline("1.0");
 
 		// bind event handlers
 		this.els.el.on("mousedown", ".tile", this.move);
@@ -39,6 +41,17 @@
 					// delete refernce
 					delete Self.active;
 				}
+				break;
+			case "draw-outline":
+				Self.svg.drawOutline(event.arg);
+				break;
+			case "output-pgn":
+				value = Self.svg.puzzlePGN();
+				value = JSON.stringify(value, null, "\t")
+							.replace(/\n\t\t/g, "")
+							.replace(/\n\t]/g, "]")
+							.replace(/,(\d)/g, ", $1");
+				console.log( value );
 				break;
 		}
 	},
