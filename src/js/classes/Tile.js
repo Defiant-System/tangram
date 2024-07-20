@@ -125,7 +125,20 @@ class Tile {
 	}
 
 	rotateEnd() {
-		this.startAngle = this.rotation;
+		let rotation = Vt(this.rotation, 45);
+		let transform = `translate(${this.position.x} ${this.position.y}) rotate(${rotation})`;
+
+		this.props.el.cssSequence("smooth", "transitionend", el => el.removeClass("smooth"));
+
+		this.props.el.attr({ transform });
+		
+		this.position = this.position.rotate(toRadians(rotation), this.position);
+		this.rotation = ot(this.rotation, 360);
+
+		this.startAngle =
+		this.angle =
+		this.rotation = rotation;
+		this.transform(!0);
 		this.setTransform();
 	}
 
