@@ -21,6 +21,7 @@
 @import "puzzles/shuffle.js"
 
 @import "modules/bg.js";
+@import "modules/simplify.js";
 @import "modules/boolean.js";
 @import "modules/misc.js";
 @import "modules/test.js"

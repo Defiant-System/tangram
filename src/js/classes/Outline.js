@@ -37,9 +37,10 @@ class Outline {
 		// save solution for later comparison
 		this.union = Polygon.union(pieces);
 		
-		// console.log( this.union[0] );
-		this.props.el.html(`<path class="polygon" d="${this.union[0].toSvg()}"></path>`);
-
+		// clean out points closer to each other (tolerance: 2px)
+		let clean = simplify(this.union[0].points, 2);
+		this.path = new Polygon(...clean);
+		this.props.el.html(`<path class="polygon" d="${this.path.toSvg()}"></path>`);
 
 		// let str = [];
 		// Object.keys(data).map(k => {
@@ -50,7 +51,6 @@ class Outline {
 		// });
 		// this.oEl.html(`<g>${str.join("")}</g>`);
 
-		// this.path = path;
 		// this.snapAngles = Rt(path.edges.map(o => ot(Math.round(toDegrees(o.angle)), 180)));
 
 		// console.log( this.snapAngles );
