@@ -89,6 +89,12 @@ const tangram = {
 			// custom events
 			case "apply-saved-state":
 				Object.keys(Self.state).map(k => {
+					if (k === "level") {
+						window.bluePrint.selectNodes(`//*[@check-group="game-level"]`).map(xMenu => {
+							if (xMenu.getAttribute("arg") === Self.state[k]) xMenu.setAttribute("is-checked", 1);
+							else xMenu.removeAttribute("is-checked");
+						});
+					}
 					Self.game.dispatch({ type: `set-${k}`, arg: Self.state[k] });
 				});
 				break;
@@ -97,7 +103,6 @@ const tangram = {
 				break;
 			// proxy events
 			case "output-pgn":
-			case "draw-outline":
 			case "set-level":
 			case "set-theme":
 			case "set-state":

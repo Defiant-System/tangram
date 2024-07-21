@@ -66,6 +66,9 @@ class Tile {
 		this.position = t;
 		this.props.x = t.x;
 		this.props.y = t.y;
+		
+		this.startAngle =
+		this.angle =
 		this.rotation = this.props.r = ot(e, 360);
 
 		this.transform();

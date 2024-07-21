@@ -71,7 +71,7 @@ class Svg {
 		let union = Polygon.union(pieces);
 		union = simplify(union[0].points, 5);
 		let state = new Polygon(...union);
-		this.el.find("svg.validate").html(`<path class="polygon-tile" d="${state.toSvg()}"></path>`);
+		// this.el.find("svg.validate").html(`<path class="polygon-tile" d="${state.toSvg()}"></path>`);
 
 		let stateSegments = state.edges.map(s => Math.round(s.length)).sort((a,b) => a - b),
 			outlineSegments = this.outline.path.edges.map(s => Math.round(s.length)).sort((a,b) => a - b);

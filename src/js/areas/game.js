@@ -42,8 +42,9 @@
 				Self.svg.restoreState(event.arg);
 				break;
 			case "set-level":
-			case "draw-outline":
-				Self.svg.drawOutline(event.arg);
+				value = event.arg;
+				if (!value && event.xMenu) value = event.xMenu.getAttribute("arg");
+				Self.svg.drawOutline(value);
 				Self.svg.shuffle();
 				break;
 			case "output-pgn":
