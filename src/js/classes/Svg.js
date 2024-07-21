@@ -64,16 +64,6 @@ class Svg {
 		this.solution = Polygon.union(pieces)[0].toSvg();
 	}
 
-	isSolved() {
-		// validate correct solution
-		let pieces = [];
-		for (let tile of this.tiles.values()) {
-			pieces.push(tile.polyish);
-		}
-		let state = Polygon.union(pieces)[0].toSvg();
-		return state === this.solution;
-	}
-
 	shuffle() {
 		let data = Shuffle[(Shuffle.length * Math.random()) | 0];
 		// shuffle tiles
@@ -87,6 +77,18 @@ class Svg {
 			tile.props.el.attr({ transform });
 			tile.props.el.cssSequence("anim-move", "transitionend", el => el.removeClass("anim-move"));
 		}
+	}
+
+	isSolved() {
+		// validate correct solution
+		let pieces = [];
+		for (let tile of this.tiles.values()) {
+			pieces.push(tile.polyish);
+		}
+		let state = Polygon.union(pieces);
+		this.el.find("svg.validate").html(state[0].toSvg());
+
+		return state === this.solution;
 	}
 
 	restoreState(data) {
