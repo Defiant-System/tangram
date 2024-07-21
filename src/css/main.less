@@ -1,10 +1,14 @@
 
+background: transparent;
+
+
 content {
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
+	background: #5d2396 radial-gradient(circle at 50%, #ffffff66, transparent);
 
 	&.cover {
 		&:before {
@@ -19,166 +23,144 @@ content {
 		}
 	}
 
-	.board {
-		--color-1: rgba(#fff,.03);
-		--color-2: rgba(#fff,.02);
-		--color-3: #fff;
+	canvas.tangram-bg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		// opacity: .5;
+		mix-blend-mode: hard-light;
+		border-radius: inherit;
+		pointer-events: none;
+	}
 
-		&:before {
-			content: "";
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			z-index: 1;
-			background-position: -1px 21px;
-			background-repeat: repeat-y;
-			background-image: repeating-linear-gradient(90deg, var( --color-1 ) 0px, var( --color-1 ) 1px, transparent 1px, transparent 100px),
-								repeating-linear-gradient(0deg, var( --color-1 ) 0px, var( --color-1 ) 1px, transparent 1px, transparent 100px),
-								repeating-linear-gradient(0deg, var( --color-2 ) 0px, var( --color-2 ) 1px, transparent 1px, transparent 25px),
-								repeating-linear-gradient(90deg, var( --color-2 ) 0px, var( --color-2 ) 1px, transparent 1px, transparent 25px);
+	.game-view {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		
+		&[data-theme="classic"] {
+			svg.board {
+				.tile[data-id="a"] path { fill: #cd0e67; }
+				.tile[data-id="b"] path { fill: #0d7ff2; }
+				.tile[data-id="c"] path { fill: #22aa24; }
+				.tile[data-id="d"] path { fill: #ff8c00; }
+				.tile[data-id="e"] path { fill: #eb4928; }
+				.tile[data-id="f"] path { fill: #00a0a8; }
+				.tile[data-id="g"] path { fill: #6d3bbf; }
+			}
 		}
-
-		&.debug svg {
-			&.debug {
-				pointer-events: none;
-				z-index: 4;
-
-				g.center {
-					opacity: .25;
-				}
-
-				line {
-					display: block;
-					stroke: var( --color-3 );
-					stroke-width: .5;
-					// opacity: .5;
-				}
-
-				circle {
-					display: block;
-					fill: var( --color-3 );
-				}
+		
+		&[data-theme="pastell"] {
+			svg.board {
+				.tile[data-id="a"] path { fill: #ecc8a7; }
+				.tile[data-id="b"] path { fill: #fdabbd; }
+				.tile[data-id="c"] path { fill: #acb8d2; }
+				.tile[data-id="d"] path { fill: #d9cae6; }
+				.tile[data-id="e"] path { fill: #efa9b8; }
+				.tile[data-id="f"] path { fill: #ddd89d; }
+				.tile[data-id="g"] path { fill: #91d7cc; }
+			}
+		}
+		
+		&[data-theme="sunset"] {
+			svg.board {
+				.tile[data-id="a"] path { fill: #7d1d67; }
+				.tile[data-id="b"] path { fill: #ac2377; }
+				.tile[data-id="c"] path { fill: #d7367a; }
+				.tile[data-id="d"] path { fill: #f65a6e; }
+				.tile[data-id="e"] path { fill: #fe8b6f; }
+				.tile[data-id="f"] path { fill: #ffb481; }
+				.tile[data-id="g"] path { fill: #ffdaa0; }
 			}
 		}
 
 		svg {
 			position: absolute;
-			z-index: 3;
 
-			&.hidden {
-				opacity: 0;
-				visibility: hidden;
+			// &.validate {
+			// 	display: none;
+			// 	z-index: 3;
+			// 	pointer-events: none;
 
-				&.outline,
-				&.pieces {
-					g {
-						pointer-events: none;
-					}
-				}
-			}
-
+			// 	path {
+			// 		fill: #ff000055;
+			// 		stroke: #f00;
+			// 		stroke-width: 2;
+			// 	}
+			// }
+			
 			&.outline {
-				// display: none;
 				mix-blend-mode: hard-light;
 				filter: drop-shadow(0 1px 0 rgba(#fff,.25));
 				opacity: .5;
-				// filter: url(#tangram-beveled);
 
-				g { transform: translate(-999px, -999px); }
-
-				polygon {
+				.polygon {
+					stroke-width: 11px;
+					stroke-linejoin: round;
 					fill: #333;
 					stroke: #333;
-					stroke-width: 5;
+					// stroke-width: 2px;
+					// stroke: #000;
 				}
 			}
 
-			&.pieces {
+			&.board {
 				// display: none;
 
-				g {
-					pointer-events: all;
+				> g {
+					filter: url(#tangram-beveled);
+				}
 
-					&.dragging {
-						// filter: drop-shadow(0 5px 5px rgba(#000,.75));
-					}
+				.tile {
+					cursor: move;
 
 					&.active {
+						// filter: drop-shadow(0 2px 3px rgba(#000,.35));
+
 						line,
 						circle {
 							display: block;
 						}
+					}
 
-						polygon {
-							// stroke: #fff;
-							stroke-width: 3;
+					&.anim-rotate {
+						transition: transform 150ms ease-in-out;
+					}
+
+					&.anim-move {
+						transition: transform 300ms ease-in-out;
+					}
+
+					line {
+						display: none;
+						stroke: #fff;
+						stroke-width: 2.5px;
+						pointer-events: none;
+					}
+
+					circle {
+						display: none;
+						fill: #fff;
+						cursor: pointer;
+
+						&.center {
+							display: none;
+							// display: block;
 						}
 					}
 				}
 
-				&.b1 polygon {
-					fill: #f90;
-					transform: translate(-50px, -50px);
-				}
-
-				&.b2 polygon {
-					fill: #f90;
-					transform: translate(-75px, -25px);
-				}
-
-				&.b3 polygon {
-					fill: #f90;
-					transform: translate(-50px, -50px);
-				}
-
-				.p1 { fill: #0f82f2; }
-				.p2 { fill: #fd8c00; }
-				.p3 { fill: #cd0e66; }
-				.p4 { fill: #6d3bbf; }
-				.p5 { fill: #009ea6; }
-				.p6 { fill: #eb4726; }
-				.p7 { fill: #22ab24; }
-			}
-
-			g {
-				&.center {
-					pointer-events: none;
-					transform: translate(199.5px, 170.5px);
+				.polygon-tile {
+					// stroke: #fff;
+					stroke-width: 2px;
+					stroke-linejoin: round;
+					stroke: #11111188;
 				}
 			}
-
-			line {
-				display: none;
-				stroke: #fff;
-				stroke-width: 4;
-				pointer-events: none;
-			}
-
-			circle {
-				display: none;
-				fill: #fff;
-				cursor: pointer;
-			}
-
-			polygon {
-				stroke: #fff;
-				stroke-width: 1;
-				stroke-linejoin: round;
-				cursor: move;
-				// filter: url(#tangram-beveled);
-				// stroke-width: 11;
-				// stroke: #222;
-			}
-
-			.p1 { transform: translate(-100px, -50px); }
-			.p2 { transform: translate(-50px, -100px); }
-			.p3 { transform: translate(-25px, -75px); }
-			.p4 { transform: translate(-25px, -50px); }
-			.p5 { transform: translate(-50px, -50px); }
-			.p6 { transform: translate(-50px, -50px); }
-			.p7 { transform: translate(-50px, -25px); }
 		}
 	}
 }

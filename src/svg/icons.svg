@@ -2,16 +2,23 @@
 
 	<defs>
 		<filter id="tangram-beveled">
-			<feGaussianBlur stdDeviation="1" in="eroded" result="blured"/>
-			<feSpecularLighting in="blured" result="specularKey" specularExponent="200" lighting-color="#fff" surfaceScale="1">
-				<fePointLight x="100" y="-100" z="200" />
+			<feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur"></feGaussianBlur>
+			<feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="blur" result="clrMatrix"></feColorMatrix>
+			<!-- offsetBlur -->
+			<feOffset in="clrMatrix" dx="0" dy="3" result="offsetBlur"></feOffset>
+			<!-- highlight -->
+			<feSpecularLighting in="clrMatrix" surfaceScale="8" specularConstant=".7" specularExponent="65" result="highlight" lighting-color="#ddd">
+			    <fePointLight x="-5000" y="-10000" z="20000"></fePointLight>
 			</feSpecularLighting>
-			<feSpecularLighting in="blured" result="specularFill" specularExponent="100" lighting-color="#33333355" surfaceScale="1">
-				<fePointLight x="300" y="400" z="900" />
-			</feSpecularLighting>
-			<feBlend mode="screen" in="specularKey" in2="specularFill" result="specular"/>
-			<feBlend mode="screen" in="specular" in2="SourceGraphic" result="comped"/>
-			<feComposite in="comped" in2="SourceGraphic" operator="in" result="clipped"/>
+			<!-- highlightApplied -->
+			<feComposite in="highlight" in2="SourceAlpha" operator="in" result="highlightApplied"></feComposite>
+			<!-- highlightText -->
+			<feComposite in="SourceGraphic" in2="highlightApplied" operator="arithmetic" k2="1" k3="1.25" result="highlightText"></feComposite>
+			<!-- 5af21839-d7d1-40a0-8f26-75527cfdc952 -->
+			<feMerge>
+			    <feMergeNode in="offsetBlur"></feMergeNode>
+			    <feMergeNode in="highlightText"></feMergeNode>
+			</feMerge>
 		</filter>
 	</defs>
 

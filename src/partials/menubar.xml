@@ -5,12 +5,22 @@
 		<Menu name="Quit Tangram" shell="win -c"/>
 	</Menu>
 	<Menu name="Game" for="game-board">
-		<Menu name="Reset Puzzle"/>
+		<Menu name="Shuffle" click="shuffle-pieces"/>
+		<Menu name="Solve" click="solve-puzzle"/>
 		<Menu type="divider"/>
-		<Menu name="Test" click="draw-puzzle" arg="test"/>
-		<Menu name="Box" click="draw-puzzle" arg="box"/>
-		<Menu name="Tree" click="draw-puzzle" arg="tree"/>
-		<Menu name="House" click="draw-puzzle" arg="house"/>
+		<Menu name="Theme&#8230;">
+			<Menu name="Classic" click="set-theme" arg="classic"/>
+			<Menu name="Pastell" click="set-theme" arg="pastell"/>
+			<Menu name="Sunset" click="set-theme" arg="sunset"/>
+		</Menu>
+		<Menu name="Level&#8230;">
+			<Menu name="Box" click="set-level" arg="1.0" check-group="game-level"/>
+			<Menu name="House" click="set-level" arg="1.1" check-group="game-level"/>
+			<Menu name="Boat" click="set-level" arg="1.2" check-group="game-level"/>
+			<Menu name="Tree" click="set-level" arg="1.3" check-group="game-level"/>
+			<Menu name="Goose" click="set-level" arg="1.4" check-group="game-level"/>
+			<Menu name="Camel" click="set-level" arg="1.5" check-group="game-level"/>
+		</Menu>
 		<Menu type="divider"/>
 		<Menu name="Output PGN" click="output-pgn"/>
 	</Menu>

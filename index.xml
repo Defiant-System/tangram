@@ -1,12 +1,15 @@
 <Application>
+	<Build>
+		<task action="skip" source="src/js/modules/bg-worker.js" destination="public/js/bg-worker.js"/>
+	</Build>
 	<Head>
 		<meta name="id" value="tangram"/>
-		<meta name="title" value="Tangram" version="1.0"/>
+		<meta name="title" value="Tangram" version="1.1"/>
 		<meta name="author" value="Hakan Bilgin" namespace="ant"/>
 		<meta name="license" value="AGPL-3.0"/>
 		<meta name="repository" value="https://github.com/Defiant-System/tangram"/>
-		<meta name="width" value="599"/>
-		<meta name="height" value="550"/>
+		<meta name="width" value="600"/>
+		<meta name="height" value="600"/>
 		<meta name="top" value="200"/>
 		<meta name="left" value="280"/>
 		<meta name="minimize"/>
@@ -19,7 +22,6 @@
 		<meta name="content" value="src/partials/content.htm"/>
 		<meta name="xsl" value="src/partials/templates.xsl"/>
 
-		@import "src/partials/toolbar.xml"
 		@import "src/partials/menubar.xml"
 	</Head>
 </Application>

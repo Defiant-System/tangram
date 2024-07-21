@@ -1,19 +1,43 @@
 
 let Test = {
 	init(APP) {
-		APP.board.dispatch({ type: "draw-puzzle", arg: "tree" });
+		// return;
 
-		// setTimeout(() => APP.board.dispatch({ type: "output-pgn" }), 200);
+		// let poly = (...p) => new Polygon(...p.map(q => new Point(q[0], q[1])));
+		// let line = (...p) => new Line(new Point(p[0][0], p[0][1]), new Point(p[1][0], p[1][1]));
+		// let ps = p => p.points.map(q => q.array);
 
-		let l1 = new Line(120, 69, 170, 119),
-			l2 = new Line(175, 220, 125, 170);
 
-		// console.log( l1.snap(l2, 1, 10) );
+		// let p1 = poly([0, 0], [0, 2], [2, 2], [2, 0]),
+		// 	p2 = poly([0, 0], [0, 3], [1, 3], [1, 0]),
+		// 	p3 = Polygon.union([p1, p2]);
+		// console.log( p1 );
+		// console.log( p2 );
+		// console.log( p3[0].toSvg() );
 
-		// let line = new Line(50, 0, -50, 100);
-		// console.log( line.pointDistance(50, 50) );
+		// let shape = poly([0, 0], [2, 0], [2, 1], [1, 1], [1, 2], [0, 2]);
+		// let c1 = shape.cut(line([1, 0], [1, 1])).map(p => ps(p));
+		// console.log( c1 );
 
-		// new Guides({ debug: true });
+		// APP.game.svg.drawOutline("1.0");
+		// APP.game.svg.solve();
+		// APP.game.svg.isSolved();
+		
+		// setTimeout(() => APP.game.svg.shuffle(), 1e3);
+
+		// APP.game.dispatch({ type: "output-pgn" });
+
+
+		// let p = new Point(0, 0),
+		// 	path = [new Point(-1, 2), new Point(1, 2)],
+		// 	t1 = new Polygon(...path),
+		// 	t2 = t1.rotate(toRadians(180), p);
+		// console.log( t1.toString() );
+		// console.log( t2.toString() );
+
+
+		// setTimeout(() => APP.game.tiles.b.rotate(15, APP.game.tiles.b.center), 200);
+		// return setTimeout(() => APP.game.els.el.find(".tile").get(0).trigger("mousedown").trigger("mouseup"), 200);
 	}
 };
 

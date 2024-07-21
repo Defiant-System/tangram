@@ -1,91 +1,52 @@
 <content>
-	<div class="board" data-area="board" data-click="deselect-active" data-context="game-board">
-		<svg class="outline" viewBox="0 0 599 550">
-			<g class="center">
-				<g class="g1">
-					<polygon class="p1" offset="-100,-50" points="100,0 200,100 0,100"/>
-				</g>
-				<g class="g2">
-					<polygon class="p2" offset="-50,-100" points="0,0 100,100 0,200"/>
-				</g>
-				<g class="g3">
-					<polygon class="p3" offset="-25,-75" points="0,0 50,50 50,150 0,100"/>
-				</g>
-				<g class="g4">
-					<polygon class="p4" offset="-25,-50" points="50,0 50,100 0,50"/>
-				</g>
-				<g class="g5">
-					<polygon class="p5" offset="-50,-50" points="0,0 100,0 100,100"/>
-				</g>
-				<g class="g6">
-					<polygon class="p6" offset="-50,-50" points="50,0 100,50 50,100 0,50"/>
-				</g>
-				<g class="g7">
-					<polygon class="p7" offset="-50,-25" points="0,0 100,0 50,50"/>
-				</g>
-			</g>
-		</svg>
-		<svg class="pieces" viewBox="0 0 599 550">
-			<g class="center">
-				<!--
-				<g class="b1">
-					<polygon offset="-50,-50" points="0,0 100,0 100,100 0,100"/>
-					<circle class="center" cx="0" cy="0" r="1.5"/>
-				</g>
-				<g class="b2">
-					<polygon offset="-75,-25" points="0,0 150,0 150,50 0,50"/>
-					<circle class="center" cx="0" cy="0" r="1.5"/>
-				</g>
-				<g class="b3">
-					<polygon offset="-50,-50" points="0,0 100,0 100,100 0,100"/>
-					<circle class="center" cx="0" cy="0" r="1.5"/>
-				</g>
-				-->
+	<canvas class="tangram-bg"></canvas>
 
-				<g class="g1">
-					<polygon class="p1" offset="-100,-50" points="100,0 200,100 0,100"/>
-					<line x1="0" y1="50" x2="0" y2="80"/>
-					<circle cx="0" cy="80" r="7"/>
-					<circle class="center" cx="0" cy="0" r="1.5"/>
+	<div class="game-view" data-area="game" data-theme="sunset" data-click="deselect-active" data-context="game-board">
+		<svg class="outline" viewBox="-200 -200 600 600"></svg>
+		<svg class="board" viewBox="-200 -200 600 600">
+			<g>
+				<g class="tile" data-id="a" transform="translate(50 100) rotate(-90)">
+					<path class="polygon-tile" d="M-100,-50L0,50L100,-50Z"></path>
+					<line x1="0" y1="-50" x2="0" y2="-75"/>
+					<circle cx="0" cy="-75" r="5"/>
+					<circle class="center" cx="0" cy="0" r="2"/>
 				</g>
-				<g class="g2">
-					<polygon class="p2" offset="-50,-100" points="0,0 100,100 0,200"/>
-					<line x1="80" y1="0" x2="50" y2="0"/>
-					<circle cx="80" cy="0" r="7"/>
-					<circle class="center" cx="0" cy="0" r="1.5"/>
+				<g class="tile" data-id="b" transform="translate(100 50) rotate(0)">
+					<path class="polygon-tile" d="M-100,-50L0,50L100,-50Z"></path>
+					<line x1="0" y1="-50" x2="0" y2="-75"/>
+					<circle cx="0" cy="-75" r="5"/>
+					<circle class="center" cx="0" cy="0" r="2"/>
 				</g>
-				<g class="g3">
-					<polygon class="p3" offset="-25,-75" points="0,0 50,50 50,150 0,100"/>
-					<line x1="-25" y1="0" x2="-55" y2="0"/>
-					<circle cx="-55" cy="0" r="7"/>
-					<circle class="center" cx="0" cy="0" r="1.5"/>
+				<g class="tile" data-id="c" transform="translate(150 100) rotate(0)">
+					<path class="polygon-tile" d="M-50,0L0,-50L50,0L0,50Z"></path>
+					<line x1="0" y1="-50" x2="0" y2="-75"/>
+					<circle cx="0" cy="-75" r="5"/>
+					<circle class="center" cx="0" cy="0" r="2"/>
 				</g>
-				<g class="g4">
-					<polygon class="p4" offset="-25,-50" points="50,0 50,100 0,50"/>
-					<line x1="-25" y1="0" x2="-55" y2="0"/>
-					<circle cx="-55" cy="0" r="7"/>
-					<circle class="center" cx="0" cy="0" r="1.5"/>
+				<g class="tile" data-id="d" transform="translate(75 175) rotate(0)">
+					<path class="polygon-tile" d="M-75,25L25,25L75,-25L-25,-25Z"></path>
+					<line x1="0" y1="-25" x2="0" y2="-50"/>
+					<circle cx="0" cy="-50" r="5"/>
+					<circle class="center" cx="0" cy="0" r="2"/>
 				</g>
-				<g class="g5">
-					<polygon class="p5" offset="-50,-50" points="0,0 100,0 100,100"/>
-					<line x1="0" y1="0" x2="-30" y2="30"/>
-					<circle cx="-30" cy="30" r="7"/>
-					<circle class="center" cx="0" cy="0" r="1.5"/>
+				<g class="tile" data-id="e" transform="translate(175 50) rotate(-90)">
+					<path class="polygon-tile" d="M0,-25L50,25L-50,25Z"></path>
+					<line x1="0" y1="-25" x2="0" y2="-50"/>
+					<circle cx="0" cy="-50" r="5"/>
+					<circle class="center" cx="0" cy="0" r="2"/>
 				</g>
-				<g class="g6">
-					<polygon class="p6" offset="-50,-50" points="50,0 100,50 50,100 0,50"/>
-					<line x1="50" y1="0" x2="80" y2="0"/>
-					<circle cx="80" cy="0" r="7"/>
-					<circle class="center" cx="0" cy="0" r="1.5"/>
+				<g class="tile" data-id="f" transform="translate(100 125) rotate(0)">
+					<path class="polygon-tile" d="M0,-25L50,25L-50,25Z"></path>
+					<line x1="0" y1="-25" x2="0" y2="-50"/>
+					<circle cx="0" cy="-50" r="5"/>
+					<circle class="center" cx="0" cy="0" r="2"/>
 				</g>
-				<g class="g7">
-					<polygon class="p7" offset="-50,-25" points="0,0 100,0 50,50"/>
-					<line x1="0" y1="-25" x2="0" y2="-55"/>
-					<circle cx="0" cy="-55" r="7"/>
-					<circle class="center" cx="0" cy="0" r="1.5"/>
+				<g class="tile" data-id="g" transform="translate(150 150) rotate(90)">
+					<path class="polygon-tile" d="M-50,-50L50,-50L50,50Z"></path>
+					<line x1="0" y1="-50" x2="0" y2="-75"/>
+					<circle cx="0" cy="-75" r="5"/>
+					<circle class="center" cx="0" cy="0" r="2"/>
 				</g>
-				<!--
-				-->
 			</g>
 		</svg>
 	</div>
