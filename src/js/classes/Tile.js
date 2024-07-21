@@ -26,11 +26,6 @@ class Tile {
 		return this.position;
 	}
 
-	get polyish() {
-		let p = this.transformed.points.map(p => new Point(Math.ceil(p.x), Math.ceil(p.y)));
-		return new Polygon(...p);
-	}
-
 	moveStart(t=!1) {
 		this.isActive = true;
 		this.startPosition = this.position;

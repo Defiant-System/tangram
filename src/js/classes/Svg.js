@@ -32,6 +32,8 @@ class Svg {
 		let data = Level[l].tiles;
 		// save reference to active level
 		this.level = l;
+		// move tiles
+		this.moveTiles(data);
 		// set outline path
 		this.outline.setPath(data);
 	}
@@ -64,12 +66,17 @@ class Svg {
 		// validate correct solution
 		let pieces = [];
 		for (let tile of this.tiles.values()) {
-			pieces.push(tile.polyish);
+			pieces.push(tile.transformed);
 		}
-		let state = Polygon.union(pieces)[0].toSvg();
-		this.el.find("svg.validate").html(`<path class="polygon-tile" d="${state[0].toSvg()}"></path>`);
+		let union = Polygon.union(pieces);
+		union = simplify(union[0].points, 5);
+		let state = new Polygon(...union);
+		this.el.find("svg.validate").html(`<path class="polygon-tile" d="${state.toSvg()}"></path>`);
 
-		return state === this.solution[0].toSvg();
+		let stateSegments = state.edges.map(s => Math.round(s.length)).sort((a,b) => a - b),
+			outlineSegments = this.outline.path.edges.map(s => Math.round(s.length)).sort((a,b) => a - b);
+		// console.log( stateSegments, outlineSegments );
+		return stateSegments.join() === outlineSegments.join();
 	}
 
 	restoreState(data) {

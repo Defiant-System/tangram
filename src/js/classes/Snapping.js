@@ -18,6 +18,12 @@ class Snapping {
 				}
 			}
 		}
+		for (let e of this.parent.outline.snapPoints) {
+			yield {
+				position: e,
+				tile: this.parent.outline
+			};
+		}
 	}
 
 	*getSnapLines() {
@@ -30,6 +36,12 @@ class Snapping {
 					};
 				}
 			}
+		}
+		for (let e of this.parent.outline.snapLines) {
+			yield {
+				path: e,
+				tile: this.parent.outline
+			};
 		}
 	}
 

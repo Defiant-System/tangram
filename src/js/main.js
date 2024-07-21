@@ -29,7 +29,7 @@
 
 
 let DefaultState = {
-	level: "1.0",
+	level: "1.1",
 	theme: "pastell",
 	state: {
 		// "a": [51, 99, 270],
