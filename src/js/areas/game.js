@@ -9,12 +9,8 @@
 			content: window.find("content"),
 		};
 
-		// init tiles
+		// init tiles - 7 tiles
 		this.svg = new Svg(this.els.el);
-		this.tiles = {};
-		// 7 tiles
-		"abcdefg".split("").map(k => this.tiles[k] = new Tile(this.svg, k));
-		this.svg.setTiles(this.tiles);
 
 		// bind event handlers
 		this.els.el.on("mousedown", ".tile", this.move);
@@ -69,7 +65,7 @@
 				// collect event info
 				let doc = $(document),
 					el = $(event.target).parents("?.tile"),
-					tile = Self.tiles[el.data("id")],
+					tile = Self.svg.tiles.get(el.data("id")),
 					rect = tile.props.parent.el[0].getBoundingClientRect(),
 					offset = {
 						x: tile.props.parent.view.x - tile.position.x,
@@ -127,7 +123,7 @@
 						x: event.clientX,
 						y: event.clientY,
 					},
-					tile = Self.tiles[el.data("id")],
+					tile = Self.svg.tiles.get(el.data("id")),
 					startSnapPoints = [...tile.snapPoints];
 
 				// drag info

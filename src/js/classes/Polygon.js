@@ -230,7 +230,8 @@ class Polygon {
 	}
 
 	toSvg() {
-		return `<path class="polygon-tile" d="M${this.points.map(p => `${p.x},${p.y}`).join("L")}Z"></path>`;
+		return `M${this.points.map(p => `${p.x},${p.y}`).join("L")}Z`;
+		// return `<path class="polygon-tile" d="M${this.points.map(p => `${p.x},${p.y}`).join("L")}Z"></path>`;
 	}
 
 	toString() {

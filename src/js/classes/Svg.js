@@ -2,8 +2,12 @@
 class Svg {
 	constructor(el) {
 		this.el = el;
-		this.outline = el.find("svg.outline");
 		this.board = el.find("svg.board");
+
+		this.type = "svg";
+		this.outline = new Outline(this, el.find("svg.outline"));
+		this.snapping = new Snapping(this);
+		this.tiles = new Map;
 
 		this.polygons = {
 			a: "M-100,-50L0,50L100,-50Z",
@@ -15,68 +19,45 @@ class Svg {
 			g: "M-50,-50L50,-50L50,50Z",
 		};
 
-		this.type = "svg";
-		this.snapping = new Snapping(this);
-		this.tiles = new Map;
+		Object.keys(this.polygons).map(k => {
+			let tile = new Tile(this, k);
+			this.tiles.set(k, tile);
+		});
 
 		let [x, y, w, h] = this.board.attr("viewBox").split(" ").map(i => +i);
 		this.view = { x, y, w, h };
 	}
 
-	setTiles(tiles) {
-		Object.keys(tiles).map((k, i) => {
-			this.tiles.set(k, tiles[k]);
-		});
-	}
-
 	drawOutline(l) {
-		let str = [];
 		let data = Level[l].tiles;
-		Object.keys(data).map(k => {
-			let [x, y, r] = data[k];
-			str.push(`<g transform="translate(${x} ${y}) rotate(${r})">
-						<path class="polygon" d="${this.polygons[k]}"></path>
-					</g>`);
-		});
-		this.outline.html(`<g>${str.join("")}</g>`);
 		// save reference to active level
 		this.level = l;
+		// set outline path
+		this.outline.setPath(data);
+	}
+
+	moveTiles(data) {
+		for (let tile of this.tiles.values()) {
+			let [x, y, r] = data[tile.props.id],
+				p = new Point(x, y);
+			// update internal state
+			tile.setTransform(p, r);
+			// update UI
+			let transform = `translate(${x} ${y}) rotate(${r})`;
+			tile.props.el.attr({ transform });
+			tile.props.el.cssSequence("anim-move", "transitionend", el => el.removeClass("anim-move"));
+		}
 	}
 
 	solve() {
-		let pieces = [];
 		let data = Level[this.level].tiles;
-		for (let tile of this.tiles.values()) {
-			let [x, y, r] = data[tile.props.id],
-				p = new Point(x, y);
-			// update internal state
-			tile.setTransform(p, r);
-
-			// assemble polygon details
-			pieces.push(tile.polyish);
-
-			// update UI
-			let transform = `translate(${x} ${y}) rotate(${r})`;
-			tile.props.el.attr({ transform });
-			tile.props.el.cssSequence("anim-move", "transitionend", el => el.removeClass("anim-move"));
-		}
-		// save solution for later comparison
-		this.solution = Polygon.union(pieces)[0].toSvg();
+		this.moveTiles(data);
 	}
 
 	shuffle() {
-		let data = Shuffle[(Shuffle.length * Math.random()) | 0];
 		// shuffle tiles
-		for (let tile of this.tiles.values()) {
-			let [x, y, r] = data[tile.props.id],
-				p = new Point(x, y);
-			// update internal state
-			tile.setTransform(p, r);
-			// update UI
-			let transform = `translate(${x} ${y}) rotate(${r})`;
-			tile.props.el.attr({ transform });
-			tile.props.el.cssSequence("anim-move", "transitionend", el => el.removeClass("anim-move"));
-		}
+		let data = Shuffle[(Shuffle.length * Math.random()) | 0];
+		this.moveTiles(data);
 	}
 
 	isSolved() {
@@ -85,10 +66,10 @@ class Svg {
 		for (let tile of this.tiles.values()) {
 			pieces.push(tile.polyish);
 		}
-		let state = Polygon.union(pieces);
-		this.el.find("svg.validate").html(state[0].toSvg());
+		let state = Polygon.union(pieces)[0].toSvg();
+		this.el.find("svg.validate").html(`<path class="polygon-tile" d="${state[0].toSvg()}"></path>`);
 
-		return state === this.solution;
+		return state === this.solution[0].toSvg();
 	}
 
 	restoreState(data) {

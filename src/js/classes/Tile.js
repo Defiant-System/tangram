@@ -7,15 +7,7 @@ class Tile {
 			list = pEl.attr("d").slice(1,-1).split("L").map(p => p.split(",").map(i => +i)),
 			path = list.map(p => new Point(p[0], p[1]));
 
-		this.props = {
-				x,
-				y,
-				r,
-				parent,
-				el,
-				id,
-			};
-
+		this.props = { x, y, r, parent, el, id };
 		this.snapPoints = [];
 		this.snapLines = [];
 		this.snapAngles = [];
@@ -24,7 +16,6 @@ class Tile {
 		this.rotation = r;
 		this.position = new Point(this.props.x, this.props.y);
 		this.path = new Polygon(...path);
-
 		this.path.rotate(toRadians(r), this.position);
 
 		this.transform();
@@ -84,8 +75,6 @@ class Tile {
 
 		this.transform();
 	}
-
-
 
 	rotateStart() {
 		this.startAngle = this.rotation;
@@ -147,11 +136,8 @@ class Tile {
 		this.setTransform();
 	}
 
-
-
 	setPath(path) {
 		this.snapAngles = Rt(path.edges.map(o => ot(Math.round(toDegrees(o.angle)), 180)));
-		// console.log( this.props.id, this.props.r, this.snapAngles );
 	}
 
 	getSnapPoints() {
@@ -169,20 +155,5 @@ class Tile {
 
 	getSnapLines() {
 		return this.path.edges
-	}
-
-	redrawCables() {
-		var t, e;
-		for (let i of ((t = this.inPorts) == null ? void 0 : t.values()) || []) {
-			i.redraw();
-		}
-		for (let i of ((e = this.outPorts) == null ? void 0 : e.values()) || []) {
-			i.redraw()
-		}
-	}
-
-	is(s) {
-		// return this.props.el[0].matches ? this.props.el[0].matches(s) : Array.from(document.querySelectorAll(s)).includes(this.props.el[0])
-		return this.props.el.is(s);
 	}
 }

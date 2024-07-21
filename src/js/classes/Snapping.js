@@ -9,7 +9,7 @@ class Snapping {
 
 	*getVertices() {
 		for (let t of this.parent.tiles.values()) {
-			if (!(t.isActive || t.pending || t.props.name === "geo")) {
+			if (!(t.isActive || t.pending)) {
 				for (let e of t.snapPoints) {
 					yield {
 						position: e,
