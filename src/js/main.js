@@ -28,7 +28,16 @@
 
 let DefaultState = {
 	level: "1.3",
-	theme: "sunset",
+	theme: "pastell",
+	state: {
+		"a": [51, 99, 270],
+		"b": [101, 48.999999999999986, 0],
+		"c": [277, 34.999999999999986, 90],
+		"d": [76.00000000000003, 174, 0],
+		"e": [176.00000000000003, 49, 270],
+		"f": [101.00000000000003, 124, 0],
+		"g": [151.00000000000003, 149, 90],
+	}
 };
 
 
@@ -82,6 +91,7 @@ const tangram = {
 			case "draw-outline":
 			case "set-level":
 			case "set-theme":
+			case "set-state":
 				return Self.game.dispatch(event);
 			default:
 				el = event.el;

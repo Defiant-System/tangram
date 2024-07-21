@@ -19,9 +19,9 @@ let Test = {
 		// let c1 = shape.cut(line([1, 0], [1, 1])).map(p => ps(p));
 		// console.log( c1 );
 
-		APP.game.svg.drawOutline("1.3");
-		APP.game.svg.solve();
-		APP.game.svg.validate();
+		APP.game.svg.drawOutline("1.0");
+		// APP.game.svg.solve();
+		// APP.game.svg.isSolved();
 		
 		// setTimeout(() => APP.game.svg.shuffle(), 1e3);
 

@@ -80,6 +80,18 @@ content {
 
 		svg {
 			position: absolute;
+
+			&.validate {
+				display: none;
+				z-index: 3;
+				pointer-events: none;
+
+				path {
+					fill: none;
+					stroke: #f00;
+					stroke-width: 2;
+				}
+			}
 			
 			&.outline {
 				mix-blend-mode: hard-light;

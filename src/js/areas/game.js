@@ -25,9 +25,6 @@
 			value;
 		switch (event.type) {
 			// custom events
-			case "set-theme":
-				Self.els.el.data({ theme: event.arg });
-				break;
 			case "shuffle-pieces":
 				Self.svg.shuffle();
 				break;
@@ -41,6 +38,12 @@
 					// delete refernce
 					delete Self.active;
 				}
+				break;
+			case "set-theme":
+				Self.els.el.data({ theme: event.arg });
+				break;
+			case "set-state":
+				Self.svg.restoreState(event.arg);
 				break;
 			case "set-level":
 			case "draw-outline":
@@ -153,6 +156,9 @@
 			case "mouseup":
 				// reset tile
 				Drag.tile.moveEnd();
+
+				console.log("Solved: ", Self.svg.isSolved());
+				
 				// uncover content
 				Self.els.content.removeClass("cover");
 				// unbind event handlers

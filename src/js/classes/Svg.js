@@ -44,28 +44,34 @@ class Svg {
 	}
 
 	solve() {
+		let pieces = [];
 		let data = Level[this.level].tiles;
 		for (let tile of this.tiles.values()) {
 			let [x, y, r] = data[tile.props.id],
 				p = new Point(x, y);
 			// update internal state
 			tile.setTransform(p, r);
+
+			// assemble polygon details
+			pieces.push(tile.polyish);
+
 			// update UI
 			let transform = `translate(${x} ${y}) rotate(${r})`;
 			tile.props.el.attr({ transform });
 			tile.props.el.cssSequence("anim-move", "transitionend", el => el.removeClass("anim-move"));
 		}
+		// save solution for later comparison
+		this.solution = Polygon.union(pieces)[0].toSvg();
 	}
 
-	validate() {
-		let all = [];
+	isSolved() {
 		// validate correct solution
-		let data = Level[this.level].tiles;
+		let pieces = [];
 		for (let tile of this.tiles.values()) {
-			all.push(tile.polyish);
+			pieces.push(tile.polyish);
 		}
-		let poly = Polygon.union(all)[0];
-		console.log( poly.toSvg() );
+		let state = Polygon.union(pieces)[0].toSvg();
+		return state === this.solution;
 	}
 
 	shuffle() {
@@ -80,6 +86,19 @@ class Svg {
 			let transform = `translate(${x} ${y}) rotate(${r})`;
 			tile.props.el.attr({ transform });
 			tile.props.el.cssSequence("anim-move", "transitionend", el => el.removeClass("anim-move"));
+		}
+	}
+
+	restoreState(data) {
+		// shuffle tiles
+		for (let tile of this.tiles.values()) {
+			let [x, y, r] = data[tile.props.id],
+				p = new Point(x, y);
+			// update internal state
+			tile.setTransform(p, r);
+			// update UI
+			let transform = `translate(${x} ${y}) rotate(${r})`;
+			tile.props.el.attr({ transform });
 		}
 	}
 

@@ -36,7 +36,7 @@ class Tile {
 	}
 
 	get polyish() {
-		let p = this.transformed.points.map(p => new Point(Math.round(p.x), Math.round(p.y)));
+		let p = this.transformed.points.map(p => new Point(Math.ceil(p.x), Math.ceil(p.y)));
 		return new Polygon(...p);
 	}
 
