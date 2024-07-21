@@ -30,7 +30,7 @@
 
 let DefaultState = {
 	level: "1.1",
-	theme: "pastell",
+	theme: "classic",
 	state: {
 		// "a": [51, 99, 270],
 		// "b": [101, 48.999999999999986, 0],
@@ -88,14 +88,22 @@ const tangram = {
 				break;
 			// custom events
 			case "apply-saved-state":
-				Object.keys(Self.state).map(k => {
-					if (k === "level") {
-						window.bluePrint.selectNodes(`//*[@check-group="game-level"]`).map(xMenu => {
-							if (xMenu.getAttribute("arg") === Self.state[k]) xMenu.setAttribute("is-checked", 1);
-							else xMenu.removeAttribute("is-checked");
-						});
+				Object.keys(Self.state).map(key => {
+					switch (key) {
+						case "theme":
+							window.bluePrint.selectNodes(`//*[@check-group="game-theme"]`).map(xMenu => {
+								if (xMenu.getAttribute("arg") === Self.state[key]) xMenu.setAttribute("is-checked", 1);
+								else xMenu.removeAttribute("is-checked");
+							});
+							break;
+						case "level":
+							window.bluePrint.selectNodes(`//*[@check-group="game-level"]`).map(xMenu => {
+								if (xMenu.getAttribute("arg") === Self.state[key]) xMenu.setAttribute("is-checked", 1);
+								else xMenu.removeAttribute("is-checked");
+							});
+							break;
 					}
-					Self.game.dispatch({ type: `set-${k}`, arg: Self.state[k] });
+					Self.game.dispatch({ type: `set-${key}`, arg: Self.state[key] });
 				});
 				break;
 			case "open-help":
