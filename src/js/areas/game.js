@@ -50,10 +50,16 @@
 							// reset element
 							el.removeClass("outline-expand").html("");
 
-							Self.dispatch({ type: "set-level", arg: "1.3" });
+							let arg = Self.dispatch({ type: "get-next-level" });
+							Self.dispatch({ type: "set-level", arg, doAnim: true });
 						});
 				});
 				break;
+			case "get-next-level":
+				let levels = window.bluePrint.selectNodes(`//*[@check-group="game-level"]`).map(x => x.getAttribute("arg")),
+					index = levels.indexOf(Self.svg.level),
+					next = levels[index + 1] || "1.0";
+				return next;
 			case "toggle-background":
 				value = Self.els.el.hasClass("blank-bg");
 				Self.els.el.toggleClass("blank-bg", value);
@@ -69,7 +75,13 @@
 				if (!value && event.xMenu) value = event.xMenu.getAttribute("arg");
 				Self.svg.drawOutline(value);
 				Self.svg.shuffle();
-				Self.svg.el.find(".tile.anim-move").removeClass("anim-move");
+				if (!event.doAnim) Self.svg.el.find(".tile.anim-move").removeClass("anim-move");
+
+				// update menu
+				window.bluePrint.selectNodes(`//*[@check-group="game-level"]`).map(xMenu => {
+					if (xMenu.getAttribute("arg") === value) xMenu.setAttribute("is-checked", 1);
+					else xMenu.removeAttribute("is-checked");
+				});
 				break;
 			case "output-pgn":
 				value = [];
