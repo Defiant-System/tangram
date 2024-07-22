@@ -18,6 +18,7 @@
 	dispatch(event) {
 		let APP = tangram,
 			Self = APP.game,
+			data,
 			value;
 		switch (event.type) {
 			// custom events
@@ -35,6 +36,10 @@
 					delete Self.active;
 				}
 				break;
+			case "toggle-background":
+				value = Self.els.el.hasClass("blank-bg");
+				Self.els.el.toggleClass("blank-bg", value);
+				break;
 			case "set-theme":
 				Self.els.el.data({ theme: event.arg });
 				break;
@@ -48,12 +53,14 @@
 				Self.svg.shuffle();
 				break;
 			case "output-pgn":
-				value = Self.svg.puzzlePGN();
-				value = JSON.stringify(value, null, "\t")
-							.replace(/\n\t\t/g, "")
-							.replace(/\n\t]/g, "]")
-							.replace(/,(\d)/g, ", $1");
-				console.log( value );
+				value = [];
+				data = Self.svg.puzzlePGN();
+				Object.keys(data)
+					.sort((a, b) => a.localeCompare(b))
+					.map(k => {
+						value.push(`\t"${k}": [${data[k].join(", ")}],`);
+					});
+				console.log( `{\n${value.join("\n")}\n}` );
 				break;
 		}
 	},

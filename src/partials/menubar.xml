@@ -14,6 +14,8 @@
 			<Menu name="Sunset" click="set-theme" arg="sunset" check-group="game-theme"/>
 		</Menu>
 		<Menu name="Level&#8230;">
+			<Menu name="Blank" click="toggle-background"/>
+			<Menu type="divider"/>
 			<Menu name="Box" click="set-level" arg="1.0" check-group="game-level"/>
 			<Menu name="House" click="set-level" arg="1.1" check-group="game-level"/>
 			<Menu name="Boat" click="set-level" arg="1.2" check-group="game-level"/>

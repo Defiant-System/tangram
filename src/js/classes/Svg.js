@@ -9,6 +9,11 @@ class Svg {
 		this.snapping = new Snapping(this);
 		this.tiles = new Map;
 
+		this.tolerance = {
+			union: 10,
+			simplify: 5,
+		};
+
 		this.polygons = {
 			a: "M-100,-50L0,50L100,-50Z",
 			b: "M-100,-50L0,50L100,-50Z",
@@ -68,10 +73,9 @@ class Svg {
 		for (let tile of this.tiles.values()) {
 			pieces.push(tile.transformed);
 		}
-		let union = Polygon.union(pieces);
-		union = simplify(union[0].points, 5);
-		let state = new Polygon(...union);
-		// this.el.find("svg.validate").html(`<path class="polygon-tile" d="${state.toSvg()}"></path>`);
+		let union = Polygon.union(pieces, this.tolerance.union),
+			clean = simplify(union[0].points, this.tolerance.simplify),
+			state = new Polygon(...clean);
 
 		let stateSegments = state.edges.map(s => Math.round(s.length)).sort((a,b) => a - b),
 			outlineSegments = this.outline.path.edges.map(s => Math.round(s.length)).sort((a,b) => a - b);
