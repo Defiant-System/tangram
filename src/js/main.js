@@ -29,23 +29,16 @@
 
 
 let DefaultState = {
-	level: "1.3",
+	level: "2.4",
 	theme: "classic",
-	state: {
-		// "a": [51, 99, 270],
-		// "b": [101, 48.999999999999986, 0],
-		// "c": [277, 34.999999999999986, 90],
-		// "d": [76.00000000000003, 174, 0],
-		// "e": [176.00000000000003, 49, 270],
-		// "f": [101.00000000000003, 124, 0],
-		// "g": [151.00000000000003, 149, 90],
-		"a": [141.6106781186547,41,45],
-		"b": [70.85533905932738,41.08932188134523,315],
-		"d": [35.5,111.80000000000001,45],
-		"g": [106.21067811865476,76.44466094067263,135],
-		"e": [159.24368670764582,129.4776695296637,135],
-		"f": [194.64368670764583,94.0330085889911,315],
-		"c": [-108.1,4.5,45],
+	state1: {
+		"a": [-97, 305, 45],
+		"b": [306,-124, 225],
+		"c": [85,-137, 45],
+		"d": [165, 313, 0],
+		"e": [323, 186, 270],
+		"f": [-79,-96, 270],
+		"g": [-152, 55, 45],
 	}
 };
 
@@ -60,6 +53,9 @@ const tangram = {
 			.filter(i => typeof this[i].init === "function")
 			.map(i => this[i].init(this));
 		
+		// transform levels into menu entries
+		this.dispatch({ type: "levels-to-menu" });
+
 		// get saved state, if any
 		this.state = window.settings.getItem("state") || DefaultState;
 		// go to last saved state
@@ -105,6 +101,13 @@ const tangram = {
 					}
 					Self.game.dispatch({ type: `set-${key}`, arg: Self.state[key] });
 				});
+				break;
+			case "levels-to-menu":
+				let xMenu = window.bluePrint.selectSingleNode(`//Menu[@for="level-entries"]`),
+					xStr = Object.keys(Level).map(k => `<Menu name="${Level[k].name}" click="set-level" arg="${k}" check-group="game-level"/>`);
+				$.xmlFromString(`<data>${xStr.join("")}</data>`).selectNodes("//Menu").map(x => xMenu.appendChild(x));
+				// finalize / commit menu changes to bluePrint
+				window.menuBar.commit();
 				break;
 			case "open-help":
 				karaqu.shell("fs -u '~/help/index.md'");

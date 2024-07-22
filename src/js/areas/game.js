@@ -51,6 +51,7 @@
 				if (!value && event.xMenu) value = event.xMenu.getAttribute("arg");
 				Self.svg.drawOutline(value);
 				Self.svg.shuffle();
+				Self.svg.el.find(".tile.anim-move").removeClass("anim-move");
 				break;
 			case "output-pgn":
 				value = [];

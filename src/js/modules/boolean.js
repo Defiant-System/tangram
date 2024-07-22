@@ -6,8 +6,8 @@ let PRECISION = DEFAULT_PRECISION;
 let last = (arr, i=0) => arr[arr.length - 1 - i];
 
 function nearlyEquals(a, b, t = PRECISION) {
-  if (isNaN(a) || isNaN(b)) return false;
-  return Math.abs(a - b) < t;
+	if (isNaN(a) || isNaN(b)) return false;
+	return Math.abs(a - b) < t;
 }
 
 
@@ -297,7 +297,7 @@ function calculate(eventRoot, selfIntersection) {
 
 		} else {
 			const st = ev.status;
-			if (st === undefined) throw new Error('[Euclid.js] Zero-length segment detected!');
+			if (st === undefined) throw new Error('Zero-length segment detected!');
 
 			// Removing the status will create two new adjacent edges, so we'll need
 			// to check for those.
@@ -512,7 +512,11 @@ function segments(poly) {
 			addSegment(root, {start, end, myFill: {}}, true);
 		}
 	}
-	return calculate(root, true);
+	try {
+		return calculate(root, true);
+	} catch (e) {
+		return [];
+	}
 }
 
 function operate(poly1, poly2, selection, precision) {
@@ -521,9 +525,13 @@ function operate(poly1, poly2, selection, precision) {
 	for (let s of segments(poly1)) addSegment(root, copy(s.start, s.end, s), true);
 	for (let s of segments(poly2)) addSegment(root, copy(s.start, s.end, s), false);
 
-	let results = segmentChainer(select(calculate(root, false), selection));
-	PRECISION = DEFAULT_PRECISION;
-	return results.filter(polygon => polygon.length > 2);
+	try {
+		let results = segmentChainer(select(calculate(root, false), selection));
+		PRECISION = DEFAULT_PRECISION;
+		return results.filter(polygon => polygon.length > 2);
+	} catch (e) {
+		return [];
+	}
 }
 
 

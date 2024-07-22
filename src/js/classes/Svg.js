@@ -73,8 +73,10 @@ class Svg {
 		for (let tile of this.tiles.values()) {
 			pieces.push(tile.transformed);
 		}
-		let union = Polygon.union(pieces, this.tolerance.union),
-			clean = simplify(union[0].points, this.tolerance.simplify),
+		let union = Polygon.union(pieces, this.tolerance.union);
+		if (!union.length) return;
+
+		let clean = simplify(union[0].points, this.tolerance.simplify),
 			state = new Polygon(...clean);
 
 		let stateSegments = state.edges.map(s => Math.round(s.length)).sort((a,b) => a - b),
