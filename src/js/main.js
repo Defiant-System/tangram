@@ -29,7 +29,7 @@
 
 
 let DefaultState = {
-	level: "2.4",
+	level: "3.1",
 	theme: "classic",
 	state1: {
 		"a": [-97, 305, 45],
@@ -104,8 +104,17 @@ const tangram = {
 				break;
 			case "levels-to-menu":
 				let xMenu = window.bluePrint.selectSingleNode(`//Menu[@for="level-entries"]`),
-					xStr = Object.keys(Level).map(k => `<Menu name="${Level[k].name}" click="set-level" arg="${k}" check-group="game-level"/>`);
-				$.xmlFromString(`<data>${xStr.join("")}</data>`).selectNodes("//Menu").map(x => xMenu.appendChild(x));
+					xLevel = [];
+				
+				Object.keys(Level).map(k => {
+					let [w, i] = k.split(".").map(i => +i);
+					if (!xLevel[w-1]) xLevel[w-1] = [];
+					xLevel[w-1].push(`<Menu name="${Level[k].name}" click="set-level" arg="${k}" check-group="game-level"/>`);
+				});
+
+
+				let xStr = xLevel.map((xW, i) => `<Menu name="${i+1}">${xLevel[i].join("")}</Menu>`);
+				$.xmlFromString(`<data>${xStr.join("")}</data>`).selectNodes("/data/Menu").map(x => xMenu.appendChild(x));
 				// finalize / commit menu changes to bluePrint
 				window.menuBar.commit();
 				break;

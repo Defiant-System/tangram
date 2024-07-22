@@ -3,6 +3,7 @@ class Svg {
 	constructor(el) {
 		this.el = el;
 		this.board = el.find("svg.board");
+		this.winner = el.find("svg.winner");
 
 		this.type = "svg";
 		this.outline = new Outline(this, el.find("svg.outline"));
@@ -83,6 +84,10 @@ class Svg {
 			outlineSegments = this.outline.path.edges.map(s => Math.round(s.length)).sort((a,b) => a - b);
 		// console.log( stateSegments, outlineSegments );
 		return stateSegments.join() === outlineSegments.join();
+	}
+
+	celebrate() {
+		this.winner.html(this.outline.props.el.html());
 	}
 
 	restoreState(data) {

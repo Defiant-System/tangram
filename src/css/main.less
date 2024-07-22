@@ -109,17 +109,24 @@ content {
 		svg {
 			position: absolute;
 
-			// &.validate {
-			// 	display: none;
-			// 	z-index: 3;
-			// 	pointer-events: none;
+			&.winner {
+				// display: none;
+				z-index: 5;
+				pointer-events: none;
 
-			// 	path {
-			// 		fill: #ff000055;
-			// 		stroke: #f00;
-			// 		stroke-width: 2;
-			// 	}
-			// }
+				path {
+					fill: none;
+					stroke: #fff;
+					stroke-linejoin: round;
+					stroke-linecap: round;
+					stroke-width: 4;
+					stroke-dasharray: 2000;
+					stroke-dashoffset: 2000;
+					filter: drop-shadow(0 0 3px #fff)
+							drop-shadow(0 0 9px #fff);
+					animation: 5s anim-outline 1 forwards;
+				}
+			}
 			
 			&.outline {
 				z-index: 2;
@@ -194,3 +201,10 @@ content {
 		}
 	}
 }
+
+
+@keyframes anim-outline {
+	0%   { stroke-dashoffset: 2000; }
+	100% { stroke-dashoffset: 0; }
+}
+
