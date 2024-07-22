@@ -23,6 +23,14 @@ content {
 		}
 	}
 
+	&[data-show="start"] {
+		.start-view { display: block; }
+	}
+
+	&[data-show="game"] {
+		.game-view { display: block; }
+	}
+
 	canvas.tangram-bg {
 		position: absolute;
 		top: 0;
@@ -35,7 +43,41 @@ content {
 		pointer-events: none;
 	}
 
+	.start-view {
+		display: none;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+
+		.logo {
+			position: relative;
+			margin: 83px auto;
+			width: 482px;
+			height: 103px;
+
+			svg {
+				width: inherit;
+				height: inherit;
+				filter: drop-shadow(0 0 1px #fff)
+						drop-shadow(0 0 1px #fff)
+						drop-shadow(0 1px 0 hsl(30, 70%, 80%))
+						drop-shadow(0 2px 0 hsl(30, 70%, 75%))
+						drop-shadow(0 3px 1px hsl(30, 70%, 67%))
+						drop-shadow(0 4px 0 hsl(30, 70%, 59%))
+						drop-shadow(0 5px 0 hsl(30, 70%, 51%))
+						drop-shadow(0 6px 0 hsl(30, 70%, 43%))
+						drop-shadow(0 5px 11px rgba(#000,.25));
+						// sepia(1) saturate(5) hue-rotate(205deg);
+				transform: translate(0px, 0px) scale(1);
+				transition: transform 1000ms ease-in-out;
+			}
+		}
+	}
+
 	.game-view {
+		display: none;
 		position: absolute;
 		top: 0;
 		left: 0;
