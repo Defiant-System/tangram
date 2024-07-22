@@ -5,6 +5,11 @@ class Outline {
 		this.rotation = 0;
 	}
 
+	get size() {
+		let seg = this.path.edges.map(s => Math.round(s.length));
+		return seg.reduce((a, c) => a + c, 0);
+	}
+
 	setPath(data) {
 		let pieces = [];
 		for (let tile of this.props.parent.tiles.values()) {

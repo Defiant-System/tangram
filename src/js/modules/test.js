@@ -18,13 +18,10 @@ let Test = {
 		// APP.game.svg.solve();
 		// APP.game.svg.isSolved();
 		
-		setTimeout(() => {
-			APP.game.svg.solve();
-		}, 300);
-
-		setTimeout(() => {
-			APP.game.svg.celebrate();
-		}, 1e3);
+		// setTimeout(() => {
+		// 	APP.game.svg.solve();
+		// 	APP.game.svg.isSolved();
+		// }, 1e3);
 
 		// APP.game.dispatch({ type: "output-pgn" });
 

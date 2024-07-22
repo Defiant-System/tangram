@@ -81,13 +81,11 @@ class Svg {
 			state = new Polygon(...clean);
 
 		let stateSegments = state.edges.map(s => Math.round(s.length)).sort((a,b) => a - b),
-			outlineSegments = this.outline.path.edges.map(s => Math.round(s.length)).sort((a,b) => a - b);
+			outlineSegments = this.outline.path.edges.map(s => Math.round(s.length)).sort((a,b) => a - b),
+			solved = stateSegments.join() === outlineSegments.join();
 		// console.log( stateSegments, outlineSegments );
-		return stateSegments.join() === outlineSegments.join();
-	}
 
-	celebrate() {
-		this.winner.html(this.outline.props.el.html());
+		return solved;
 	}
 
 	restoreState(data) {

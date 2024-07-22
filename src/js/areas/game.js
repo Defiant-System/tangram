@@ -36,6 +36,24 @@
 					delete Self.active;
 				}
 				break;
+			case "puzzle-solved":
+				// deselect active tile
+				Self.dispatch({ type: "deselect-active" });
+				// animate
+				value = Self.svg.outline.props.el.html();
+				Self.svg.winner.css({ "--size": Self.svg.outline.size }).html(value);
+				// start animation "timer"
+				Self.svg.winner.cssSequence("outline-draw", "transitionend", el => {
+					// go to next puzzle
+					el.removeClass("outline-draw")
+						.cssSequence("outline-expand", "transitionend", el => {
+							// reset element
+							el.removeClass("outline-expand").html("");
+
+							Self.dispatch({ type: "set-level", arg: "1.3" });
+						});
+				});
+				break;
 			case "toggle-background":
 				value = Self.els.el.hasClass("blank-bg");
 				Self.els.el.toggleClass("blank-bg", value);
@@ -107,6 +125,8 @@
 			case "mouseup":
 				// reset tile
 				Drag.tile.rotateEnd();
+				// if solved, reset board
+				if (Self.svg.isSolved()) Self.dispatch({ type: "puzzle-solved" });
 				// uncover content
 				Self.els.content.removeClass("cover");
 				// unbind event handlers
@@ -161,9 +181,8 @@
 			case "mouseup":
 				// reset tile
 				Drag.tile.moveEnd();
-
-				console.log("Solved: ", Self.svg.isSolved());
-				
+				// if solved, reset board
+				if (Self.svg.isSolved()) Self.dispatch({ type: "puzzle-solved" });
 				// uncover content
 				Self.els.content.removeClass("cover");
 				// unbind event handlers
