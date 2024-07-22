@@ -52,6 +52,9 @@ let DefaultState = {
 
 const tangram = {
 	init() {
+		// fast references
+		this.content = window.find("content");
+
 		// init objects
 		Bg.init();
 
@@ -123,6 +126,10 @@ const tangram = {
 				$.xmlFromString(`<data>${xStr.join("")}</data>`).selectNodes("/data/Menu").map(x => xMenu.appendChild(x));
 				// finalize / commit menu changes to bluePrint
 				window.menuBar.commit();
+				break;
+			case "show-start-view":
+			case "show-game-view":
+				Self.content.data({ show: event.type.split("-")[1] })
 				break;
 			case "open-help":
 				karaqu.shell("fs -u '~/help/index.md'");
