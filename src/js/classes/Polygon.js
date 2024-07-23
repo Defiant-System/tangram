@@ -39,7 +39,7 @@ class Polygon {
 		for (let r = 0; r < e; ++r) {
 			n += t[r].y;
 		}
-		return new Point(i / e,n / e);
+		return new Point(i / e, n / e);
 	}
 
 	get edges() {
