@@ -78,7 +78,7 @@ content {
 		.levels {
 			position: relative;
 			width: 343px;
-			height: 383px;
+			height: 385px;
 			display: flex;
 			flex-direction: column;
 			margin: 0 auto;
@@ -113,6 +113,12 @@ content {
 					z-index: 1;
 				}
 
+				&[data-world="1"] .reel { left: 0; }
+				&[data-world="2"] .reel { left: -335px; }
+				&[data-world="3"] .reel { left: -670px; }
+				&[data-world="4"] .reel { left: -1004px; }
+				&[data-world="5"] .reel { left: -1340px; }
+
 				.reel {
 					position: absolute;
 					top: 0;
@@ -120,12 +126,12 @@ content {
 					z-index: 2;
 					font-size: 0;
 					white-space: nowrap;
+					transition: left 220ms ease-in-out;
 
 					ul.world {
 						display: inline-block;
-						width: 376px;
-						height: 376px;
-						font-size: 13px;
+						width: 335px;
+						height: 330px;
 						white-space: normal;
 						padding: 11px;
 
@@ -137,10 +143,14 @@ content {
 							width: 73px;
 							height: 73px;
 							border-radius: 6px;
-							margin: 0 3px 3px 0;
+							margin: 0 6px 6px 0;
 							pointer-events: all;
 							box-shadow: inset 0 2px 7px rgba(#000,.15),
 										0 1px 0 rgba(#fff,.1);
+
+							&:nth-child(4n) {
+								margin-right: 0;
+							}
 
 							&:before {
 								content: "";
