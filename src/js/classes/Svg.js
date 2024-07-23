@@ -67,7 +67,11 @@ class Svg {
 
 		let stateSegments = state.edges.map(s => Math.round(s.length)).sort((a,b) => a - b),
 			outlineSegments = this.outline.path.edges.map(s => Math.round(s.length)).sort((a,b) => a - b),
-			solved = stateSegments.join() === outlineSegments.join();
+			solved = true;
+		
+		stateSegments.map((v, i) => {
+			solved = solved && (Math.abs(v - outlineSegments[i]) <= 1)
+		});
 		// console.log( stateSegments, outlineSegments );
 
 		return solved;
