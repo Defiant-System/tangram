@@ -19,6 +19,7 @@
 
 @import "puzzles/index.js"
 @import "puzzles/shuffle.js"
+@import "modules/snapshot.js";
 
 @import "modules/bg.js";
 @import "modules/simplify.js";
@@ -56,6 +57,7 @@ const tangram = {
 		this.content = window.find("content");
 
 		// init objects
+		Snapshot.init();
 		Bg.init();
 
 		// init all sub-objects

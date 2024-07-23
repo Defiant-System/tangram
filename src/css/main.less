@@ -62,12 +62,12 @@ content {
 				height: inherit;
 				filter: drop-shadow(0 0 1px #fff)
 						drop-shadow(0 0 1px #fff)
-						drop-shadow(0 1px 0 hsl(15, 35%, 80%))
-						drop-shadow(0 2px 0 hsl(15, 35%, 75%))
-						drop-shadow(0 3px 1px hsl(15, 35%, 67%))
-						drop-shadow(0 4px 0 hsl(15, 35%, 59%))
-						drop-shadow(0 5px 0 hsl(15, 35%, 51%))
-						drop-shadow(0 6px 0 hsl(15, 35%, 43%))
+						drop-shadow(0 1px 0 hsl(15, 5%, 89%))
+						drop-shadow(0 2px 0 hsl(15, 5%, 87%))
+						drop-shadow(0 3px 0 hsl(15, 5%, 82%))
+						drop-shadow(0 4px 0 hsl(15, 5%, 77%))
+						drop-shadow(0 5px 0 hsl(15, 5%, 70%))
+						drop-shadow(0 6px 0 hsl(15, 5%, 65%))
 						drop-shadow(0 5px 11px rgba(#000,.25));
 						// sepia(1) saturate(5) hue-rotate(205deg);
 				transform: translate(0px, 0px) scale(1);
@@ -112,6 +112,8 @@ content {
 
 						li {
 							background: rgba(#000,.1);
+							background-size: 0;
+							position: relative;
 							display: inline-block;
 							width: 59px;
 							height: 59px;
@@ -119,6 +121,21 @@ content {
 							margin: 0 3px 3px 0;
 							box-shadow: inset 0 2px 7px rgba(#000,.15),
 										0 1px 0 rgba(#fff,.1);
+
+							&:before {
+								content: "";
+								position: absolute;
+								top: 0;
+								left: 0;
+								right: 0;
+								bottom: 0;
+								background: 50% 25% no-repeat;
+								background-size: 130%;
+								background-image: inherit;
+								filter: drop-shadow(0 1px 1px rgba(#000,.35))
+										drop-shadow(0 -1px 0 rgba(#fff,.15));
+								opacity: .5;
+							}
 						}
 					}
 				}
@@ -133,11 +150,30 @@ content {
 
 				li {
 					background: rgba(#000,.1);
+					box-shadow: inset 0 2px 7px rgba(#000,.15);
+					position: relative;
 					display: inline-block;
 					width: 13px;
 					height: 13px;
 					border-radius: 50%;
 					margin: 0 3px;
+					cursor: pointer;
+
+					&.active {
+						cursor: default;
+						
+						&:before {
+							content: "";
+							position: absolute;
+							top: 4px;
+							left: 4px;
+							right: 4px;
+							bottom: 4px;
+							border-radius: 50%;
+							background: #ddd;
+							box-shadow: 0 1px 2px rgba(#000,.2);
+						}
+					}
 				}
 			}
 		}
