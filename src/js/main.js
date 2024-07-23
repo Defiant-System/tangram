@@ -156,6 +156,7 @@ const tangram = {
 		}
 	},
 	game: @import "areas/game.js",
+	start: @import "areas/start.js",
 };
 
 window.exports = tangram;
