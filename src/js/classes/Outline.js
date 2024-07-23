@@ -17,9 +17,9 @@ class Outline {
 			pieces.push(tile.transformed);
 		}
 		// save solution for later comparison
-		let union = Polygon.union(pieces, this.props.parent.tolerance.union),
+		let union = Polygon.union(pieces, TOLERANCE.union),
 			// clean out points closer to each other
-			clean = simplify(union[0].points, this.props.parent.tolerance.simplify);
+			clean = simplify(union[0].points, TOLERANCE.simplify);
 		this.path = new Polygon(...clean);
 		this.props.el.html(`<path class="polygon" d="${this.path.toSvg()}"></path>`);
 

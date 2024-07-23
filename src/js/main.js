@@ -138,6 +138,8 @@ const tangram = {
 				break;
 			// proxy events
 			case "toggle-background":
+			case "shuffle-pieces":
+			case "solve-puzzle":
 			case "output-pgn":
 			case "set-level":
 			case "set-theme":
