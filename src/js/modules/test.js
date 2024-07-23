@@ -3,7 +3,7 @@ let Test = {
 	init(APP) {
 		// return;
 
-		setTimeout(() => APP.game.dispatch({ type: "get-next-level" }), 1e3);
+		// setTimeout(() => APP.game.dispatch({ type: "get-next-level" }), 1e3);
 
 		// let p1 = poly([0, 0], [0, 2], [2, 2], [2, 0]),
 		// 	p2 = poly([0, 0], [0, 3], [1, 3], [1, 0]),

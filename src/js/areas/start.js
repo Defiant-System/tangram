@@ -23,6 +23,13 @@
 				el.addClass("active");
 				break;
 			case "select-level":
+				// prepare level
+				el = $(event.target).parents("?li");
+				value = [el.parent().data("id"), el.data("id")];
+
+				APP.game.dispatch({ type: "set-level", arg: value.join(".") });
+				// switch view
+				APP.dispatch({ type: "show-game-view" });
 				break;
 		}
 	}
