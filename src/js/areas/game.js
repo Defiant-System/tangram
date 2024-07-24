@@ -22,6 +22,9 @@
 			value;
 		switch (event.type) {
 			// custom events
+			case "close-game":
+				APP.dispatch({ type: "show-start-view" });
+				break;
 			case "shuffle-pieces":
 				Self.svg.shuffle();
 				break;

@@ -36,7 +36,7 @@ let Test = {
 		// console.log( t2.toString() );
 
 
-		setTimeout(() => window.find(`.nav li`).get(4).trigger("click"), 750);
+		// setTimeout(() => window.find(`.nav li`).get(4).trigger("click"), 750);
 
 		// setTimeout(() => APP.game.dispatch({ type: "output-pgn" }), 200);
 		// setTimeout(() => APP.game.tiles.b.rotate(15, APP.game.tiles.b.center), 200);

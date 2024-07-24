@@ -1,4 +1,4 @@
-<content data-show="start" data-context="game-board">
+<content data-show="game" data-context="game-board">
 	<canvas class="tangram-bg"></canvas>
 
 	<div class="start-view" data-area="start">
@@ -10,7 +10,7 @@
 			<div class="frame" data-click="select-level">
 				<div class="reel" data-world="1">
 					<ul class="world" data-id="1">
-						<li data-id="1"></li><li data-id="2"></li><li data-id="3"></li><li data-id="4"></li><li data-id="5"></li><li data-id="6"></li><li data-id="7"></li><li data-id="8"></li><li data-id="9"></li><li data-id="10"></li><li data-id="11"></li><li data-id="12"></li><li data-id="13"></li><li data-id="14"></li><li data-id="15"></li><li data-id="16"></li>
+						<li class="unlocked" data-id="1"></li><li data-id="2"></li><li data-id="3"></li><li data-id="4"></li><li data-id="5"></li><li data-id="6"></li><li data-id="7"></li><li data-id="8"></li><li data-id="9"></li><li data-id="10"></li><li data-id="11"></li><li data-id="12"></li><li data-id="13"></li><li data-id="14"></li><li data-id="15"></li><li data-id="16"></li>
 					</ul>
 
 					<ul class="world" data-id="2">
@@ -42,6 +42,7 @@
 	</div>
 
 	<div class="game-view" data-area="game" data-theme="sunset" data-click="deselect-active">
+		<span class="close" data-click="close-game"></span>
 		<svg class="outline" viewBox="-200 -200 600 600"></svg>
 		<svg class="winner" viewBox="-200 -200 600 600"></svg>
 		<svg class="board" viewBox="-200 -200 600 600">

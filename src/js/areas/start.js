@@ -28,7 +28,7 @@
 				// prepare level
 				el = $(event.target).parents("?li");
 				value = [el.parent().data("id"), el.data("id")];
-				if (!Level[value.join(".")]) return;
+				if (!Level[value.join(".")] || !el.hasClass("unlocked")) return;
 
 				APP.game.dispatch({ type: "set-level", arg: value.join(".") });
 				// switch view

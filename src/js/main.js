@@ -30,8 +30,9 @@
 
 
 let DefaultState = {
-	level: "4.4",
 	theme: "classic",
+	level: "1.3",
+	cleared: ["1.1", "1.2", "1.3"],
 	state: {
 		"a": [-97, 305, 45],
 		"b": [306,-124, 225],
