@@ -15,6 +15,9 @@
 			match: "//Data",
 			target: this.els.el.find(".levels"),
 		});
+
+		// reference to "frame"
+		this.els.frame = this.els.el.find(".frame");
 	},
 	dispatch(event) {
 		let APP = tangram,
@@ -29,7 +32,7 @@
 				el.parent().find(".active").removeClass("active");
 				el.addClass("active");
 				// smooth scroll to "world"
-				Self.els.el.find(".frame").data({ world: el.index() + 1 });
+				Self.els.frame.data({ world: el.index() + 1 });
 				break;
 			case "select-level":
 				// prepare level
@@ -44,7 +47,15 @@
 				event.levels.map(key => {
 					let [w,i] = key.split(".");
 					Self.els.el.find(`.world li[data-id="${w}.${i}"]`).addClass("unlocked");
+					// remember the last
+					value = Math.max(w, value || 0);
 				});
+				// "auto scroll" to last cleared level
+				let wIndex = +Self.els.frame.data("world");
+				if (value > wIndex) {
+					// Self.els.frame.data({ world: value });
+					Self.els.el.find(`.nav[data-click="select-world"] li`).get(value - 1).trigger("click");
+				}
 				break;
 		}
 	}

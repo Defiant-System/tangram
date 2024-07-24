@@ -1,8 +1,8 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 	<xsl:template name="start-view">
-		<div class="frame" data-click="select-level">
-			<div class="reel" data-world="1">
+		<div class="frame" data-click="select-level" data-world="1">
+			<div class="reel">
 				<xsl:call-template name="world-levels"/>
 			</div>
 		</div>

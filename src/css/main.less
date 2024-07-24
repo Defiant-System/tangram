@@ -190,6 +190,7 @@ content {
 								filter: drop-shadow(0 1px 0 rgba(#fff,.3));
 							}
 
+							&.unlocked:hover:after,
 							&:after {
 								content: "";
 								position: absolute;
@@ -205,6 +206,10 @@ content {
 								box-shadow: 0 0 0 1px rgba(#000,.25),
 											inset 0 1px 0 rgba(#fff,.2),
 											0 1px 0 rgba(#000,.1);
+							}
+
+							&.unlocked:hover:after {
+								filter: none;
 							}
 						}
 					}
