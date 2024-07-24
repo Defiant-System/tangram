@@ -41,7 +41,7 @@ window.bluePrint.selectNodes(`//World/i`).map(xLevel => {
 
 let DefaultState = {
 	theme: "classic",
-	level: "1.3",
+	level: "1.1",
 	cleared: ["1.1"],
 	state: {
 		"a": [-97, 305, 45],
@@ -88,7 +88,10 @@ const tangram = {
 		switch (event.type) {
 			// system events
 			case "window.init":
+				break;
 			case "window.close":
+				// save game state
+				window.settings.setItem("state", Self.state);
 				break;
 			case "window.focus":
 				// resume background worker
@@ -115,10 +118,10 @@ const tangram = {
 							});
 							break;
 						case "cleared":
-							Self.start.dispatch({ type: "enable-levels", levels: Self.state.cleared });
+							Self.start.dispatch({ type: "enable-levels", levels: Self.state[key] });
 							break;
 					}
-					Self.game.dispatch({ type: `set-${key}`, arg: Self.state[key] });
+					Self.game.dispatch({ type: `set-${key}`, arg: Self.state[key], state: Self.state.state });
 				});
 				break;
 			case "levels-to-menu":

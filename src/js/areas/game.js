@@ -23,6 +23,12 @@
 		switch (event.type) {
 			// custom events
 			case "close-game":
+				// save state if "last" level
+				if (Self.svg.level === k(APP.state.cleared)) {
+					data = Self.dispatch({ type: "output-pgn" });
+					APP.state.state = JSON.parse(data);
+					// console.log( APP.state );
+				}
 				APP.dispatch({ type: "show-start-view" });
 				break;
 			case "shuffle-pieces":
@@ -75,17 +81,27 @@
 				break;
 			case "set-theme":
 				Self.els.el.data({ theme: event.arg });
+				// save value to persistent state
+				APP.state.theme = event.arg;
 				break;
 			case "set-state":
-				Self.svg.restoreState(event.arg);
+				// Self.svg.restoreState(event.arg);
 				break;
 			case "set-level":
 				value = event.arg;
 				if (!value && event.xMenu) value = event.xMenu.getAttribute("arg");
 				Self.svg.drawOutline(value);
-				Self.svg.shuffle();
+				// restore state if "last" level
+				if (value === k(APP.state.cleared)) {
+					// save tiles state to persistent state
+					Self.svg.restoreState(APP.state.state);
+				} else Self.svg.shuffle();
+				// smooth tiles?
 				if (!event.doAnim) Self.svg.el.find(".tile.anim-move").removeClass("anim-move");
 
+				// save level to persistent state
+				APP.state.level = value;
+				
 				// update menu
 				window.bluePrint.selectNodes(`//*[@check-group="game-level"]`).map(xMenu => {
 					if (xMenu.getAttribute("arg") === value) xMenu.setAttribute("is-checked", 1);
@@ -98,10 +114,11 @@
 				Object.keys(data)
 					.sort((a, b) => a.localeCompare(b))
 					.map(k => {
-						value.push(`\t"${k}": [${data[k].join(", ")}],`);
+						value.push(`\t"${k}": [${data[k].join(", ")}]`);
 					});
-				console.log( `{\n${value.join("\n")}\n}` );
-				break;
+				value = `{\n${value.join(",\n")}\n}`;
+				// console.log( value );
+				return value;
 		}
 	},
 	rotate(event) {
