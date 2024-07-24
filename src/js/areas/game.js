@@ -57,8 +57,10 @@
 							Self.dispatch({ type: "set-level", arg, doAnim: true });
 
 							// add level id to "cleared"
-							if (APP.state.cleared.includes(arg)) APP.state.cleared.push(arg);
-							console.log( APP.state.cleared );
+							if (!APP.state.cleared.includes(arg)) APP.state.cleared.push(arg);
+
+							// enable level slot in start view
+							APP.start.dispatch({ type: "enable-levels", levels: [arg] });
 						});
 				});
 				break;
