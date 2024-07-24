@@ -65,7 +65,7 @@ let Snapshot = {
 				window.find(`.world li[data-id="${w}.${i}"]`).css({ "background-image": `url('~/cache/${name}')` });
 
 				if (this.queue.length) this.make();
-				else console.log("done");
+				// else console.log("done");
 			});
 		};
 		img.src = src;
