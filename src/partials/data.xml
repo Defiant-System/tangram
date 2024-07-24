@@ -1,0 +1,7 @@
+<Data>
+@import "levels/1.xml"
+@import "levels/2.xml"
+@import "levels/3.xml"
+@import "levels/4.xml"
+@import "levels/5.xml"
+</Data>

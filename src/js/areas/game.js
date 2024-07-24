@@ -55,6 +55,10 @@
 
 							let arg = Self.dispatch({ type: "get-next-level" });
 							Self.dispatch({ type: "set-level", arg, doAnim: true });
+
+							// add level id to "cleared"
+							if (APP.state.cleared.includes(arg)) APP.state.cleared.push(arg);
+							console.log( APP.state.cleared );
 						});
 				});
 				break;

@@ -7,7 +7,7 @@ let Snapshot = {
 		this.ctx = ctx;
 		this.size = size;
 
-		// TODO: check/skip if image is cahced
+		// TODO: check/skip if image is cached
 
 		// create queue
 		this.queue = [];
@@ -35,7 +35,7 @@ let Snapshot = {
 		});
 
 		// start queue
-		this.make();
+		if (this.queue.length) this.make();
 	},
 	make() {
 		let width = this.size,
@@ -62,7 +62,7 @@ let Snapshot = {
 
 			this.cvs[0].toBlob(async blob => {
 				await window.cache.set({ name, blob });
-				window.find(`.world[data-id="${w}"] li[data-id="${i}"]`).css({ "background-image": `url('~/cache/${name}')` });
+				window.find(`.world li[data-id="${w}.${i}"]`).css({ "background-image": `url('~/cache/${name}')` });
 
 				if (this.queue.length) this.make();
 				else console.log("done");

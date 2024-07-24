@@ -17,16 +17,26 @@
 @import "classes/Svg.js"
 @import "classes/Tile.js"
 
-@import "puzzles/index.js"
-@import "puzzles/shuffle.js"
+@import "modules/shuffle.js"
 @import "modules/snapshot.js";
-
 @import "modules/bg.js";
 @import "modules/simplify.js";
 @import "modules/boolean.js";
 @import "modules/misc.js";
 @import "modules/test.js"
 
+
+// will be populated below
+let Level = {};
+
+window.bluePrint.selectNodes(`//World/i`).map(xLevel => {
+	let w = xLevel.parentNode.getAttribute("id"),
+		i = xLevel.getAttribute("id"),
+		name = xLevel.getAttribute("name"),
+		tiles = JSON.parse(xLevel.textContent);
+	// level details
+	Level[`${w}.${i}`] = { name, tiles };
+});
 
 
 let DefaultState = {
@@ -103,6 +113,9 @@ const tangram = {
 								if (xMenu.getAttribute("arg") === Self.state[key]) xMenu.setAttribute("is-checked", 1);
 								else xMenu.removeAttribute("is-checked");
 							});
+							break;
+						case "cleared":
+							Self.start.dispatch({ type: "enable-levels", levels: Self.state.cleared });
 							break;
 					}
 					Self.game.dispatch({ type: `set-${key}`, arg: Self.state[key] });

@@ -8,6 +8,13 @@
 			el: window.find(".start-view"),
 			content: window.find("content"),
 		};
+
+		// render HTML
+		window.render({
+			template: "start-view",
+			match: "//Data",
+			target: this.els.el.find(".levels"),
+		});
 	},
 	dispatch(event) {
 		let APP = tangram,
@@ -27,12 +34,17 @@
 			case "select-level":
 				// prepare level
 				el = $(event.target).parents("?li");
-				value = [el.parent().data("id"), el.data("id")];
-				if (!Level[value.join(".")] || !el.hasClass("unlocked")) return;
+				if (!Level[el.data("id")] || !el.hasClass("unlocked")) return;
 
-				APP.game.dispatch({ type: "set-level", arg: value.join(".") });
+				APP.game.dispatch({ type: "set-level", arg: el.data("id") });
 				// switch view
 				APP.dispatch({ type: "show-game-view" });
+				break;
+			case "enable-levels":
+				event.levels.map(key => {
+					let [w,i] = key.split(".");
+					Self.els.el.find(`.world li[data-id="${w}.${i}"]`).addClass("unlocked");
+				});
 				break;
 		}
 	}

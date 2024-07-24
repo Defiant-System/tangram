@@ -24,4 +24,7 @@
 
 		@import "src/partials/menubar.xml"
 	</Head>
+
+	@import "src/partials/data.xml"
+
 </Application>
