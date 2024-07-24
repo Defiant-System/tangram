@@ -22,13 +22,16 @@
 			value;
 		switch (event.type) {
 			// custom events
-			case "close-game":
+			case "save-state":
 				// save state if "last" level
 				if (Self.svg.level === k(APP.state.cleared)) {
 					data = Self.dispatch({ type: "output-pgn" });
 					APP.state.state = JSON.parse(data);
 					// console.log( APP.state );
 				}
+				break;
+			case "close-game":
+				Self.dispatch({ type: "save-state" });
 				APP.dispatch({ type: "show-start-view" });
 				break;
 			case "shuffle-pieces":
@@ -117,7 +120,8 @@
 						value.push(`\t"${k}": [${data[k].join(", ")}]`);
 					});
 				value = `{\n${value.join(",\n")}\n}`;
-				// console.log( value );
+				
+				if (event.xMenu) console.log( value );
 				return value;
 		}
 	},

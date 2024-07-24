@@ -90,6 +90,8 @@ const tangram = {
 			case "window.init":
 				break;
 			case "window.close":
+				// make sure state is saved
+				Self.game.dispatch({ type: "save-state" });
 				// save game state
 				window.settings.setItem("state", Self.state);
 				break;

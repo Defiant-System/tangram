@@ -70,7 +70,7 @@ class Svg {
 			solved = union.length === 1;
 		
 		stateSegments.map((v, i) => {
-			solved = solved && (Math.abs(v - outlineSegments[i]) <= 1);
+			solved = solved && (Math.abs(v - outlineSegments[i]) <= 1.5);
 		});
 		// console.log( stateSegments, outlineSegments );
 
