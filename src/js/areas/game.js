@@ -76,7 +76,7 @@
 			case "get-next-level":
 				let levels = window.bluePrint.selectNodes(`//*[@check-group="game-level"]`).map(x => x.getAttribute("arg")),
 					index = levels.indexOf(Self.svg.level),
-					next = levels[index + 1] || "1.0";
+					next = levels[index + 1] || "1.1";
 				return next;
 			case "toggle-background":
 				value = Self.els.el.hasClass("blank-bg");
