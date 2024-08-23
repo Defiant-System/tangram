@@ -90,6 +90,8 @@ const tangram = {
 			case "window.init":
 				break;
 			case "window.close":
+				// stop bg-worker
+				Bg.dispatch({ type: "dispose", kill: true });
 				// make sure state is saved
 				Self.game.dispatch({ type: "save-state" });
 				// save game state
