@@ -8,16 +8,6 @@
 			el: window.find(".start-view"),
 			content: window.find("content"),
 		};
-
-		// render HTML
-		window.render({
-			template: "start-view",
-			match: "//Data",
-			target: this.els.el.find(".levels"),
-		});
-
-		// reference to "frame"
-		this.els.frame = this.els.el.find(".frame");
 	},
 	dispatch(event) {
 		let APP = tangram,

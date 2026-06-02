@@ -74,8 +74,18 @@ const tangram = {
 
 		// get saved state, if any
 		this.state = window.settings.getItem("state") || DefaultState;
-		// go to last saved state
-		this.dispatch({ type: "apply-saved-state" });
+
+		// render HTML
+		window.render({
+			template: "start-view",
+			match: "//Data",
+			target: this.start.els.el.find(".levels"),
+		}).then(() => {
+			// reference to "frame"
+			this.start.els.frame = this.start.els.el.find(".frame");
+			// go to last saved state
+			this.dispatch({ type: "apply-saved-state" });
+		});
 
 		// DEV-ONLY-START
 		Test.init(this);
